@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Física Médica – Radiología HCG</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0b1220" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+
+  <style>
+    body{
+      margin:0;
+      font-family: Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 15% 10%, rgba(94,234,212,.18), transparent 55%),
+        radial-gradient(900px 520px at 90% 25%, rgba(96,165,250,.18), transparent 55%),
+        radial-gradient(700px 420px at 50% 90%, rgba(96,165,250,.10), transparent 55%),
+        #0b1220;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height:100vh;
+      color:#eaf0ff;
+      padding:24px;
+      box-sizing:border-box;
+    }
+    .card{
+      width:100%;
+      max-width:480px;
+      background: rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius:18px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.35);
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: url('icon-512.png') center center no-repeat;
+      background-size: 280px;
+      opacity:0.05;
+      pointer-events:none;
+    }
+    .header{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:18px;
+      border-bottom:1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.15);
+      position:relative;
+    }
+    .header img{
+      height:42px;
+      width:auto;
+    }
+    h1{
+      font-size:16px;
+      font-weight:400;
+      margin:0;
+      letter-spacing:.2px;
+    }
+    .sub{
+      font-size:12px;
+      opacity:0.75;
+      margin-top:2px;
+    }
+    .content{
+      padding:18px;
+      position:relative;
+    }
+    .section{
+      font-size:11px;
+      letter-spacing:0.18em;
+      text-transform:uppercase;
+      opacity:0.55;
+      margin-bottom:10px;
+    }
+    .btn{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:14px;
+      margin:10px 0;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.08);
+      color:#eaf0ff;
+      text-decoration:none;
+      font-size:14px;
+      font-weight:400;
+      transition:0.2s ease;
+      gap:10px;
+    }
+    .btn:hover{
+      background: rgba(94,234,212,0.18);
+      border-color: rgba(94,234,212,0.35);
+      transform: translateY(-1px);
+    }
+    .tag{
+      font-size:11px;
+      padding:5px 10px;
+      border-radius:999px;
+      background: linear-gradient(90deg, #5eead4, #60a5fa);
+      color:#0b1220;
+      flex:0 0 auto;
+    }
+    .footer{
+      padding:12px 18px 16px;
+      font-size:11px;
+      opacity:0.60;
+      border-top:1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.15);
+      position:relative;
+    }
+    .hint{
+      margin-top:10px;
+      font-size:11px;
+      opacity:0.65;
+      line-height:1.35;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <img src="icon-192.png" alt="CCSS" />
+      <div>
+        <h1>Física Médica – Radiología HCG</h1>
+        <div class="sub">Acceso rápido a formularios QA</div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="section">Formularios</div>
+
+      <a class="btn" href="https://forms.office.com/r/3h11nUW6s3?origin=lprLink" rel="noopener">
+        <span>Reporte de Averías</span><span class="tag">FORM</span>
+      </a>
+
+      <a class="btn" href="https://forms.office.com/r/U7XvyXdeDs?origin=lprLink" rel="noopener">
+        <span>Bitácora Ingenieros</span><span class="tag">FORM</span>
+      </a>
+
+      <a class="btn" href="https://forms.office.com/r/Uha8StnjVp?origin=lprLink" rel="noopener">
+        <span>QA Hemodinamia</span><span class="tag">QA</span>
+      </a>
+
+      <a class="btn" href="https://forms.office.com/r/MACe3Zc6Hh?origin=lprLink" rel="noopener">
+        <span>QA CT</span><span class="tag">QA</span>
+      </a>
+
+      <div class="hint">
+        Para instalar: abre este sitio en Safari y usa “Agregar a pantalla de inicio”. (Requiere HTTPS.)
+      </div>
+    </div>
+
+    <div class="footer">
+      Hospital Rafael A. Calderón Guardia
+    </div>
+  </div>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
+      });
+    }
+  </script>
+</body>
+</html>
