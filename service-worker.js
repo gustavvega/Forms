@@ -1,4 +1,4 @@
-const CACHE_NAME = "qa-hcg-v9";
+const CACHE_NAME = "qa-hcg-v10";
 const CORE_ASSETS = ["./manifest.json","./icon-192.png","./icon-512.png"];
 
 self.addEventListener("install", (event) => {
