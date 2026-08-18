@@ -1,5 +1,6 @@
 let AVERIAS = [];
 let INTERVENCIONES = [];
+let quickFilter = '';
 
 const searchEl=document.getElementById('search');
 const statusEl=document.getElementById('statusFilter');
@@ -28,7 +29,7 @@ function groupEquipment(){
   const map=new Map();
   AVERIAS.forEach(a=>{
     const key=a.Activo||a.Equipo;
-    if(!map.has(key)) map.set(key,{Activo:a.Activo,Equipo:a.Equipo,Modalidad:a.Modalidad,cases:[]});
+    if(!map.has(key)) map.set(key,{Activo:a.Activo,Alias:a.Alias||'',Equipo:a.Equipo,Modalidad:a.Modalidad,cases:[]});
     map.get(key).cases.push(a);
   });
   return Array.from(map.values());
@@ -47,15 +48,35 @@ function populateModalities(){
   });
 }
 
+function setQuickFilter(type){
+  quickFilter = quickFilter===type ? '' : type;
+  render();
+}
+
 function renderSummary(equipment){
   const open=equipment.filter(e=>e.cases.some(c=>norm(c.EstadoGestion)!=='cerrado')).length;
-  const closed=equipment.filter(e=>e.cases.every(c=>norm(c.EstadoGestion)==='cerrado')).length;
   const repuesto=equipment.filter(e=>e.cases.some(c=>norm(c.EstadoGestion).includes('repuesto'))).length;
+  const closed=equipment.filter(e=>e.cases.every(c=>norm(c.EstadoGestion)==='cerrado')).length;
   summaryEl.innerHTML=`
-    <div class="summary-card"><div class="label">Equipos consultables</div><div class="value">${equipment.length}</div></div>
-    <div class="summary-card"><div class="label">Con reporte abierto</div><div class="value">${open}</div></div>
-    <div class="summary-card"><div class="label">Pendiente de repuesto</div><div class="value">${repuesto}</div></div>
-    <div class="summary-card"><div class="label">Sin averías abiertas</div><div class="value">${closed}</div></div>`;
+    <button class="summary-card summary-action ${quickFilter==='open'?'active':''}" data-filter="open" type="button">
+      <div class="label">Con reporte abierto</div><div class="value">${open}</div><div class="hint">Ver equipos</div>
+    </button>
+    <button class="summary-card summary-action ${quickFilter==='repuesto'?'active':''}" data-filter="repuesto" type="button">
+      <div class="label">Pendiente de repuesto</div><div class="value">${repuesto}</div><div class="hint">Ver equipos</div>
+    </button>
+    <button class="summary-card summary-action ${quickFilter==='closed'?'active':''}" data-filter="closed" type="button">
+      <div class="label">Sin averías abiertas</div><div class="value">${closed}</div><div class="hint">Ver equipos</div>
+    </button>`;
+  summaryEl.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>setQuickFilter(btn.dataset.filter)));
+}
+
+function matchesQuickFilter(e){
+  const openCases=e.cases.filter(c=>norm(c.EstadoGestion)!=='cerrado');
+  if(!quickFilter) return true;
+  if(quickFilter==='open') return openCases.length>0;
+  if(quickFilter==='repuesto') return openCases.some(c=>norm(c.EstadoGestion).includes('repuesto'));
+  if(quickFilter==='closed') return openCases.length===0;
+  return true;
 }
 
 function render(){
@@ -64,10 +85,10 @@ function render(){
   const modality=modalityEl.value;
   const allEquipment=groupEquipment();
   const equipment=allEquipment.filter(e=>{
-    const hit=!q || [e.Equipo,e.Activo,e.Modalidad,...e.cases.flatMap(c=>[c.AV,c.Descripcion,c.TipoIncidente,c.EstadoGestion])].some(x=>norm(x).includes(q));
+    const hit=!q || [e.Alias,e.Equipo,e.Activo,e.Modalidad,...e.cases.flatMap(c=>[c.Alias,c.AV,c.Descripcion,c.TipoIncidente,c.EstadoGestion])].some(x=>norm(x).includes(q));
     const statusHit=!status || e.cases.some(c=>c.EstadoGestion===status);
     const modHit=!modality || e.Modalidad===modality;
-    return hit&&statusHit&&modHit;
+    return hit&&statusHit&&modHit&&matchesQuickFilter(e);
   });
 
   renderSummary(allEquipment);
@@ -79,15 +100,15 @@ function render(){
     return;
   }
 
-  equipment.sort((a,b)=>a.Equipo.localeCompare(b.Equipo)).forEach(e=>{
+  equipment.sort((a,b)=>(a.Alias||a.Equipo).localeCompare(b.Alias||b.Equipo)).forEach(e=>{
     const node=template.content.firstElementChild.cloneNode(true);
     const current=currentCase(e.cases);
     const openCases=e.cases.filter(c=>norm(c.EstadoGestion)!=='cerrado');
     const state=openCases.length?current.EstadoGestion:'Sin averías abiertas';
     const cls=openCases.length?statusClass(state):'status-cerrado';
 
-    node.querySelector('.equipment-name').textContent=e.Equipo;
-    node.querySelector('.equipment-meta').textContent=`${e.Modalidad} · Activo ${e.Activo}`;
+    node.querySelector('.equipment-name').textContent=e.Alias||e.Equipo;
+    node.querySelector('.equipment-meta').textContent=`${e.Equipo} · ${e.Modalidad} · Activo ${e.Activo}`;
     node.querySelector('.status-dot').classList.add(cls);
     node.querySelector('.status-pill').classList.add(cls);
     node.querySelector('.status-pill').textContent=openCases.length?state:'🟢 Sin averías abiertas';
@@ -137,6 +158,6 @@ async function loadData(){
 }
 
 [searchEl,statusEl,modalityEl].forEach(el=>el.addEventListener(el===searchEl?'input':'change',render));
-clearBtn.addEventListener('click',()=>{searchEl.value='';statusEl.value='';modalityEl.value='';render();searchEl.focus();});
+clearBtn.addEventListener('click',()=>{searchEl.value='';statusEl.value='';modalityEl.value='';quickFilter='';render();searchEl.focus();});
 
 loadData();
