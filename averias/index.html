@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consulta de estado y averías de equipos | HCG</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="space-bg" aria-hidden="true">
+    <div class="stars stars-a"></div>
+    <div class="stars stars-b"></div>
+    <div class="black-hole">
+      <div class="ring ring-1"></div>
+      <div class="ring ring-2"></div>
+      <div class="core"></div>
+    </div>
+  </div>
+
+  <main class="shell">
+    <header class="hero glass">
+      <a class="back" href="../">← Hub HCG</a>
+      <div class="eyebrow">Física Médica · Radiología HCG</div>
+      <h1>Consulta de estado y averías de equipos</h1>
+      <p>Busque por equipo, número de activo o expediente AV para conocer el estado actual y el historial técnico.</p>
+    </header>
+
+    <section class="search-panel glass">
+      <label for="search">Buscar equipo o expediente</label>
+      <div class="search-row">
+        <input id="search" type="search" placeholder="Ej: 1345644, SOMATOM, Mamógrafo, AV-2026-08-0003" autocomplete="off" />
+        <button id="clearBtn" type="button">Limpiar</button>
+      </div>
+      <div class="filters">
+        <select id="statusFilter" aria-label="Filtrar por estado">
+          <option value="">Todos los estados</option>
+          <option value="Cerrado">Cerrado</option>
+          <option value="Pendiente de repuesto">Pendiente de repuesto</option>
+          <option value="En atención">En atención</option>
+          <option value="Seguimiento requerido">Seguimiento requerido</option>
+          <option value="Enviado a Administración">Enviado a Administración</option>
+          <option value="Pendiente de revisión">Pendiente de revisión</option>
+        </select>
+        <select id="modalityFilter" aria-label="Filtrar por modalidad">
+          <option value="">Todas las modalidades</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="summary-grid" id="summary"></section>
+
+    <section class="results glass">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Estado operativo</div>
+          <h2>Equipos y expedientes</h2>
+        </div>
+        <div class="count" id="resultCount">0 resultados</div>
+      </div>
+      <div id="equipmentList" class="equipment-list"></div>
+    </section>
+  </main>
+
+  <template id="equipmentTemplate">
+    <article class="equipment-card">
+      <button class="equipment-header" type="button">
+        <div class="equipment-main">
+          <span class="status-dot"></span>
+          <div>
+            <div class="equipment-name"></div>
+            <div class="equipment-meta"></div>
+          </div>
+        </div>
+        <div class="equipment-side">
+          <span class="status-pill"></span>
+          <span class="chevron">⌄</span>
+        </div>
+      </button>
+      <div class="equipment-detail" hidden>
+        <div class="current-state"></div>
+        <div class="cases"></div>
+      </div>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
