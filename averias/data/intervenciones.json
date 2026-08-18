@@ -1,0 +1,32 @@
+[
+  {
+    "AV": "AV-2026-08-0001",
+    "FechaIntervencion": "2026-08-17",
+    "TipoMantenimiento": "Diagnóstico / revisión",
+    "Empresa": "Servicio técnico",
+    "TrabajoRealizado": "Diagnóstico y revisión del sistema.",
+    "RequiereRepuestos": "Sí",
+    "RepuestosRequeridos": "Módulo de control — 1 unidad",
+    "EstadoFinalEquipo": "🟠 Pendiente de repuesto"
+  },
+  {
+    "AV": "AV-2026-08-0002",
+    "FechaIntervencion": "2026-08-18",
+    "TipoMantenimiento": "Correctivo",
+    "Empresa": "Servicio técnico",
+    "TrabajoRealizado": "Ajuste, pruebas funcionales y verificación final.",
+    "RequiereRepuestos": "No",
+    "RepuestosRequeridos": "",
+    "EstadoFinalEquipo": "🟢 Operativo"
+  },
+  {
+    "AV": "AV-2026-08-0003",
+    "FechaIntervencion": "2026-08-18",
+    "TipoMantenimiento": "Diagnóstico / revisión",
+    "Empresa": "Servicio técnico",
+    "TrabajoRealizado": "Revisión funcional. Se mantiene seguimiento.",
+    "RequiereRepuestos": "No",
+    "RepuestosRequeridos": "",
+    "EstadoFinalEquipo": "🟡 Operativo con observaciones"
+  }
+]
