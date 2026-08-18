@@ -1,4 +1,4 @@
-const CACHE_NAME = "qa-hcg-v10";
+const CACHE_NAME = "qa-hcg-v11";
 const CORE_ASSETS = ["./manifest.json","./icon-192.png","./icon-512.png"];
 
 self.addEventListener("install", (event) => {
@@ -23,7 +23,18 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return;
 
+  const isAverias = url.pathname.includes("/Forms/averias/");
   const isPageRequest = event.request.mode === "navigate" || url.pathname.endsWith("/index.html") || url.pathname.endsWith("/Forms/");
+
+  // El módulo de averías debe mostrar siempre la versión más reciente.
+  if (isAverias) {
+    event.respondWith(
+      fetch(event.request, { cache: "no-store" })
+        .then((response) => response)
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
 
   if (isPageRequest) {
     event.respondWith(
