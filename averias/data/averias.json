@@ -1,0 +1,38 @@
+[
+  {
+    "AV": "AV-2026-08-0001",
+    "Modalidad": "Mamografía",
+    "Equipo": "Mammomat Inspiration",
+    "Activo": "1345001",
+    "Lugar": "Mamografía",
+    "Fecha": "2026-08-17",
+    "TipoIncidente": "Error intermitente durante adquisición",
+    "Descripcion": "El equipo presentó una alerta durante el estudio y continuó operativo con observaciones.",
+    "EstadoEquipo": "🟠 Pendiente de repuesto",
+    "EstadoGestion": "Pendiente de repuesto"
+  },
+  {
+    "AV": "AV-2026-08-0002",
+    "Modalidad": "TAC",
+    "Equipo": "TAC Siemens 32 - SOMATOM Perspective",
+    "Activo": "1345644",
+    "Lugar": "TAC",
+    "Fecha": "2026-08-17",
+    "TipoIncidente": "Falla técnica",
+    "Descripcion": "Reporte técnico de prueba para validar el expediente público.",
+    "EstadoEquipo": "🟢 Operativo",
+    "EstadoGestion": "Cerrado"
+  },
+  {
+    "AV": "AV-2026-08-0003",
+    "Modalidad": "Rayos X",
+    "Equipo": "Mobilett Elara Max",
+    "Activo": "1345384",
+    "Lugar": "Radiología",
+    "Fecha": "2026-08-18",
+    "TipoIncidente": "Revisión técnica",
+    "Descripcion": "Equipo en seguimiento técnico.",
+    "EstadoEquipo": "🟡 Operativo con observaciones",
+    "EstadoGestion": "Seguimiento requerido"
+  }
+]
