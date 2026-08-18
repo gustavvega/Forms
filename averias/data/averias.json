@@ -1,6 +1,7 @@
 [
   {
     "AV": "AV-2026-08-0001",
+    "Alias": "Mamógrafo 1",
     "Modalidad": "Mamografía",
     "Equipo": "Mammomat Inspiration",
     "Activo": "1345001",
@@ -13,6 +14,7 @@
   },
   {
     "AV": "AV-2026-08-0002",
+    "Alias": "TAC 1",
     "Modalidad": "TAC",
     "Equipo": "TAC Siemens 32 - SOMATOM Perspective",
     "Activo": "1345644",
@@ -25,6 +27,7 @@
   },
   {
     "AV": "AV-2026-08-0003",
+    "Alias": "Portátil RX 1",
     "Modalidad": "Rayos X",
     "Equipo": "Mobilett Elara Max",
     "Activo": "1345384",
