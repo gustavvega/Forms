@@ -201,126 +201,46 @@
       <div class="content" id="content"></div>
 
       <footer>
-  <div>Instalar acceso rápido:</div>
-  <div class="tiny">
-    <b>iPhone (Safari):</b> Compartir → <b>Agregar a pantalla de inicio</b>.
+        <div>Instalar acceso rápido:</div>
+        <div class="tiny"><b>iPhone (Safari):</b> Compartir → <b>Agregar a pantalla de inicio</b>.</div>
+        <div class="tiny"><b>Android (Chrome):</b> Menú ⋮ → <b>Instalar app</b> o <b>Agregar a pantalla principal</b>.</div>
+        <div class="tiny">Si no aparece “Instalar”, recargue la página o cierre y abra el navegador.</div>
+      </footer>
+    </div>
   </div>
-  <div class="tiny">
-    <b>Android (Chrome):</b> Menú ⋮ → <b>Instalar app</b> o <b>Agregar a pantalla principal</b>.
-  </div>
-  <div class="tiny">
-    Si no aparece “Instalar”, recargue la página o cierre y abra el navegador.
-  </div>
-</footer>
 
   <script>
-    // =========================
-    // 1) EDITA SOLO ESTA LISTA
-    // =========================
-    // Campos:
-    // - role: 'IMAGENOLOGO' | 'INGENIERO' | 'FISICA'
-    // - modality: 'CT' | 'HEMO' | 'RX' | 'MAMO' | 'ING' | 'OTRO'
-    // - name: texto del botón
-    // - url: link del Microsoft Form
-    // - tag: etiqueta corta (QA / FORM / SOPORTE)
     const FORMS = [
-      {
-        role: 'FISICA',
-        modality: 'CT',
-        name: 'QA CT',
-        url: 'https://forms.office.com/r/MACe3Zc6Hh?origin=lprLink',
-        tag: 'QA'
-      },
-      {
-        role: 'FISICA',
-        modality: 'HEMO',
-        name: 'QA Hemodinamia',
-        url: 'https://forms.office.com/r/Uha8StnjVp?origin=lprLink',
-        tag: 'QA'
-      },
-      {
-        role: 'FISICA',
-        modality: 'ING',
-        name: 'Reporte de Averías',
-        url: 'https://forms.office.com/r/3h11nUW6s3?origin=lprLink',
-        tag: 'SOPORTE'
-      },
-      {
-        role: 'FISICA',
-        modality: 'RX',
-        name: 'QA Convencional-Fluoroscopía',
-        url: 'https://forms.office.com/r/nkEVLQJL5g?origin=lprLink',
-        tag: 'QA'
-      },
-      {
-        role: 'IMAGENOLOGO',
-        modality: 'HEMO',
-        name: 'QA Hemodinamia',
-        url: 'https://forms.office.com/r/Uha8StnjVp?origin=lprLink',
-        tag: 'QA'
-      },
-      {
-        role: 'IMAGENOLOGO',
-        modality: 'RX',
-        name: 'QA Convencional-Fluoroscopía',
-        url: 'https://forms.office.com/r/nkEVLQJL5g?origin=lprLink',
-        tag: 'QA'
-      },
-      {
-        role: 'IMAGENOLOGO',
-        modality: 'ING',
-        name: 'Reporte de Averías',
-        url: 'https://forms.office.com/r/3h11nUW6s3?origin=lprLink',
-        tag: 'SOPORTE'
-      },
-      {
-        role: 'INGENIERO',
-        modality: 'ING',
-        name: 'Bitácora Ingenieros',
-        url: 'https://forms.office.com/r/U7XvyXdeDs?origin=lprLink',
-        tag: 'FORM'
-      },
-      {
-        role: 'IMAGENOLOGO',
-        modality: 'MAMO',
-        name: 'Control Rutinario Mamografía',
-        url: 'https://forms.cloud.microsoft/r/498fFMCEPP',
-        tag: 'QA'
-      },
-      
+      { role:'FISICA', modality:'CT', name:'QA CT', url:'https://forms.office.com/r/MACe3Zc6Hh?origin=lprLink', tag:'QA' },
+      { role:'FISICA', modality:'HEMO', name:'QA Hemodinamia', url:'https://forms.office.com/r/Uha8StnjVp?origin=lprLink', tag:'QA' },
+      { role:'FISICA', modality:'ING', name:'Reporte de Averías', url:'https://forms.office.com/r/3h11nUW6s3?origin=lprLink', tag:'SOPORTE' },
+      { role:'FISICA', modality:'ING', name:'Consulta de estado y averías de equipos', url:'./averias/', tag:'CONSULTA' },
+      { role:'FISICA', modality:'RX', name:'QA Convencional-Fluoroscopía', url:'https://forms.office.com/r/nkEVLQJL5g?origin=lprLink', tag:'QA' },
 
-      // Ejemplos:
-      // { role:'FISICA', modality:'RX', name:'QA RX – Sala 1', url:'https://forms.office.com/r/XXXX', tag:'QA' },
+      { role:'IMAGENOLOGO', modality:'HEMO', name:'QA Hemodinamia', url:'https://forms.office.com/r/Uha8StnjVp?origin=lprLink', tag:'QA' },
+      { role:'IMAGENOLOGO', modality:'RX', name:'QA Convencional-Fluoroscopía', url:'https://forms.office.com/r/nkEVLQJL5g?origin=lprLink', tag:'QA' },
+      { role:'IMAGENOLOGO', modality:'ING', name:'Reporte de Averías', url:'https://forms.office.com/r/3h11nUW6s3?origin=lprLink', tag:'SOPORTE' },
+      { role:'IMAGENOLOGO', modality:'ING', name:'Consulta de estado y averías de equipos', url:'./averias/', tag:'CONSULTA' },
+      { role:'IMAGENOLOGO', modality:'MAMO', name:'Control Rutinario Mamografía', url:'https://forms.cloud.microsoft/r/498fFMCEPP', tag:'QA' },
+
+      { role:'INGENIERO', modality:'ING', name:'Bitácora Ingenieros', url:'https://forms.office.com/r/U7XvyXdeDs?origin=lprLink', tag:'FORM' },
+      { role:'INGENIERO', modality:'ING', name:'Consulta de estado y averías de equipos', url:'./averias/', tag:'CONSULTA' }
     ];
 
-    // =========================
-    // 2) ICONOS POR MODALIDAD
-    // =========================
     const MODALITY_ICON = {
-      CT:   '🧠',
-      HEMO: '🫀',
-      RX:   '🩻',
-      MAMO: '🩷',
-      ING:  '🛠️',
-      OTRO: '📋'
+      CT:'🧠', HEMO:'🫀', RX:'🩻', MAMO:'🩷', ING:'🛠️', OTRO:'📋'
     };
 
     const ROLE_DEF = [
       { id:'IMAGENOLOGO', label:'Imagenólogo', icon:'🧑‍⚕️' },
-      { id:'INGENIERO',   label:'Ingeniero Servicio', icon:'🧰' },
-      { id:'FISICA',      label:'Física Médica', icon:'👨🏻‍🚀' },
+      { id:'INGENIERO', label:'Ingeniero Servicio', icon:'🧰' },
+      { id:'FISICA', label:'Física Médica', icon:'👨🏻‍🚀' }
     ];
 
-    // Orden sugerido de secciones
     const MODALITY_ORDER = ['CT','HEMO','RX','MAMO','ING','OTRO'];
-
-    // =========================
-    // RENDER
-    // =========================
     const rolesEl = document.getElementById('roles');
     const contentEl = document.getElementById('content');
     const qEl = document.getElementById('q');
-
     let activeRole = 'IMAGENOLOGO';
 
     function renderRoles(){
@@ -339,12 +259,7 @@
     }
 
     function norm(s){
-      // Quita acentos para búsqueda
-      return (s||'')
-        .toString()
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '');
+      return (s||'').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     }
 
     function groupByModality(items){
@@ -354,25 +269,20 @@
         if(!map.has(m)) map.set(m, []);
         map.get(m).push(it);
       });
-      const entries = Array.from(map.entries()).sort((a,b) => {
+      return Array.from(map.entries()).sort((a,b) => {
         const ia = MODALITY_ORDER.indexOf(a[0]);
         const ib = MODALITY_ORDER.indexOf(b[0]);
         return (ia===-1?999:ia) - (ib===-1?999:ib);
       });
-      return entries;
     }
 
     function renderContent(){
       const query = norm(qEl.value);
       const filtered = FORMS
         .filter(f => f.role === activeRole)
-        .filter(f => {
-          if(!query) return true;
-          return [f.name, f.modality, f.tag].some(x => norm(x).includes(query));
-        });
+        .filter(f => !query || [f.name, f.modality, f.tag].some(x => norm(x).includes(query)));
 
       contentEl.innerHTML = '';
-
       if(filtered.length === 0){
         const d = document.createElement('div');
         d.className = 'empty';
@@ -381,44 +291,31 @@
         return;
       }
 
-      const groups = groupByModality(filtered);
-      groups.forEach(([mod, items]) => {
+      groupByModality(filtered).forEach(([mod, items]) => {
         const section = document.createElement('div');
         section.className = 'section';
         const h2 = document.createElement('h2');
-        const label = mod === 'ING' ? 'Soporte / Ingeniería' : mod;
-        h2.textContent = label;
+        h2.textContent = mod === 'ING' ? 'Soporte / Ingeniería' : mod;
         section.appendChild(h2);
 
         items.sort((a,b) => (a.name||'').localeCompare(b.name||''));
-
         items.forEach(f => {
           const a = document.createElement('a');
           a.className = 'btn';
           a.href = f.url;
           a.rel = 'noopener';
-
           const ico = MODALITY_ICON[f.modality] || MODALITY_ICON.OTRO;
-          a.innerHTML = `
-            <span class="left">
-              <span class="ico">${ico}</span>
-              <span class="name">${f.name}</span>
-            </span>
-            <span class="tag">${f.tag || 'FORM'}</span>
-          `;
+          a.innerHTML = `<span class="left"><span class="ico">${ico}</span><span class="name">${f.name}</span></span><span class="tag">${f.tag || 'FORM'}</span>`;
           section.appendChild(a);
         });
-
         contentEl.appendChild(section);
       });
     }
 
     qEl.addEventListener('input', renderContent);
-
     renderRoles();
     renderContent();
 
-    // PWA service worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./service-worker.js?v=' + Date.now());
