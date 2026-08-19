@@ -54,5 +54,19 @@
     "MensajeError": "",
     "Modalidad": "Portátiles",
     "TipoIncidente": ""
+  },
+  {
+    "AV": "AV-2026-08-0006",
+    "Activo": "1363878",
+    "Descripcion": "",
+    "Equipo": "🔴 Rojo - Mobilett Mira Max",
+    "EstadoEquipo": "🟢 Operativo",
+    "EstadoGestion": "Cerrado",
+    "Fecha": "46253",
+    "Hora": "",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "Portátiles",
+    "TipoIncidente": ""
   }
 ]

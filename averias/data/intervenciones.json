@@ -62,5 +62,21 @@
     "RequiereRepuestos": "Sí",
     "TipoMantenimiento": "Preventivo",
     "TrabajoRealizado": "Mantenimiento preventivo y certificado Radiológico \nSe encuentra que posee disco duro del cpu de servicio dañado y se cotizará.y perilla de apertura del colimador fracturada .\nFuncionando bien "
+  },
+  {
+    "AV": "AV-2026-08-0006",
+    "DuracionHoras": "2",
+    "Empresa": "Siemens",
+    "Equipo": "🔴 Rojo - Mobilett Mira Max",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46253",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Portátiles",
+    "Observaciones": "",
+    "RepuestosRequeridos": "Disparador 1\nAgarradera del brazo 1",
+    "RequiereNuevaIntervencion": "Sí",
+    "RequiereRepuestos": "Sí",
+    "TipoMantenimiento": "Preventivo",
+    "TrabajoRealizado": "Mantenimiento Preventivo y certificado radiológico \nSe revisa equipo y presenta agarradera del brazo dañada , se coloca tape mientras adquieren la pieza .\nTambién se cotizará disparador , al halar el cable en ocasiones se corta el disparo.\nRevisión general.\nFuncionando bien "
   }
 ]
