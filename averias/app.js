@@ -16,13 +16,29 @@ const esc=s=>(s||'').toString().replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','
 
 function statusClass(status){
   const s=norm(status);
-  if(s.includes('cerrado')||s.includes('sin averias abiertas')) return 'status-cerrado';
+  if(s.includes('cerrado')||s.includes('sin averias abiertas')||s.includes('operativo')) return 'status-cerrado';
   if(s.includes('repuesto')) return 'status-pendiente-repuesto';
   if(s.includes('atencion')||s.includes('fuera')) return 'status-en-atencion';
   if(s.includes('seguimiento')||s.includes('observaciones')) return 'status-seguimiento';
   if(s.includes('administracion')) return 'status-administracion';
   if(s.includes('pendiente')) return 'status-pendiente';
   return 'status-neutral';
+}
+
+function isYes(value){
+  const s=norm(value).trim();
+  return s==='si'||s==='sí'||s==='yes'||s==='true';
+}
+
+function interventionsFor(av){
+  return INTERVENCIONES.filter(i=>i.AV===av).sort((a,b)=>(b.FechaIntervencion||'').toString().localeCompare((a.FechaIntervencion||'').toString()));
+}
+
+function caseNeedsSpare(c){
+  if(norm(c.EstadoGestion)==='cerrado') return false;
+  if(norm(c.EstadoGestion).includes('repuesto')) return true;
+  const latest=interventionsFor(c.AV)[0];
+  return !!latest && (isYes(latest.RequiereRepuestos) || norm(latest.EstadoFinalEquipo).includes('repuesto'));
 }
 
 function groupEquipment(){
@@ -38,7 +54,7 @@ function groupEquipment(){
 function currentCase(cases){
   const open=cases.filter(c=>norm(c.EstadoGestion)!=='cerrado');
   const pool=open.length?open:cases;
-  return [...pool].sort((a,b)=>(b.Fecha||'').localeCompare(a.Fecha||''))[0];
+  return [...pool].sort((a,b)=>(b.Fecha||'').toString().localeCompare((a.Fecha||'').toString()))[0];
 }
 
 function populateModalities(){
@@ -55,7 +71,7 @@ function setQuickFilter(type){
 
 function renderSummary(equipment){
   const open=equipment.filter(e=>e.cases.some(c=>norm(c.EstadoGestion)!=='cerrado')).length;
-  const repuesto=equipment.filter(e=>e.cases.some(c=>norm(c.EstadoGestion).includes('repuesto'))).length;
+  const repuesto=equipment.filter(e=>e.cases.some(caseNeedsSpare)).length;
   const closed=equipment.filter(e=>e.cases.every(c=>norm(c.EstadoGestion)==='cerrado')).length;
   summaryEl.innerHTML=`
     <button class="summary-card summary-action ${quickFilter==='open'?'active':''}" data-filter="open" type="button">
@@ -74,7 +90,7 @@ function matchesQuickFilter(e){
   const openCases=e.cases.filter(c=>norm(c.EstadoGestion)!=='cerrado');
   if(!quickFilter) return true;
   if(quickFilter==='open') return openCases.length>0;
-  if(quickFilter==='repuesto') return openCases.some(c=>norm(c.EstadoGestion).includes('repuesto'));
+  if(quickFilter==='repuesto') return e.cases.some(caseNeedsSpare);
   if(quickFilter==='closed') return openCases.length===0;
   return true;
 }
@@ -85,7 +101,8 @@ function render(){
   const modality=modalityEl.value;
   const allEquipment=groupEquipment();
   const equipment=allEquipment.filter(e=>{
-    const hit=!q || [e.Alias,e.Equipo,e.Activo,e.Modalidad,...e.cases.flatMap(c=>[c.Alias,c.AV,c.Descripcion,c.TipoIncidente,c.EstadoGestion])].some(x=>norm(x).includes(q));
+    const interventionText=e.cases.flatMap(c=>interventionsFor(c.AV).flatMap(i=>[i.TrabajoRealizado,i.RepuestosRequeridos,i.Observaciones]));
+    const hit=!q || [e.Alias,e.Equipo,e.Activo,e.Modalidad,...e.cases.flatMap(c=>[c.Alias,c.AV,c.Descripcion,c.TipoIncidente,c.MensajeError,c.EstadoGestion]),...interventionText].some(x=>norm(x).includes(q));
     const statusHit=!status || e.cases.some(c=>c.EstadoGestion===status);
     const modHit=!modality || e.Modalidad===modality;
     return hit&&statusHit&&modHit&&matchesQuickFilter(e);
@@ -104,7 +121,8 @@ function render(){
     const node=template.content.firstElementChild.cloneNode(true);
     const current=currentCase(e.cases);
     const openCases=e.cases.filter(c=>norm(c.EstadoGestion)!=='cerrado');
-    const state=openCases.length?current.EstadoGestion:'Sin averías abiertas';
+    const sparePending=openCases.some(caseNeedsSpare);
+    const state=openCases.length?(sparePending?'🟠 Pendiente de repuesto':current.EstadoGestion):'Sin averías abiertas';
     const cls=openCases.length?statusClass(state):'status-cerrado';
 
     node.querySelector('.equipment-name').textContent=e.Alias||e.Equipo;
@@ -113,18 +131,29 @@ function render(){
     node.querySelector('.status-pill').classList.add(cls);
     node.querySelector('.status-pill').textContent=openCases.length?state:'🟢 Sin averías abiertas';
     node.querySelector('.current-state').innerHTML=openCases.length
-      ? `<b>Estado actual:</b> ${esc(current.EstadoEquipo||current.EstadoGestion)} · <b>${openCases.length}</b> expediente(s) abierto(s).`
+      ? `<b>Estado actual:</b> ${esc(current.EstadoEquipo||current.EstadoGestion)} · <b>${openCases.length}</b> expediente(s) abierto(s).${sparePending?' <span class="spare-inline">🟠 Hay repuesto pendiente.</span>':''}`
       : '<b>Estado actual:</b> 🟢 No hay averías abiertas para este equipo.';
 
     const cases=node.querySelector('.cases');
-    [...e.cases].sort((a,b)=>(b.Fecha||'').localeCompare(a.Fecha||'')).forEach(c=>{
-      const interventions=INTERVENCIONES.filter(i=>i.AV===c.AV).sort((a,b)=>(b.FechaIntervencion||'').localeCompare(a.FechaIntervencion||''));
+    [...e.cases].sort((a,b)=>(b.Fecha||'').toString().localeCompare((a.Fecha||'').toString())).forEach(c=>{
+      const interventions=interventionsFor(c.AV);
+      const needsSpare=caseNeedsSpare(c);
       const div=document.createElement('div');
       div.className='case';
       div.innerHTML=`
         <div class="case-top"><div class="case-av">${esc(c.AV)}</div><div class="case-date">${esc(c.Fecha)}</div></div>
-        <div class="case-description"><b class="${statusClass(c.EstadoGestion)}">${esc(c.EstadoGestion)}</b><br>${esc(c.Descripcion||c.TipoIncidente||'Sin descripción pública.')}</div>
-        <div class="interventions">${interventions.length?interventions.map(i=>`<div class="intervention"><b>${esc(i.FechaIntervencion)}</b> · ${esc(i.TipoMantenimiento)} · ${esc(i.EstadoFinalEquipo)}<br>${esc(i.TrabajoRealizado)}</div>`).join(''):'<div class="intervention">Sin intervenciones registradas.</div>'}</div>`;
+        <div class="case-description">
+          <b class="${statusClass(c.EstadoGestion)}">${esc(c.EstadoGestion)}</b>
+          ${needsSpare?'<span class="case-badge status-pendiente-repuesto">🟠 Repuesto pendiente</span>':''}
+          <br>${esc(c.Descripcion||c.TipoIncidente||'Sin descripción pública.')}
+        </div>
+        ${c.MensajeError?`<div class="error-box"><b>⚠️ Error reportado</b><br>${esc(c.MensajeError)}</div>`:''}
+        <div class="interventions">${interventions.length?interventions.map(i=>`
+          <div class="intervention">
+            <b>${esc(i.FechaIntervencion)}</b> · ${esc(i.TipoMantenimiento)} · ${esc(i.EstadoFinalEquipo)}<br>
+            ${esc(i.TrabajoRealizado)}
+            ${isYes(i.RequiereRepuestos)?`<div class="spare-box"><b>🟠 Repuesto requerido</b>${i.RepuestosRequeridos?`<br>${esc(i.RepuestosRequeridos)}`:''}</div>`:''}
+          </div>`).join(''):'<div class="intervention">Sin intervenciones registradas.</div>'}</div>`;
       cases.appendChild(div);
     });
 
