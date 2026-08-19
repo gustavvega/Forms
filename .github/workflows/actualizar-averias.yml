@@ -1,0 +1,59 @@
+name: Actualizar datos de averías
+
+on:
+  repository_dispatch:
+    types: [actualizar-averias]
+
+permissions:
+  contents: write
+
+jobs:
+  actualizar-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validar payload
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, os
+          payload = json.loads(os.environ['PAYLOAD'])
+          for k in ('equipos','averias','intervenciones'):
+              if k not in payload:
+                  raise SystemExit(f'Falta la clave {k} en client_payload')
+              if not isinstance(payload[k], list):
+                  raise SystemExit(f'{k} debe ser un arreglo JSON')
+          print('Payload válido')
+          PY
+        env:
+          PAYLOAD: ${{ toJson(github.event.client_payload) }}
+
+      - name: Escribir archivos JSON
+        shell: bash
+        run: |
+          mkdir -p averias/data
+          python - <<'PY'
+          import json, os
+          payload = json.loads(os.environ['PAYLOAD'])
+          for nombre in ('equipos','averias','intervenciones'):
+              with open(f'averias/data/{nombre}.json','w',encoding='utf-8') as f:
+                  json.dump(payload[nombre], f, ensure_ascii=False, indent=2)
+                  f.write('\n')
+          PY
+        env:
+          PAYLOAD: ${{ toJson(github.event.client_payload) }}
+
+      - name: Commit y push si hay cambios
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add averias/data/equipos.json averias/data/averias.json averias/data/intervenciones.json
+          if git diff --cached --quiet; then
+            echo "No hay cambios"
+            exit 0
+          fi
+          git commit -m "Actualizar datos de averías"
+          git push
