@@ -35,7 +35,6 @@ function interventionsFor(av){
 }
 
 function caseNeedsSpare(c){
-  if(norm(c.EstadoGestion)==='cerrado') return false;
   if(norm(c.EstadoGestion).includes('repuesto')) return true;
   const latest=interventionsFor(c.AV)[0];
   return !!latest && (isYes(latest.RequiereRepuestos) || norm(latest.EstadoFinalEquipo).includes('repuesto'));
@@ -121,18 +120,19 @@ function render(){
     const node=template.content.firstElementChild.cloneNode(true);
     const current=currentCase(e.cases);
     const openCases=e.cases.filter(c=>norm(c.EstadoGestion)!=='cerrado');
-    const sparePending=openCases.some(caseNeedsSpare);
-    const state=openCases.length?(sparePending?'🟠 Pendiente de repuesto':current.EstadoGestion):'Sin averías abiertas';
-    const cls=openCases.length?statusClass(state):'status-cerrado';
+    const sparePending=e.cases.some(caseNeedsSpare);
+    const baseState=openCases.length?(current.EstadoEquipo||current.EstadoGestion):(current.EstadoEquipo||'🟢 Sin averías abiertas');
+    const state=sparePending?`${baseState} · 🟠 Repuesto pendiente`:baseState;
+    const cls=statusClass(baseState);
 
     node.querySelector('.equipment-name').textContent=e.Alias||e.Equipo;
     node.querySelector('.equipment-meta').textContent=`${e.Equipo} · ${e.Modalidad} · Activo ${e.Activo}`;
     node.querySelector('.status-dot').classList.add(cls);
     node.querySelector('.status-pill').classList.add(cls);
-    node.querySelector('.status-pill').textContent=openCases.length?state:'🟢 Sin averías abiertas';
+    node.querySelector('.status-pill').textContent=state;
     node.querySelector('.current-state').innerHTML=openCases.length
       ? `<b>Estado actual:</b> ${esc(current.EstadoEquipo||current.EstadoGestion)} · <b>${openCases.length}</b> expediente(s) abierto(s).${sparePending?' <span class="spare-inline">🟠 Hay repuesto pendiente.</span>':''}`
-      : '<b>Estado actual:</b> 🟢 No hay averías abiertas para este equipo.';
+      : `<b>Estado actual:</b> ${esc(current.EstadoEquipo||'🟢 Sin averías abiertas')}. No hay averías abiertas.${sparePending?' <span class="spare-inline">🟠 Hay repuesto pendiente.</span>':''}`;
 
     const cases=node.querySelector('.cases');
     [...e.cases].sort((a,b)=>(b.Fecha||'').toString().localeCompare((a.Fecha||'').toString())).forEach(c=>{
