@@ -40,5 +40,19 @@
     "MensajeError": "",
     "Modalidad": "Mamografía",
     "TipoIncidente": "Preventivo"
+  },
+  {
+    "AV": "AV-2026-08-0005",
+    "Activo": "1363877",
+    "Descripcion": "",
+    "Equipo": "🟡 Amarillo - Mobilett Mira Max",
+    "EstadoEquipo": "🟢 Operativo",
+    "EstadoGestion": "Cerrado",
+    "Fecha": "46253",
+    "Hora": "",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "Portátiles",
+    "TipoIncidente": ""
   }
 ]

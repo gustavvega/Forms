@@ -46,5 +46,21 @@
     "RequiereRepuestos": "Sí",
     "TipoMantenimiento": "Preventivo",
     "TrabajoRealizado": "Visita de mantenimiento preventivo del equipo, según protocolos de fábrica "
+  },
+  {
+    "AV": "AV-2026-08-0005",
+    "DuracionHoras": "2h",
+    "Empresa": "Siemens",
+    "Equipo": "🟡 Amarillo - Mobilett Mira Max",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46253",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Portátiles",
+    "Observaciones": "",
+    "RepuestosRequeridos": "2 perrillas de colimador\n1 disco duro de servicio ",
+    "RequiereNuevaIntervencion": "Sí",
+    "RequiereRepuestos": "Sí",
+    "TipoMantenimiento": "Preventivo",
+    "TrabajoRealizado": "Mantenimiento preventivo y certificado Radiológico \nSe encuentra que posee disco duro del cpu de servicio dañado y se cotizará.y perilla de apertura del colimador fracturada .\nFuncionando bien "
   }
 ]
