@@ -36,7 +36,37 @@ function isRejectedCase(c){
   return s.includes('no procede') || s.includes('duplicado');
 }
 
+function sanitizeAverias(rows){
+  const valid=(Array.isArray(rows)?rows:[]).filter(c=>{
+    if(!c || isRejectedCase(c)) return false;
+    return (c.AV||'').toString().trim()!=='';
+  });
+
+  const byAV=new Map();
+  valid.forEach(c=>{
+    const av=(c.AV||'').toString().trim();
+    if(!byAV.has(av)) byAV.set(av,[]);
+    byAV.get(av).push(c);
+  });
+
+  const clean=[];
+  byAV.forEach((items,av)=>{
+    const equipmentKeys=new Set(items.map(c=>((c.Activo||c.Equipo||'').toString().trim())).filter(Boolean));
+
+    if(equipmentKeys.size>1){
+      console.warn(`AV ${av} aparece asociada a más de un equipo y fue ocultada por seguridad.`,items);
+      return;
+    }
+
+    const chosen=[...items].sort((a,b)=>(b.Fecha||'').toString().localeCompare((a.Fecha||'').toString()))[0];
+    clean.push(chosen);
+  });
+
+  return clean;
+}
+
 function interventionsFor(av){
+  if(!(av||'').toString().trim()) return [];
   return INTERVENCIONES.filter(i=>i.AV===av).sort((a,b)=>(b.FechaIntervencion||'').toString().localeCompare((a.FechaIntervencion||'').toString()));
 }
 
@@ -115,8 +145,9 @@ function groupEquipment(){
     map.set(key,{...eq,Equipo:eq.NombreAdministracion||eq.Modelo||eq.Alias||'',cases:[]});
   });
 
-  AVERIAS.filter(a=>!isRejectedCase(a)).forEach(a=>{
+  AVERIAS.forEach(a=>{
     const key=(a.Activo||a.Equipo||'').toString();
+    if(!key) return;
     if(!map.has(key)) map.set(key,{Activo:a.Activo,Alias:a.Alias||'',Equipo:a.Equipo,Modalidad:a.Modalidad,Codigo:'',Modelo:'',NombreAdministracion:a.Equipo,cases:[]});
     map.get(key).cases.push(a);
   });
@@ -133,7 +164,7 @@ function currentCase(cases){
 
 function populateModalities(){
   modalityEl.innerHTML='<option value="">Todas las modalidades</option>';
-  [...new Set(AVERIAS.filter(a=>!isRejectedCase(a)).map(e=>e.Modalidad).filter(Boolean))].sort().forEach(m=>{
+  [...new Set(AVERIAS.map(e=>e.Modalidad).filter(Boolean))].sort().forEach(m=>{
     const o=document.createElement('option');o.value=m;o.textContent=m;modalityEl.appendChild(o);
   });
 }
@@ -238,8 +269,8 @@ async function loadData(){
     ]);
     if(!equiposRes.ok||!averiasRes.ok||!intervencionesRes.ok) throw new Error('No se pudieron cargar los datos');
     EQUIPOS=await equiposRes.json();
-    AVERIAS=await averiasRes.json();
-    INTERVENCIONES=await intervencionesRes.json();
+    AVERIAS=sanitizeAverias(await averiasRes.json());
+    INTERVENCIONES=(await intervencionesRes.json()).filter(i=>(i.AV||'').toString().trim()!=='');
     populateModalities();
     render();
   }catch(err){
