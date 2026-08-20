@@ -16,10 +16,10 @@ const esc=s=>(s||'').toString().replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','
 
 function statusClass(status){
   const s=norm(status);
-  if(s.includes('cerrado')||s.includes('sin averias abiertas')||s.includes('operativo')) return 'status-cerrado';
+  if(s.includes('fuera')||s.includes('atencion')) return 'status-en-atencion';
   if(s.includes('repuesto')) return 'status-pendiente-repuesto';
-  if(s.includes('atencion')||s.includes('fuera')) return 'status-en-atencion';
   if(s.includes('seguimiento')||s.includes('observaciones')) return 'status-seguimiento';
+  if(s.includes('cerrado')||s.includes('sin pendientes')||s.includes('operativo')) return 'status-cerrado';
   if(s.includes('administracion')) return 'status-administracion';
   if(s.includes('pendiente')) return 'status-pendiente';
   return 'status-neutral';
@@ -40,6 +40,32 @@ function caseNeedsSpare(c){
   return !!latest && (isYes(latest.RequiereRepuestos) || norm(latest.EstadoFinalEquipo).includes('repuesto'));
 }
 
+function caseNeedsFollowup(c){
+  if(norm(c.EstadoGestion).includes('seguimiento')) return true;
+  const latest=interventionsFor(c.AV)[0];
+  return !!latest && isYes(latest.RequiereNuevaIntervencion) && !caseNeedsSpare(c);
+}
+
+function functionalState(c){
+  const latest=interventionsFor(c.AV)[0];
+  const state=(latest&&latest.EstadoFinalEquipo)||c.EstadoEquipo||'';
+  if(norm(state).includes('repuesto')) return 'Estado funcional no especificado';
+  if(norm(state).includes('fuera')) return '🔴 Fuera de servicio';
+  if(norm(state).includes('observaciones')) return '🟡 Operativo con observaciones';
+  if(norm(state).includes('operativo')) return '🟢 Operativo';
+  return state||'Estado funcional no especificado';
+}
+
+function managementState(c){
+  if(caseNeedsSpare(c)) return '🟠 Pendiente de repuesto';
+  if(caseNeedsFollowup(c)) return '🔵 Requiere seguimiento';
+  const s=norm(c.EstadoGestion);
+  if(s==='cerrado') return '🟢 Sin pendientes';
+  if(s.includes('atencion')) return '🔴 En atención';
+  if(s.includes('seguimiento')) return '🔵 Requiere seguimiento';
+  return c.EstadoGestion||'Sin estado de gestión';
+}
+
 function groupEquipment(){
   const map=new Map();
   AVERIAS.forEach(a=>{
@@ -51,8 +77,8 @@ function groupEquipment(){
 }
 
 function currentCase(cases){
-  const open=cases.filter(c=>norm(c.EstadoGestion)!=='cerrado');
-  const pool=open.length?open:cases;
+  const pending=cases.filter(c=>managementState(c)!=='🟢 Sin pendientes');
+  const pool=pending.length?pending:cases;
   return [...pool].sort((a,b)=>(b.Fecha||'').toString().localeCompare((a.Fecha||'').toString()))[0];
 }
 
@@ -69,28 +95,32 @@ function setQuickFilter(type){
 }
 
 function renderSummary(equipment){
-  const open=equipment.filter(e=>e.cases.some(c=>norm(c.EstadoGestion)!=='cerrado')).length;
+  const fuera=equipment.filter(e=>e.cases.some(c=>norm(functionalState(c)).includes('fuera'))).length;
   const repuesto=equipment.filter(e=>e.cases.some(caseNeedsSpare)).length;
-  const closed=equipment.filter(e=>e.cases.every(c=>norm(c.EstadoGestion)==='cerrado')).length;
+  const seguimiento=equipment.filter(e=>e.cases.some(caseNeedsFollowup)).length;
+  const clean=equipment.filter(e=>e.cases.every(c=>managementState(c)==='🟢 Sin pendientes')).length;
   summaryEl.innerHTML=`
-    <button class="summary-card summary-action ${quickFilter==='open'?'active':''}" data-filter="open" type="button">
-      <div class="label">Con reporte abierto</div><div class="value">${open}</div><div class="hint">Ver equipos</div>
+    <button class="summary-card summary-action ${quickFilter==='fuera'?'active':''}" data-filter="fuera" type="button">
+      <div class="label">Fuera de servicio</div><div class="value">${fuera}</div><div class="hint">Ver equipos</div>
     </button>
     <button class="summary-card summary-action ${quickFilter==='repuesto'?'active':''}" data-filter="repuesto" type="button">
       <div class="label">Pendiente de repuesto</div><div class="value">${repuesto}</div><div class="hint">Ver equipos</div>
     </button>
-    <button class="summary-card summary-action ${quickFilter==='closed'?'active':''}" data-filter="closed" type="button">
-      <div class="label">Sin averías abiertas</div><div class="value">${closed}</div><div class="hint">Ver equipos</div>
+    <button class="summary-card summary-action ${quickFilter==='seguimiento'?'active':''}" data-filter="seguimiento" type="button">
+      <div class="label">Requiere seguimiento</div><div class="value">${seguimiento}</div><div class="hint">Ver equipos</div>
+    </button>
+    <button class="summary-card summary-action ${quickFilter==='clean'?'active':''}" data-filter="clean" type="button">
+      <div class="label">Sin pendientes</div><div class="value">${clean}</div><div class="hint">Ver equipos</div>
     </button>`;
   summaryEl.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>setQuickFilter(btn.dataset.filter)));
 }
 
 function matchesQuickFilter(e){
-  const openCases=e.cases.filter(c=>norm(c.EstadoGestion)!=='cerrado');
   if(!quickFilter) return true;
-  if(quickFilter==='open') return openCases.length>0;
+  if(quickFilter==='fuera') return e.cases.some(c=>norm(functionalState(c)).includes('fuera'));
   if(quickFilter==='repuesto') return e.cases.some(caseNeedsSpare);
-  if(quickFilter==='closed') return openCases.length===0;
+  if(quickFilter==='seguimiento') return e.cases.some(caseNeedsFollowup);
+  if(quickFilter==='clean') return e.cases.every(c=>managementState(c)==='🟢 Sin pendientes');
   return true;
 }
 
@@ -101,7 +131,7 @@ function render(){
   const allEquipment=groupEquipment();
   const equipment=allEquipment.filter(e=>{
     const interventionText=e.cases.flatMap(c=>interventionsFor(c.AV).flatMap(i=>[i.TrabajoRealizado,i.RepuestosRequeridos,i.Observaciones]));
-    const hit=!q || [e.Alias,e.Equipo,e.Activo,e.Modalidad,...e.cases.flatMap(c=>[c.Alias,c.AV,c.Descripcion,c.TipoIncidente,c.MensajeError,c.EstadoGestion]),...interventionText].some(x=>norm(x).includes(q));
+    const hit=!q || [e.Alias,e.Equipo,e.Activo,e.Modalidad,...e.cases.flatMap(c=>[c.Alias,c.AV,c.Descripcion,c.TipoIncidente,c.MensajeError,c.EstadoGestion,functionalState(c),managementState(c)]),...interventionText].some(x=>norm(x).includes(q));
     const statusHit=!status || e.cases.some(c=>c.EstadoGestion===status);
     const modHit=!modality || e.Modalidad===modality;
     return hit&&statusHit&&modHit&&matchesQuickFilter(e);
@@ -119,35 +149,34 @@ function render(){
   equipment.sort((a,b)=>(a.Alias||a.Equipo).localeCompare(b.Alias||b.Equipo)).forEach(e=>{
     const node=template.content.firstElementChild.cloneNode(true);
     const current=currentCase(e.cases);
-    const openCases=e.cases.filter(c=>norm(c.EstadoGestion)!=='cerrado');
-    const sparePending=e.cases.some(caseNeedsSpare);
-    const baseState=openCases.length?(current.EstadoEquipo||current.EstadoGestion):(current.EstadoEquipo||'🟢 Sin averías abiertas');
-    const state=sparePending?`${baseState} · 🟠 Repuesto pendiente`:baseState;
-    const cls=statusClass(baseState);
+    const fState=functionalState(current);
+    const mState=managementState(current);
+    const cls=statusClass(fState);
 
     node.querySelector('.equipment-name').textContent=e.Alias||e.Equipo;
     node.querySelector('.equipment-meta').textContent=`${e.Equipo} · ${e.Modalidad} · Activo ${e.Activo}`;
     node.querySelector('.status-dot').classList.add(cls);
     node.querySelector('.status-pill').classList.add(cls);
-    node.querySelector('.status-pill').textContent=state;
-    node.querySelector('.current-state').innerHTML=openCases.length
-      ? `<b>Estado actual:</b> ${esc(current.EstadoEquipo||current.EstadoGestion)} · <b>${openCases.length}</b> expediente(s) abierto(s).${sparePending?' <span class="spare-inline">🟠 Hay repuesto pendiente.</span>':''}`
-      : `<b>Estado actual:</b> ${esc(current.EstadoEquipo||'🟢 Sin averías abiertas')}. No hay averías abiertas.${sparePending?' <span class="spare-inline">🟠 Hay repuesto pendiente.</span>':''}`;
+    node.querySelector('.status-pill').textContent=fState;
+    node.querySelector('.current-state').innerHTML=`<b>Estado del equipo:</b> ${esc(fState)}<br><b>Gestión:</b> <span class="${statusClass(mState)}">${esc(mState)}</span>`;
 
     const cases=node.querySelector('.cases');
     [...e.cases].sort((a,b)=>(b.Fecha||'').toString().localeCompare((a.Fecha||'').toString())).forEach(c=>{
       const interventions=interventionsFor(c.AV);
-      const needsSpare=caseNeedsSpare(c);
+      const f=functionalState(c);
+      const m=managementState(c);
+      const latest=interventions[0];
       const div=document.createElement('div');
       div.className='case';
       div.innerHTML=`
         <div class="case-top"><div class="case-av">${esc(c.AV)}</div><div class="case-date">${esc(c.Fecha)}</div></div>
         <div class="case-description">
-          <b class="${statusClass(c.EstadoGestion)}">${esc(c.EstadoGestion)}</b>
-          ${needsSpare?'<span class="case-badge status-pendiente-repuesto">🟠 Repuesto pendiente</span>':''}
-          <br>${esc(c.Descripcion||c.TipoIncidente||'Sin descripción pública.')}
+          <b>Estado del equipo:</b> <span class="${statusClass(f)}">${esc(f)}</span><br>
+          <b>Gestión:</b> <span class="${statusClass(m)}">${esc(m)}</span><br>
+          ${esc(c.Descripcion||c.TipoIncidente||'Sin descripción pública.')}
         </div>
         ${c.MensajeError?`<div class="error-box"><b>⚠️ Error reportado</b><br>${esc(c.MensajeError)}</div>`:''}
+        ${caseNeedsSpare(c)?`<div class="spare-box"><b>🟠 Repuesto pendiente</b>${latest&&latest.RepuestosRequeridos?`<br>${esc(latest.RepuestosRequeridos)}`:''}</div>`:''}
         <div class="interventions">${interventions.length?interventions.map(i=>`
           <div class="intervention">
             <b>${esc(i.FechaIntervencion)}</b> · ${esc(i.TipoMantenimiento)} · ${esc(i.EstadoFinalEquipo)}<br>
