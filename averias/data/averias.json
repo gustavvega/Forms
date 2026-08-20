@@ -110,5 +110,19 @@
     "MensajeError": "",
     "Modalidad": "Convencional",
     "TipoIncidente": "[\"🔧 Accesorio dañado\"]"
+  },
+  {
+    "AV": "AV-2026-08-0008",
+    "Activo": "1345384",
+    "Descripcion": "Equipo no funciona y muestra error 51",
+    "Equipo": "🟢 Verde - Mobilett Elara Max",
+    "EstadoEquipo": "🔴 Fuera de servicio",
+    "EstadoGestion": "Reportado para atención",
+    "Fecha": "46254",
+    "Hora": "hora11 pm ",
+    "Lugar": "Torre Este",
+    "MensajeError": "Error 51, se apaga y no funciona ",
+    "Modalidad": "Portátiles",
+    "TipoIncidente": "[\"🖥️ Consola o pantalla\",\"🩻 No permite realizar el estudio\"]"
   }
 ]
