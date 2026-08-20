@@ -37,11 +37,7 @@ function isRejectedCase(c){
 }
 
 function sanitizeAverias(rows){
-  const valid=(Array.isArray(rows)?rows:[]).filter(c=>{
-    if(!c || isRejectedCase(c)) return false;
-    return (c.AV||'').toString().trim()!=='';
-  });
-
+  const valid=(Array.isArray(rows)?rows:[]).filter(c=>c&&!isRejectedCase(c)&&(c.AV||'').toString().trim()!=='');
   const byAV=new Map();
   valid.forEach(c=>{
     const av=(c.AV||'').toString().trim();
@@ -51,37 +47,35 @@ function sanitizeAverias(rows){
 
   const clean=[];
   byAV.forEach((items,av)=>{
-    const equipmentKeys=new Set(items.map(c=>((c.Activo||c.Equipo||'').toString().trim())).filter(Boolean));
-
+    const equipmentKeys=new Set(items.map(c=>(c.Activo||c.Equipo||'').toString().trim()).filter(Boolean));
     if(equipmentKeys.size>1){
       console.warn(`AV ${av} aparece asociada a más de un equipo y fue ocultada por seguridad.`,items);
       return;
     }
-
-    const chosen=[...items].sort((a,b)=>(b.Fecha||'').toString().localeCompare((a.Fecha||'').toString()))[0];
-    clean.push(chosen);
+    clean.push([...items].sort((a,b)=>(b.Fecha||'').toString().localeCompare((a.Fecha||'').toString()))[0]);
   });
-
   return clean;
 }
 
 function interventionsFor(av){
   if(!(av||'').toString().trim()) return [];
-  return INTERVENCIONES.filter(i=>i.AV===av).sort((a,b)=>(b.FechaIntervencion||'').toString().localeCompare((a.FechaIntervencion||'').toString()));
+  return INTERVENCIONES
+    .filter(i=>i.AV===av)
+    .sort((a,b)=>(b.FechaIntervencion||'').toString().localeCompare((a.FechaIntervencion||'').toString()));
 }
 
 function caseNeedsSpare(c){
   if(!c) return false;
   if(norm(c.EstadoGestion).includes('repuesto')) return true;
   const latest=interventionsFor(c.AV)[0];
-  return !!latest && (isYes(latest.RequiereRepuestos) || norm(latest.EstadoFinalEquipo).includes('repuesto'));
+  return !!latest&&(isYes(latest.RequiereRepuestos)||norm(latest.EstadoFinalEquipo).includes('repuesto'));
 }
 
 function caseNeedsFollowup(c){
   if(!c) return false;
   if(norm(c.EstadoGestion).includes('seguimiento')) return true;
   const latest=interventionsFor(c.AV)[0];
-  return !!latest && isYes(latest.RequiereNuevaIntervencion) && !caseNeedsSpare(c);
+  return !!latest&&isYes(latest.RequiereNuevaIntervencion)&&!caseNeedsSpare(c);
 }
 
 function functionalState(c){
@@ -132,13 +126,11 @@ function displayName(e){
   if(code==='FL-01') return `Fluoroscopia${e.Modelo?' - '+e.Modelo:''}`;
   if(code==='DXA-01') return `Densitómetro Óseo${e.Modelo?' - '+e.Modelo:''}`;
   if(code==='OP-01') return `Ortopantomógrafo${e.Modelo?' - '+e.Modelo:''}`;
-
   return e.NombreAdministracion||e.Alias||e.Equipo||'Equipo';
 }
 
 function groupEquipment(){
   const map=new Map();
-
   EQUIPOS.forEach(eq=>{
     const key=(eq.Activo||eq.Codigo||eq.NombreAdministracion||eq.Alias||'').toString();
     if(!key) return;
@@ -151,7 +143,6 @@ function groupEquipment(){
     if(!map.has(key)) map.set(key,{Activo:a.Activo,Alias:a.Alias||'',Equipo:a.Equipo,Modalidad:a.Modalidad,Codigo:'',Modelo:'',NombreAdministracion:a.Equipo,cases:[]});
     map.get(key).cases.push(a);
   });
-
   return Array.from(map.values());
 }
 
@@ -165,12 +156,13 @@ function currentCase(cases){
 function populateModalities(){
   modalityEl.innerHTML='<option value="">Todas las modalidades</option>';
   [...new Set(AVERIAS.map(e=>e.Modalidad).filter(Boolean))].sort().forEach(m=>{
-    const o=document.createElement('option');o.value=m;o.textContent=m;modalityEl.appendChild(o);
+    const o=document.createElement('option');
+    o.value=m;o.textContent=m;modalityEl.appendChild(o);
   });
 }
 
 function setQuickFilter(type){
-  quickFilter = quickFilter===type ? '' : type;
+  quickFilter=quickFilter===type?'':type;
   render();
 }
 
@@ -196,6 +188,17 @@ function matchesQuickFilter(e){
   return true;
 }
 
+function interventionHtml(i){
+  const spare=isYes(i.RequiereRepuestos)||!!(i.RepuestosRequeridos||'').toString().trim();
+  return `<div class="intervention">
+    <b>${esc(i.FechaIntervencion||'Sin fecha')}</b>${i.TipoMantenimiento?` · ${esc(i.TipoMantenimiento)}`:''}
+    ${i.EstadoFinalEquipo?`<br><b>Estado final:</b> <span class="${statusClass(i.EstadoFinalEquipo)}">${esc(i.EstadoFinalEquipo)}</span>`:''}
+    ${i.TrabajoRealizado?`<br><b>Trabajo realizado:</b> ${esc(i.TrabajoRealizado)}`:''}
+    ${spare?`<div class="spare-box"><b>🟠 Repuesto requerido</b>${i.RepuestosRequeridos?`<br>${esc(i.RepuestosRequeridos)}`:''}</div>`:''}
+    ${i.Observaciones?`<br><b>Observaciones:</b> ${esc(i.Observaciones)}`:''}
+  </div>`;
+}
+
 function render(){
   const q=norm(searchEl.value.trim());
   const status=statusEl.value;
@@ -203,9 +206,9 @@ function render(){
   const allEquipment=groupEquipment().filter(e=>e.cases.length>0);
   const equipment=allEquipment.filter(e=>{
     const interventionText=e.cases.flatMap(c=>interventionsFor(c.AV).flatMap(i=>[i.TrabajoRealizado,i.RepuestosRequeridos,i.Observaciones]));
-    const hit=!q || [displayName(e),e.Alias,e.Equipo,e.Activo,e.Modalidad,e.Modelo,e.Fabricante,...e.cases.flatMap(c=>[c.AV,c.Descripcion,c.TipoIncidente,c.MensajeError,c.EstadoGestion,functionalState(c),managementState(c)]),...interventionText].some(x=>norm(x).includes(q));
-    const statusHit=!status || e.cases.some(c=>c.EstadoGestion===status);
-    const modHit=!modality || e.Modalidad===modality;
+    const hit=!q||[displayName(e),e.Alias,e.Equipo,e.Activo,e.Modalidad,e.Modelo,e.Fabricante,...e.cases.flatMap(c=>[c.AV,c.Descripcion,c.TipoIncidente,c.MensajeError,c.EstadoGestion,functionalState(c),managementState(c)]),...interventionText].some(x=>norm(x).includes(q));
+    const statusHit=!status||e.cases.some(c=>c.EstadoGestion===status);
+    const modHit=!modality||e.Modalidad===modality;
     return hit&&statusHit&&modHit&&matchesQuickFilter(e);
   });
 
@@ -234,21 +237,32 @@ function render(){
     node.querySelector('.management-pill').textContent=mState;
 
     const cases=node.querySelector('.cases');
-    [...e.cases].sort((a,b)=>(b.Fecha||'').toString().localeCompare((a.Fecha||'').toString())).forEach(c=>{
-      const interventions=interventionsFor(c.AV);
-      const f=functionalState(c);
-      const m=managementState(c);
-      const latest=interventions[0];
-      const div=document.createElement('div');
-      div.className='case';
-      div.innerHTML=`
-        <div class="case-top"><div class="case-av">${esc(c.AV)}</div><div class="case-date">${esc(c.Fecha)}</div></div>
-        <div class="case-description"><b>Estado del equipo:</b> <span class="${statusClass(f)}">${esc(f)}</span><br><b>Gestión:</b> <span class="${statusClass(m)}">${esc(m)}</span><br>${esc(c.Descripcion||c.TipoIncidente||'Sin descripción pública.')}</div>
-        ${c.MensajeError?`<div class="error-box"><b>⚠️ Error reportado</b><br>${esc(c.MensajeError)}</div>`:''}
-        ${caseNeedsSpare(c)?`<div class="spare-box"><b>🟠 Repuesto pendiente</b>${latest&&latest.RepuestosRequeridos?`<br>${esc(latest.RepuestosRequeridos)}`:''}</div>`:''}
-        <div class="interventions">${interventions.length?interventions.map(i=>`<div class="intervention"><b>${esc(i.FechaIntervencion)}</b> · ${esc(i.TipoMantenimiento)} · ${esc(i.EstadoFinalEquipo)}<br>${esc(i.TrabajoRealizado)}${isYes(i.RequiereRepuestos)?`<div class="spare-box"><b>🟠 Repuesto requerido</b>${i.RepuestosRequeridos?`<br>${esc(i.RepuestosRequeridos)}`:''}</div>`:''}</div>`).join(''):'<div class="intervention">Sin intervenciones registradas.</div>'}</div>`;
-      cases.appendChild(div);
-    });
+    [...e.cases]
+      .sort((a,b)=>(b.Fecha||'').toString().localeCompare((a.Fecha||'').toString()))
+      .forEach(c=>{
+        const allInterventions=interventionsFor(c.AV);
+        const recentInterventions=allInterventions.slice(0,5);
+        const f=functionalState(c);
+        const m=managementState(c);
+        const latest=allInterventions[0];
+        const description=(c.Descripcion||'').toString().trim()||'Sin descripción registrada.';
+        const div=document.createElement('div');
+        div.className='case';
+        div.innerHTML=`
+          <div class="case-top"><div class="case-av">${esc(c.AV)}</div><div class="case-date">${esc(c.Fecha)}</div></div>
+          <div class="case-description">
+            <b>Estado del equipo:</b> <span class="${statusClass(f)}">${esc(f)}</span><br>
+            <b>Gestión:</b> <span class="${statusClass(m)}">${esc(m)}</span>
+          </div>
+          <div class="case-description"><b>Descripción del registro</b><br>${esc(description)}</div>
+          ${c.MensajeError?`<div class="error-box"><b>⚠️ Error reportado</b><br>${esc(c.MensajeError)}</div>`:''}
+          ${caseNeedsSpare(c)&&latest&&latest.RepuestosRequeridos?`<div class="spare-box"><b>🟠 Repuesto pendiente</b><br>${esc(latest.RepuestosRequeridos)}</div>`:''}
+          <div class="interventions">
+            <div class="case-description"><b>Historial técnico</b><br>${allInterventions.length>5?'Se muestran las 5 intervenciones más recientes de esta AV.':'Intervenciones asociadas a esta AV.'}</div>
+            ${recentInterventions.length?recentInterventions.map(interventionHtml).join(''):'<div class="intervention">Sin intervenciones registradas.</div>'}
+          </div>`;
+        cases.appendChild(div);
+      });
 
     const header=node.querySelector('.equipment-header');
     const detail=node.querySelector('.equipment-detail');
