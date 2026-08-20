@@ -128,7 +128,7 @@ function currentCase(cases){
 
 function populateModalities(){
   modalityEl.innerHTML='<option value="">Todas las modalidades</option>';
-  [...new Set(EQUIPOS.map(e=>e.Modalidad).filter(Boolean))].sort().forEach(m=>{
+  [...new Set(AVERIAS.map(e=>e.Modalidad).filter(Boolean))].sort().forEach(m=>{
     const o=document.createElement('option');o.value=m;o.textContent=m;modalityEl.appendChild(o);
   });
 }
@@ -142,7 +142,7 @@ function renderSummary(equipment){
   const fuera=equipment.filter(e=>e.cases.some(c=>norm(functionalState(c)).includes('fuera'))).length;
   const repuesto=equipment.filter(e=>e.cases.some(caseNeedsSpare)).length;
   const seguimiento=equipment.filter(e=>e.cases.some(caseNeedsFollowup)).length;
-  const clean=equipment.filter(e=>!e.cases.length || e.cases.every(c=>managementState(c)==='🟢 Sin pendientes')).length;
+  const clean=equipment.filter(e=>e.cases.every(c=>managementState(c)==='🟢 Sin pendientes')).length;
   summaryEl.innerHTML=`
     <button class="summary-card summary-action ${quickFilter==='fuera'?'active':''}" data-filter="fuera" type="button"><div class="label">Fuera de servicio</div><div class="value">${fuera}</div><div class="hint">Ver equipos</div></button>
     <button class="summary-card summary-action ${quickFilter==='repuesto'?'active':''}" data-filter="repuesto" type="button"><div class="label">Pendiente de repuesto</div><div class="value">${repuesto}</div><div class="hint">Ver equipos</div></button>
@@ -156,7 +156,7 @@ function matchesQuickFilter(e){
   if(quickFilter==='fuera') return e.cases.some(c=>norm(functionalState(c)).includes('fuera'));
   if(quickFilter==='repuesto') return e.cases.some(caseNeedsSpare);
   if(quickFilter==='seguimiento') return e.cases.some(caseNeedsFollowup);
-  if(quickFilter==='clean') return !e.cases.length || e.cases.every(c=>managementState(c)==='🟢 Sin pendientes');
+  if(quickFilter==='clean') return e.cases.every(c=>managementState(c)==='🟢 Sin pendientes');
   return true;
 }
 
@@ -164,7 +164,7 @@ function render(){
   const q=norm(searchEl.value.trim());
   const status=statusEl.value;
   const modality=modalityEl.value;
-  const allEquipment=groupEquipment();
+  const allEquipment=groupEquipment().filter(e=>e.cases.length>0);
   const equipment=allEquipment.filter(e=>{
     const interventionText=e.cases.flatMap(c=>interventionsFor(c.AV).flatMap(i=>[i.TrabajoRealizado,i.RepuestosRequeridos,i.Observaciones]));
     const hit=!q || [displayName(e),e.Alias,e.Equipo,e.Activo,e.Modalidad,e.Modelo,e.Fabricante,...e.cases.flatMap(c=>[c.AV,c.Descripcion,c.TipoIncidente,c.MensajeError,c.EstadoGestion,functionalState(c),managementState(c)]),...interventionText].some(x=>norm(x).includes(q));
@@ -198,25 +198,21 @@ function render(){
     node.querySelector('.management-pill').textContent=mState;
 
     const cases=node.querySelector('.cases');
-    if(!e.cases.length){
-      cases.innerHTML='<div class="empty">No hay averías registradas para este equipo.</div>';
-    } else {
-      [...e.cases].sort((a,b)=>(b.Fecha||'').toString().localeCompare((a.Fecha||'').toString())).forEach(c=>{
-        const interventions=interventionsFor(c.AV);
-        const f=functionalState(c);
-        const m=managementState(c);
-        const latest=interventions[0];
-        const div=document.createElement('div');
-        div.className='case';
-        div.innerHTML=`
-          <div class="case-top"><div class="case-av">${esc(c.AV)}</div><div class="case-date">${esc(c.Fecha)}</div></div>
-          <div class="case-description"><b>Estado del equipo:</b> <span class="${statusClass(f)}">${esc(f)}</span><br><b>Gestión:</b> <span class="${statusClass(m)}">${esc(m)}</span><br>${esc(c.Descripcion||c.TipoIncidente||'Sin descripción pública.')}</div>
-          ${c.MensajeError?`<div class="error-box"><b>⚠️ Error reportado</b><br>${esc(c.MensajeError)}</div>`:''}
-          ${caseNeedsSpare(c)?`<div class="spare-box"><b>🟠 Repuesto pendiente</b>${latest&&latest.RepuestosRequeridos?`<br>${esc(latest.RepuestosRequeridos)}`:''}</div>`:''}
-          <div class="interventions">${interventions.length?interventions.map(i=>`<div class="intervention"><b>${esc(i.FechaIntervencion)}</b> · ${esc(i.TipoMantenimiento)} · ${esc(i.EstadoFinalEquipo)}<br>${esc(i.TrabajoRealizado)}${isYes(i.RequiereRepuestos)?`<div class="spare-box"><b>🟠 Repuesto requerido</b>${i.RepuestosRequeridos?`<br>${esc(i.RepuestosRequeridos)}`:''}</div>`:''}</div>`).join(''):'<div class="intervention">Sin intervenciones registradas.</div>'}</div>`;
-        cases.appendChild(div);
-      });
-    }
+    [...e.cases].sort((a,b)=>(b.Fecha||'').toString().localeCompare((a.Fecha||'').toString())).forEach(c=>{
+      const interventions=interventionsFor(c.AV);
+      const f=functionalState(c);
+      const m=managementState(c);
+      const latest=interventions[0];
+      const div=document.createElement('div');
+      div.className='case';
+      div.innerHTML=`
+        <div class="case-top"><div class="case-av">${esc(c.AV)}</div><div class="case-date">${esc(c.Fecha)}</div></div>
+        <div class="case-description"><b>Estado del equipo:</b> <span class="${statusClass(f)}">${esc(f)}</span><br><b>Gestión:</b> <span class="${statusClass(m)}">${esc(m)}</span><br>${esc(c.Descripcion||c.TipoIncidente||'Sin descripción pública.')}</div>
+        ${c.MensajeError?`<div class="error-box"><b>⚠️ Error reportado</b><br>${esc(c.MensajeError)}</div>`:''}
+        ${caseNeedsSpare(c)?`<div class="spare-box"><b>🟠 Repuesto pendiente</b>${latest&&latest.RepuestosRequeridos?`<br>${esc(latest.RepuestosRequeridos)}`:''}</div>`:''}
+        <div class="interventions">${interventions.length?interventions.map(i=>`<div class="intervention"><b>${esc(i.FechaIntervencion)}</b> · ${esc(i.TipoMantenimiento)} · ${esc(i.EstadoFinalEquipo)}<br>${esc(i.TrabajoRealizado)}${isYes(i.RequiereRepuestos)?`<div class="spare-box"><b>🟠 Repuesto requerido</b>${i.RepuestosRequeridos?`<br>${esc(i.RepuestosRequeridos)}`:''}</div>`:''}</div>`).join(''):'<div class="intervention">Sin intervenciones registradas.</div>'}</div>`;
+      cases.appendChild(div);
+    });
 
     const header=node.querySelector('.equipment-header');
     const detail=node.querySelector('.equipment-detail');
