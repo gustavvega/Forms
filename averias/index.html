@@ -6,12 +6,26 @@
   <title>Consulta de estado y averías de equipos | HCG</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    .equipment-side{display:flex;align-items:flex-end;gap:6px}
-    .status-stack{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
-    .status-label{font-size:9px;color:#7890b4;text-transform:uppercase;letter-spacing:.08em;margin-right:4px}
-    .management-pill{font-size:11px;border-radius:999px;padding:7px 10px;border:1px solid currentColor;background:rgba(255,255,255,.035);white-space:nowrap}
-    @media(max-width:760px){.equipment-side{display:flex;flex-direction:row;align-items:center}.status-stack{align-items:flex-end}.management-pill,.status-pill{max-width:170px;white-space:normal;text-align:right}}
-    @media(max-width:470px){.equipment-header{gap:10px}.equipment-main{min-width:0;flex:1}.equipment-side{display:flex!important;flex:0 0 auto;align-items:center}.status-stack{gap:4px}.status-label{display:none}.status-pill,.management-pill{font-size:10px;padding:5px 7px;max-width:128px}.chevron{font-size:17px}.equipment-name{font-size:15px}.equipment-meta{font-size:11px}}
+    .equipment-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+    .equipment-main{display:flex;align-items:flex-start;gap:12px;min-width:0;flex:1}
+    .equipment-info{min-width:0;flex:1}
+    .equipment-name{font-size:18px;line-height:1.25;margin-bottom:6px}
+    .equipment-meta{font-size:13px;margin-top:0}
+    .equipment-statuses{display:grid;gap:7px;margin-top:12px}
+    .status-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .status-key{font-size:11px;color:#7890b4;text-transform:uppercase;letter-spacing:.08em;min-width:58px}
+    .status-pill,.management-pill{display:inline-flex;align-items:center;font-size:12px;border-radius:999px;padding:6px 10px;border:1px solid currentColor;background:rgba(255,255,255,.035);white-space:normal}
+    .equipment-side{display:flex;align-items:center;flex:0 0 auto;padding-top:4px}
+    @media(max-width:470px){
+      .equipment-header{padding:16px 14px;gap:8px}
+      .equipment-main{gap:10px}
+      .equipment-name{font-size:17px}
+      .equipment-meta{font-size:12px}
+      .status-key{font-size:10px;min-width:52px}
+      .status-pill,.management-pill{font-size:11px;padding:5px 8px;max-width:100%}
+      .equipment-side{align-self:center;padding-top:0}
+      .chevron{font-size:18px}
+    }
   </style>
 </head>
 <body>
@@ -74,16 +88,16 @@
       <button class="equipment-header" type="button">
         <div class="equipment-main">
           <span class="status-dot"></span>
-          <div>
+          <div class="equipment-info">
             <div class="equipment-name"></div>
             <div class="equipment-meta"></div>
+            <div class="equipment-statuses">
+              <div class="status-row"><span class="status-key">Estado</span><span class="status-pill"></span></div>
+              <div class="status-row"><span class="status-key">Gestión</span><span class="management-pill"></span></div>
+            </div>
           </div>
         </div>
         <div class="equipment-side">
-          <div class="status-stack">
-            <div><span class="status-label">Estado</span><span class="status-pill"></span></div>
-            <div><span class="status-label">Gestión</span><span class="management-pill"></span></div>
-          </div>
           <span class="chevron">⌄</span>
         </div>
       </button>
