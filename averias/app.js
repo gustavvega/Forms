@@ -152,9 +152,10 @@ function render(){
     const fState=functionalState(current);
     const mState=managementState(current);
     const cls=statusClass(fState);
+    const alias=e.Alias||((e.Equipo||'').split(' - ')[0])||e.Equipo;
 
-    node.querySelector('.equipment-name').textContent=e.Alias||e.Equipo;
-    node.querySelector('.equipment-meta').textContent=`${e.Equipo} · ${e.Modalidad} · Activo ${e.Activo}`;
+    node.querySelector('.equipment-name').textContent=alias;
+    node.querySelector('.equipment-meta').textContent=`Activo ${e.Activo}`;
     node.querySelector('.status-dot').classList.add(cls);
     node.querySelector('.status-pill').classList.add(cls);
     node.querySelector('.status-pill').textContent=fState;
