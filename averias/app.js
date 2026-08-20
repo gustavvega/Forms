@@ -31,6 +31,11 @@ function isYes(value){
   return s==='si'||s==='sí'||s==='yes'||s==='true';
 }
 
+function isRejectedCase(c){
+  const s=norm(c&&c.EstadoGestion);
+  return s.includes('no procede') || s.includes('duplicado');
+}
+
 function interventionsFor(av){
   return INTERVENCIONES.filter(i=>i.AV===av).sort((a,b)=>(b.FechaIntervencion||'').toString().localeCompare((a.FechaIntervencion||'').toString()));
 }
@@ -110,7 +115,7 @@ function groupEquipment(){
     map.set(key,{...eq,Equipo:eq.NombreAdministracion||eq.Modelo||eq.Alias||'',cases:[]});
   });
 
-  AVERIAS.forEach(a=>{
+  AVERIAS.filter(a=>!isRejectedCase(a)).forEach(a=>{
     const key=(a.Activo||a.Equipo||'').toString();
     if(!map.has(key)) map.set(key,{Activo:a.Activo,Alias:a.Alias||'',Equipo:a.Equipo,Modalidad:a.Modalidad,Codigo:'',Modelo:'',NombreAdministracion:a.Equipo,cases:[]});
     map.get(key).cases.push(a);
@@ -128,7 +133,7 @@ function currentCase(cases){
 
 function populateModalities(){
   modalityEl.innerHTML='<option value="">Todas las modalidades</option>';
-  [...new Set(AVERIAS.map(e=>e.Modalidad).filter(Boolean))].sort().forEach(m=>{
+  [...new Set(AVERIAS.filter(a=>!isRejectedCase(a)).map(e=>e.Modalidad).filter(Boolean))].sort().forEach(m=>{
     const o=document.createElement('option');o.value=m;o.textContent=m;modalityEl.appendChild(o);
   });
 }
