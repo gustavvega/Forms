@@ -158,7 +158,8 @@ function render(){
     node.querySelector('.status-dot').classList.add(cls);
     node.querySelector('.status-pill').classList.add(cls);
     node.querySelector('.status-pill').textContent=fState;
-    node.querySelector('.current-state').innerHTML=`<b>Estado del equipo:</b> ${esc(fState)}<br><b>Gestión:</b> <span class="${statusClass(mState)}">${esc(mState)}</span>`;
+    node.querySelector('.management-pill').classList.add(statusClass(mState));
+    node.querySelector('.management-pill').textContent=mState;
 
     const cases=node.querySelector('.cases');
     [...e.cases].sort((a,b)=>(b.Fecha||'').toString().localeCompare((a.Fecha||'').toString())).forEach(c=>{
