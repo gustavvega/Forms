@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Consulta de estado y averías de equipos | HCG</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .equipment-side{display:flex;align-items:flex-end;gap:6px}
+    .status-stack{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+    .status-label{font-size:9px;color:#7890b4;text-transform:uppercase;letter-spacing:.08em;margin-right:4px}
+    .management-pill{font-size:11px;border-radius:999px;padding:7px 10px;border:1px solid currentColor;background:rgba(255,255,255,.035);white-space:nowrap}
+    @media(max-width:760px){.equipment-side{display:flex;flex-direction:row;align-items:center}.status-stack{align-items:flex-end}.management-pill,.status-pill{max-width:170px;white-space:normal;text-align:right}}
+    @media(max-width:470px){.equipment-header{gap:10px}.equipment-main{min-width:0;flex:1}.equipment-side{display:flex!important;flex:0 0 auto;align-items:center}.status-stack{gap:4px}.status-label{display:none}.status-pill,.management-pill{font-size:10px;padding:5px 7px;max-width:128px}.chevron{font-size:17px}.equipment-name{font-size:15px}.equipment-meta{font-size:11px}}
+  </style>
 </head>
 <body>
   <div class="space-bg" aria-hidden="true">
@@ -72,12 +80,14 @@
           </div>
         </div>
         <div class="equipment-side">
-          <span class="status-pill"></span>
+          <div class="status-stack">
+            <div><span class="status-label">Estado</span><span class="status-pill"></span></div>
+            <div><span class="status-label">Gestión</span><span class="management-pill"></span></div>
+          </div>
           <span class="chevron">⌄</span>
         </div>
       </button>
       <div class="equipment-detail" hidden>
-        <div class="current-state"></div>
         <div class="cases"></div>
       </div>
     </article>
