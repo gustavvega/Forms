@@ -68,5 +68,19 @@
     "MensajeError": "",
     "Modalidad": "Portátiles",
     "TipoIncidente": ""
+  },
+  {
+    "AV": "",
+    "Activo": "1356937",
+    "Descripcion": "Control remoto no funciona fuera de su base",
+    "Equipo": "Emergencias - Multitom Rax",
+    "EstadoEquipo": "🟢 Operativo",
+    "EstadoGestion": "Pendiente de revisión",
+    "Fecha": "46254",
+    "Hora": "5am",
+    "Lugar": "Torre Sur ",
+    "MensajeError": "",
+    "Modalidad": "Convencional",
+    "TipoIncidente": "[\"🔧 Accesorio dañado\"]"
   }
 ]
