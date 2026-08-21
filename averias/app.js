@@ -15,6 +15,28 @@ const template=document.getElementById('equipmentTemplate');
 const norm=s=>(s||'').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 const esc=s=>(s||'').toString().replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]));
 
+function formatDate(value){
+  if(value===null||value===undefined||value==='') return 'Sin fecha';
+  const raw=value.toString().trim();
+  let d=null;
+
+  if(/^\d+(\.\d+)?$/.test(raw)){
+    const serial=Number(raw);
+    d=new Date(Date.UTC(1899,11,30)+Math.floor(serial)*86400000);
+  }else if(/^\d{1,2}[\/-]\d{1,2}[\/-]\d{4}$/.test(raw)){
+    const parts=raw.split(/[\/-]/).map(Number);
+    d=new Date(Date.UTC(parts[2],parts[1]-1,parts[0]));
+  }else{
+    const parsed=new Date(raw);
+    if(!Number.isNaN(parsed.getTime())) d=parsed;
+  }
+
+  if(!d||Number.isNaN(d.getTime())) return raw;
+  const months=['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+  const day=String(d.getUTCDate()).padStart(2,'0');
+  return `${day}-${months[d.getUTCMonth()]}-${d.getUTCFullYear()}`;
+}
+
 function statusClass(status){
   const s=norm(status);
   if(s.includes('fuera')||s.includes('atencion')) return 'status-en-atencion';
@@ -191,7 +213,7 @@ function matchesQuickFilter(e){
 function interventionHtml(i){
   const spare=isYes(i.RequiereRepuestos)||!!(i.RepuestosRequeridos||'').toString().trim();
   return `<div class="intervention">
-    <b>${esc(i.FechaIntervencion||'Sin fecha')}</b>${i.TipoMantenimiento?` · ${esc(i.TipoMantenimiento)}`:''}
+    <b>${esc(formatDate(i.FechaIntervencion))}</b>${i.TipoMantenimiento?` · ${esc(i.TipoMantenimiento)}`:''}
     ${i.EstadoFinalEquipo?`<br><b>Estado final:</b> <span class="${statusClass(i.EstadoFinalEquipo)}">${esc(i.EstadoFinalEquipo)}</span>`:''}
     ${i.TrabajoRealizado?`<br><b>Trabajo realizado:</b> ${esc(i.TrabajoRealizado)}`:''}
     ${spare?`<div class="spare-box"><b>🟠 Repuesto requerido</b>${i.RepuestosRequeridos?`<br>${esc(i.RepuestosRequeridos)}`:''}</div>`:''}
@@ -249,7 +271,7 @@ function render(){
         const div=document.createElement('div');
         div.className='case';
         div.innerHTML=`
-          <div class="case-top"><div class="case-av">${esc(c.AV)}</div><div class="case-date">${esc(c.Fecha)}</div></div>
+          <div class="case-top"><div class="case-av">${esc(c.AV)}</div><div class="case-date">${esc(formatDate(c.Fecha))}</div></div>
           <div class="case-description">
             <b>Estado del equipo:</b> <span class="${statusClass(f)}">${esc(f)}</span><br>
             <b>Gestión:</b> <span class="${statusClass(m)}">${esc(m)}</span>
