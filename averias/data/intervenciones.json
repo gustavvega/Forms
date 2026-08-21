@@ -94,5 +94,21 @@
     "RequiereRepuestos": "No",
     "TipoMantenimiento": "Correctivo",
     "TrabajoRealizado": "Se realiza visita en sitio. Se abren el control remoto encontrando el conector de la\nbatería, desconectado de la tarjeta. Por lo que tiene sentido que no funcionara al sacarlo\nde la base.\n"
+  },
+  {
+    "AV": "AV-2026-08-0008",
+    "DuracionHoras": "1.75",
+    "Empresa": "Siemens",
+    "Equipo": "🟢 Verde - Mobilett Elara Max",
+    "EstadoFinalEquipo": "🟡 Operativo con observaciones",
+    "FechaIntervencion": "46254",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Portátiles",
+    "Observaciones": "El equipo se encuentra operativo. Se debe dar seguimiento en caso que se vuelva a presentar error 51, se debe volver a reportar por favor. ",
+    "RepuestosRequeridos": "\nMaterial 11132447 cable DAP  - 1 unidad\nMaterial 11132464 Cables de señales - 1 unidad",
+    "RequiereNuevaIntervencion": "Sí",
+    "RequiereRepuestos": "Sí",
+    "TipoMantenimiento": "Diagnóstico / revisión",
+    "TrabajoRealizado": "Se realiza visita en sitio. Conversando con el usuario nos indican que el equipo quedó fuera de servicio por un error 51. Se hace revisión del sistema, y el error 51 indica un error de comunicación de la inversora con el equipo, o problema del tubo de RX. Se siguen instrucciones para el error, se hace un reinicio total desconectando la alimentación de las baterías al equipo. Se hacen pruebas haciendo disparos y no se logra reproducir el error. Ante el error 51 esporádico, se debe hacer el  einicio que se realizó. El equipo puede seguir siento utilizado. Sin embargo, se encuentra 2 cables en el bazo del equipo quebrados y cortados. Los mismos corresponden al cable de señales de los botones de movimientos motorizados en el brazo, y el cable de señales del DAP. Por lo que el equipo puede seguir trabajando pero sin dichas funciones. Se cotizarán los materiales 11132447 y 11132464"
   }
 ]
