@@ -78,5 +78,21 @@
     "RequiereRepuestos": "Sí",
     "TipoMantenimiento": "Preventivo",
     "TrabajoRealizado": "Mantenimiento Preventivo y certificado radiológico \nSe revisa equipo y presenta agarradera del brazo dañada , se coloca tape mientras adquieren la pieza .\nTambién se cotizará disparador , al halar el cable en ocasiones se corta el disparo.\nRevisión general.\nFuncionando bien "
+  },
+  {
+    "AV": "AV-2026-08-0007",
+    "DuracionHoras": "0.5",
+    "Empresa": "Siemens",
+    "Equipo": "Emergencias - Multitom Rax",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46254",
+    "LugarIntervencion": "Torre Sur ",
+    "Modalidad": "Convencional",
+    "Observaciones": "Se hacen pruebas y el equipo funciona correctamente.",
+    "RepuestosRequeridos": "",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "No",
+    "TipoMantenimiento": "Correctivo",
+    "TrabajoRealizado": "Se realiza visita en sitio. Se abren el control remoto encontrando el conector de la\nbatería, desconectado de la tarjeta. Por lo que tiene sentido que no funcionara al sacarlo\nde la base.\n"
   }
 ]
