@@ -126,5 +126,21 @@
     "RequiereRepuestos": "Sí",
     "TipoMantenimiento": "Preventivo",
     "TrabajoRealizado": "Mantenimiento Preventivo Programado.\nSe realiza limpieza del Gantry, mesa y la consola de adquisición.\nSe realiza limpieza del anillo de potencia y el bloque de los carbones.\nSe realiza imagen completa de la ICS, además del respaldo de las calibraciones internas.\nSe realiza limpieza de filtros de aire internos en el Gantry.\nSe adiunta check list con todo lo realizado. Se realiza control de calidad de imagen, y el\nmismo pasa correctamente para todos los parametros.\nEl equipo queda funcionando correctamente dentro de especificaciones. Numeroscan/segundos:194872"
+  },
+  {
+    "AV": "AV-2026-08-0010",
+    "DuracionHoras": "0.513888888888889",
+    "Empresa": "Siemens",
+    "Equipo": "🔵 Azul - Mobilett Elara Max",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46255",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Portátiles",
+    "Observaciones": "\nSe siente un poco frenado hacia la izquierda. \nDisparador no funciona.",
+    "RepuestosRequeridos": "Soportes de barra de motores- 2 unidades\nCable interno y socket de disparador.",
+    "RequiereNuevaIntervencion": "Sí",
+    "RequiereRepuestos": "Sí",
+    "TipoMantenimiento": "Preventivo",
+    "TrabajoRealizado": "Preventivo.\n"
   }
 ]

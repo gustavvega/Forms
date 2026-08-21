@@ -110,5 +110,19 @@
     "MensajeError": "",
     "Modalidad": "TAC",
     "TipoIncidente": ""
+  },
+  {
+    "AV": "AV-2026-08-0010",
+    "Activo": "1345382",
+    "Descripcion": "",
+    "Equipo": "🔵 Azul - Mobilett Elara Max",
+    "EstadoEquipo": "🟢 Operativo",
+    "EstadoGestion": "Cerrado",
+    "Fecha": "46255",
+    "Hora": "",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "Portátiles",
+    "TipoIncidente": ""
   }
 ]
