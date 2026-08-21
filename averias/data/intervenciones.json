@@ -110,5 +110,21 @@
     "RequiereRepuestos": "Sí",
     "TipoMantenimiento": "Diagnóstico / revisión",
     "TrabajoRealizado": "Se realiza visita en sitio. Conversando con el usuario nos indican que el equipo quedó fuera de servicio por un error 51. Se hace revisión del sistema, y el error 51 indica un error de comunicación de la inversora con el equipo, o problema del tubo de RX. Se siguen instrucciones para el error, se hace un reinicio total desconectando la alimentación de las baterías al equipo. Se hacen pruebas haciendo disparos y no se logra reproducir el error. Ante el error 51 esporádico, se debe hacer el  einicio que se realizó. El equipo puede seguir siento utilizado. Sin embargo, se encuentra 2 cables en el bazo del equipo quebrados y cortados. Los mismos corresponden al cable de señales de los botones de movimientos motorizados en el brazo, y el cable de señales del DAP. Por lo que el equipo puede seguir trabajando pero sin dichas funciones. Se cotizarán los materiales 11132447 y 11132464"
+  },
+  {
+    "AV": "AV-2026-08-0009",
+    "DuracionHoras": "4 horas",
+    "Empresa": "Siemens",
+    "Equipo": "TAC Siemens 32 - SOMATOM Perspective",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46255",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "TAC",
+    "Observaciones": "El equipo esta funcionando correctamente sin errores",
+    "RepuestosRequeridos": "Filtro de aire para el detector y filtros de aire para el Gantry.\nPara la próxima visita de mantenimiento preventivo.",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "Sí",
+    "TipoMantenimiento": "Preventivo",
+    "TrabajoRealizado": "Mantenimiento Preventivo Programado.\nSe realiza limpieza del Gantry, mesa y la consola de adquisición.\nSe realiza limpieza del anillo de potencia y el bloque de los carbones.\nSe realiza imagen completa de la ICS, además del respaldo de las calibraciones internas.\nSe realiza limpieza de filtros de aire internos en el Gantry.\nSe adiunta check list con todo lo realizado. Se realiza control de calidad de imagen, y el\nmismo pasa correctamente para todos los parametros.\nEl equipo queda funcionando correctamente dentro de especificaciones. Numeroscan/segundos:194872"
   }
 ]

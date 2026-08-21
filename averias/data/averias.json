@@ -96,5 +96,19 @@
     "MensajeError": "Error 51, se apaga y no funciona ",
     "Modalidad": "Portátiles",
     "TipoIncidente": "[\"🖥️ Consola o pantalla\",\"🩻 No permite realizar el estudio\"]"
+  },
+  {
+    "AV": "AV-2026-08-0009",
+    "Activo": "1345644",
+    "Descripcion": "",
+    "Equipo": "TAC Siemens 32 - SOMATOM Perspective",
+    "EstadoEquipo": "🟢 Operativo",
+    "EstadoGestion": "Cerrado",
+    "Fecha": "46255",
+    "Hora": "",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "TAC",
+    "TipoIncidente": ""
   }
 ]
