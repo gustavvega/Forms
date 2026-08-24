@@ -158,5 +158,21 @@
     "RequiereRepuestos": "No",
     "TipoMantenimiento": "Instalación repuesto o software",
     "TrabajoRealizado": "Se realiza entrega e instalación del la computadora FLC y se realiza reinstalación del software. Se realiza recarga de configuraciones. Equipo funciona correctamente. "
+  },
+  {
+    "AV": "AV-2026-08-0012",
+    "DuracionHoras": "1",
+    "Empresa": "Siemens",
+    "Equipo": "Sala 2 - Ysio Max",
+    "EstadoFinalEquipo": "🔴 Fuera de servicio",
+    "FechaIntervencion": "46258",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Convencional",
+    "Observaciones": "Se continuará mañana con el servicio",
+    "RepuestosRequeridos": "Sensor de Tubelift",
+    "RequiereNuevaIntervencion": "Sí",
+    "RequiereRepuestos": "Sí",
+    "TipoMantenimiento": "Correctivo",
+    "TrabajoRealizado": "Se hace visita en sitio. Se intenta hacer el ajuste de posiciones del equipo, pero hay un\nproblema con la posición del TubeLift cuyo sensor está dando problemas. Se continuará\nmañana con las pruebas para buscar un sensor en la empresa si es que se tuviese.\nSe continuará con las pruebas mañana.\nEl equipo está fuera de servicio."
   }
 ]
