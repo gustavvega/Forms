@@ -152,5 +152,33 @@
     "MensajeError": "No hay adq. Corregir posición soporte o dispos.",
     "Modalidad": "Convencional",
     "TipoIncidente": "[\"⚙️ Movimiento mecánico\",\"🩻 No permite realizar el estudio\"]"
+  },
+  {
+    "AV": "AV-2026-08-0013",
+    "Activo": "1345451",
+    "Descripcion": "",
+    "Equipo": "Sala 4 - Ysio Max",
+    "EstadoEquipo": "🟢 Operativo",
+    "EstadoGestion": "Cerrado",
+    "Fecha": "46258",
+    "Hora": "",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "Convencional",
+    "TipoIncidente": ""
+  },
+  {
+    "AV": "AV-2026-08-0014",
+    "Activo": "1345430",
+    "Descripcion": "",
+    "Equipo": "Sala 3 - Ysio Max",
+    "EstadoEquipo": "🟢 Operativo",
+    "EstadoGestion": "Cerrado",
+    "Fecha": "46258",
+    "Hora": "",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "Convencional",
+    "TipoIncidente": ""
   }
 ]

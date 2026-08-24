@@ -174,5 +174,37 @@
     "RequiereRepuestos": "Sí",
     "TipoMantenimiento": "Correctivo",
     "TrabajoRealizado": "Se hace visita en sitio. Se intenta hacer el ajuste de posiciones del equipo, pero hay un\nproblema con la posición del TubeLift cuyo sensor está dando problemas. Se continuará\nmañana con las pruebas para buscar un sensor en la empresa si es que se tuviese.\nSe continuará con las pruebas mañana.\nEl equipo está fuera de servicio."
+  },
+  {
+    "AV": "AV-2026-08-0013",
+    "DuracionHoras": "3",
+    "Empresa": "Siemens",
+    "Equipo": "Sala 4 - Ysio Max",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46258",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Convencional",
+    "Observaciones": "Se debe hacer el cambio preventivo del control, por hule dañado. No afecta el funcionamiento",
+    "RepuestosRequeridos": "Control manual de BWS - 1 unidad",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "Sí",
+    "TipoMantenimiento": "Preventivo",
+    "TrabajoRealizado": "Se realiza visita por mantenimiento preventivo del sistema.\nSe hace revisión de movimientos del sistema, revisión de botones y pedales. Se revisa\nfecha de calibración de detectores. Se hace limpieza del generador, ajuste de tensión de\nalimentación a 5.2V con ayuda de tester Fluke 27150090. Se hace respaldo de la\nconfiguración y del sistema operativo. Se hacen pruebas de funcionamiento y el equipo funciona correctamente.\nSe cotizará el control manual del bucky de pared que tiene roto uno de los hules de los\nbotones.\nEl equipo funciona correctamente"
+  },
+  {
+    "AV": "AV-2026-08-0014",
+    "DuracionHoras": "3",
+    "Empresa": "Siemens",
+    "Equipo": "Sala 3 - Ysio Max",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46258",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Convencional",
+    "Observaciones": "Se realizó certificado de buen funcionamiento",
+    "RepuestosRequeridos": "",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "No",
+    "TipoMantenimiento": "Preventivo",
+    "TrabajoRealizado": "Se realiza visita por mantenimiento preventivo del sistema.\nSe hace limpieza del generador, verificación de tensiones de alimentación. Se hacen\npruebas de movimientos del sistema, revisión de botones y pedales. Se hacen pruebas y\nmediciones para confección del certificado de buen funcionamiento.\nSe hacen respaldos de la configuración y del sistema operativo. Se hace limpieza de la\ncomputadora.\nEl equipo funciona correctamente"
   }
 ]
