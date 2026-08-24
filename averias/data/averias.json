@@ -138,5 +138,19 @@
     "MensajeError": "",
     "Modalidad": "Convencional",
     "TipoIncidente": ""
+  },
+  {
+    "AV": "AV-2026-08-0012",
+    "Activo": "1345425",
+    "Descripcion": "No permite posicionarse ni disparar ",
+    "Equipo": "Sala 2 - Ysio Max",
+    "EstadoEquipo": "🔴 Fuera de servicio",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46258",
+    "Hora": "hora10:20 am",
+    "Lugar": "Torre Este",
+    "MensajeError": "No hay adq. Corregir posición soporte o dispos.",
+    "Modalidad": "Convencional",
+    "TipoIncidente": "[\"⚙️ Movimiento mecánico\",\"🩻 No permite realizar el estudio\"]"
   }
 ]
