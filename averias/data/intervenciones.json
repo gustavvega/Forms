@@ -142,5 +142,21 @@
     "RequiereRepuestos": "Sí",
     "TipoMantenimiento": "Preventivo",
     "TrabajoRealizado": "Preventivo.\n"
+  },
+  {
+    "AV": "AV-2026-08-0011",
+    "DuracionHoras": "0.375",
+    "Empresa": "Siemens",
+    "Equipo": "Sala 2 - Ysio Max",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46254",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Convencional",
+    "Observaciones": "",
+    "RepuestosRequeridos": "",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "No",
+    "TipoMantenimiento": "Instalación repuesto o software",
+    "TrabajoRealizado": "Se realiza entrega e instalación del la computadora FLC y se realiza reinstalación del software. Se realiza recarga de configuraciones. Equipo funciona correctamente. "
   }
 ]

@@ -124,5 +124,19 @@
     "MensajeError": "",
     "Modalidad": "Portátiles",
     "TipoIncidente": ""
+  },
+  {
+    "AV": "AV-2026-08-0011",
+    "Activo": "1345425",
+    "Descripcion": "",
+    "Equipo": "Sala 2 - Ysio Max",
+    "EstadoEquipo": "🟢 Operativo",
+    "EstadoGestion": "Cerrado",
+    "Fecha": "46254",
+    "Hora": "",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "Convencional",
+    "TipoIncidente": ""
   }
 ]
