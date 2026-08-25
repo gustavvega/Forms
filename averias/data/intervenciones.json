@@ -206,5 +206,21 @@
     "RequiereRepuestos": "No",
     "TipoMantenimiento": "Preventivo",
     "TrabajoRealizado": "Se realiza visita por mantenimiento preventivo del sistema.\nSe hace limpieza del generador, verificación de tensiones de alimentación. Se hacen\npruebas de movimientos del sistema, revisión de botones y pedales. Se hacen pruebas y\nmediciones para confección del certificado de buen funcionamiento.\nSe hacen respaldos de la configuración y del sistema operativo. Se hace limpieza de la\ncomputadora.\nEl equipo funciona correctamente"
+  },
+  {
+    "AV": "AV-2026-08-0012",
+    "DuracionHoras": "2",
+    "Empresa": "Siemens",
+    "Equipo": "Sala 2 - Ysio Max",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46259",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Convencional",
+    "Observaciones": "Se restaura la operación del equipo, pendiente por sustituir sensor E303",
+    "RepuestosRequeridos": "Sensor E303 subir y bajar tubo - 1 unidad",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "Sí",
+    "TipoMantenimiento": "Correctivo",
+    "TrabajoRealizado": "Se hace el diagnóstico del problema instalando un sensor de posición del subir y bajar del\ntubo de RX. Resolviendo el problema, dicho sensor de posición se dejará instalado mientras\nel hospital realiza la compra del mismo, para luego hacer la instalación del nuevo. Se\nverifican los movimientos y funcionamiento del sistema."
   }
 ]
