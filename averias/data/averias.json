@@ -180,5 +180,19 @@
     "MensajeError": "",
     "Modalidad": "Convencional",
     "TipoIncidente": ""
+  },
+  {
+    "AV": "AV-2026-08-0015",
+    "Activo": "1345644",
+    "Descripcion": "La luz indicadora en la puerta de la sala de examinación no permanece encendida durante toda la exposición. ",
+    "Equipo": "TAC Siemens 32 - SOMATOM Perspective",
+    "EstadoEquipo": "🟢 Operativo",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46260",
+    "Hora": "hora02:21 am",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "TAC",
+    "TipoIncidente": "[\"❓ Otro\"]"
   }
 ]
