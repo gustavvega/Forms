@@ -194,5 +194,19 @@
     "MensajeError": "",
     "Modalidad": "TAC",
     "TipoIncidente": "[\"❓ Otro\"]"
+  },
+  {
+    "AV": "AV-2026-08-0016",
+    "Activo": "1345369",
+    "Descripcion": "Mancha café en monitor \nPequeño hueco en mesa soporte \nY pequeño hueco en bucky de pared ",
+    "Equipo": "Sala 5 - Ysio Max",
+    "EstadoEquipo": "🟢 Operativo",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46260",
+    "Hora": "hora10: 24 am",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "Convencional",
+    "TipoIncidente": "[\"🖥️ Consola o pantalla\",\"❓ Otro\"]"
   }
 ]
