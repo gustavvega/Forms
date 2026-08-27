@@ -208,5 +208,19 @@
     "MensajeError": "",
     "Modalidad": "Convencional",
     "TipoIncidente": "[\"🖥️ Consola o pantalla\",\"❓ Otro\"]"
+  },
+  {
+    "AV": "AV-2026-08-0017",
+    "Activo": "1344979",
+    "Descripcion": "Se trabó el brazo....al llamado de otra compañera se da cuenta que se reventó la faja",
+    "Equipo": "Densitómetro Óseo - Lunar iDXA",
+    "EstadoEquipo": "🔴 Fuera de servicio",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46260",
+    "Hora": "hora2: 10pm",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "Densitómetro",
+    "TipoIncidente": "[\"❓ Otro\",\"⚙️ Movimiento mecánico\"]"
   }
 ]
