@@ -20,7 +20,7 @@
     "DuracionHoras": "0.645833333333333",
     "Empresa": "Siemens",
     "Equipo": "Mamógrafo 2 - Mammomat Inspiration",
-    "EstadoFinalEquipo": "🟡 Operativo con observaciones",
+    "EstadoFinalEquipo": "🔴 Fuera de servicio",
     "FechaIntervencion": "46240",
     "LugarIntervencion": "Torre Este",
     "Modalidad": "Mamografía",
