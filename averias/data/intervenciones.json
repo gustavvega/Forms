@@ -222,5 +222,21 @@
     "RequiereRepuestos": "Sí",
     "TipoMantenimiento": "Correctivo",
     "TrabajoRealizado": "Se hace el diagnóstico del problema instalando un sensor de posición del subir y bajar del\ntubo de RX. Resolviendo el problema, dicho sensor de posición se dejará instalado mientras\nel hospital realiza la compra del mismo, para luego hacer la instalación del nuevo. Se\nverifican los movimientos y funcionamiento del sistema."
+  },
+  {
+    "AV": "AV-2026-08-0017",
+    "DuracionHoras": "8:30am",
+    "Empresa": "Promed",
+    "Equipo": "Densitómetro Óseo - Lunar iDXA",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46261",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Densitómetro",
+    "Observaciones": "Equipo opera correctamente.",
+    "RepuestosRequeridos": "",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "No",
+    "TipoMantenimiento": "Correctivo",
+    "TrabajoRealizado": "Falla reportada: faja reventada\nTrabajo realizado: Se realiza revisión interna. No se observa ninguna faja con daño. Las mismas tienen buena tensión. Se realiza pruebas de limit to limit, simulación de pacientes y de control de calidad. Todas las pruebas fueron exitósas.\nEl equipo opera correctamente."
   }
 ]
