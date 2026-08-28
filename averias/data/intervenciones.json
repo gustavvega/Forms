@@ -238,5 +238,21 @@
     "RequiereRepuestos": "No",
     "TipoMantenimiento": "Correctivo",
     "TrabajoRealizado": "Falla reportada: faja reventada\nTrabajo realizado: Se realiza revisión interna. No se observa ninguna faja con daño. Las mismas tienen buena tensión. Se realiza pruebas de limit to limit, simulación de pacientes y de control de calidad. Todas las pruebas fueron exitósas.\nEl equipo opera correctamente."
+  },
+  {
+    "AV": "AV-2026-08-0016",
+    "DuracionHoras": "11am ",
+    "Empresa": "Siemens",
+    "Equipo": "Sala 5 - Ysio Max",
+    "EstadoFinalEquipo": "🟡 Operativo con observaciones",
+    "FechaIntervencion": "46261",
+    "LugarIntervencion": "",
+    "Modalidad": "Convencional",
+    "Observaciones": "Equipo funcionando con detalles físicos ",
+    "RepuestosRequeridos": "1 monitor de adquisición \n1 sobre de mesa \n1 un sobre de bucky de pared ",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "Sí",
+    "TipoMantenimiento": "Correctivo",
+    "TrabajoRealizado": "Se realiza revisión del sistema y se encontró la sala con problemas en el monitor de adquisición, se encuentra sobre de mesa dañado y protector de Bucky de pared dañado se van a cotizar "
   }
 ]
