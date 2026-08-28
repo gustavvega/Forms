@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dosimetría Personal · Radiología HCG</title>
+<style>
+:root{
+  --bg:#020305;
+  --panel:#0a1118;
+  --panel2:#0d1721;
+  --line:rgba(163,202,221,.22);
+  --text:#f6fbff;
+  --muted:#b8c6cf;
+  --cyan:#76d7ff;
+  --blue:#1f8fc7;
+  --orange:#f7a24c;
+  --amber:#ffd39a;
+  --ok:#65d6b0;
+  --warn:#f0b35d;
+  --danger:#ff7f96;
+}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{
+  margin:0;
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+  color:var(--text);
+  background:#020305 url("nebula-eye.webp") center top / cover fixed no-repeat;
+  padding:22px;
+  position:relative;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(180deg,rgba(0,0,0,.72),rgba(0,0,0,.84)),
+    radial-gradient(circle at 50% 22%,rgba(15,107,153,.05),transparent 34%);
+  pointer-events:none;
+  z-index:0;
+}
+.wrap{max-width:1220px;margin:auto;position:relative;z-index:1}
+
+.hero,.card{
+  background:linear-gradient(180deg,rgba(8,16,23,.94),rgba(5,10,15,.96));
+  border:1px solid var(--line);
+  border-radius:18px;
+  box-shadow:0 18px 46px rgba(0,0,0,.42);
+  backdrop-filter:blur(10px);
+}
+.hero{
+  padding:28px;
+  margin-bottom:18px;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(90deg,rgba(118,215,255,.035),transparent 35%,rgba(247,162,76,.03)),
+    radial-gradient(460px 170px at 50% 0%,rgba(118,215,255,.05),transparent 70%);
+  pointer-events:none;
+}
+.eyebrow{
+  position:relative;
+  z-index:1;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.15em;
+  color:var(--cyan);
+  font-weight:700;
+}
+h1{
+  position:relative;
+  z-index:1;
+  margin:8px 0 8px;
+  font-size:32px;
+  color:#ffffff;
+  text-shadow:0 1px 12px rgba(118,215,255,.16);
+}
+.hero p{
+  position:relative;
+  z-index:1;
+  margin:0;
+  color:#d6e0e6;
+  line-height:1.65;
+  font-size:15px;
+  max-width:900px;
+}
+.notice,.warning,.success,.error{
+  position:relative;
+  z-index:1;
+  margin-top:14px;
+  padding:13px 15px;
+  border-radius:12px;
+  line-height:1.55;
+}
+.notice{
+  background:rgba(35,116,153,.22);
+  border:1px solid rgba(118,215,255,.24);
+  color:#e8f8ff;
+}
+.warning{
+  background:rgba(151,85,25,.20);
+  border:1px solid rgba(247,162,76,.30);
+  color:#ffe7ca;
+}
+.success{
+  background:rgba(38,120,101,.19);
+  border:1px solid rgba(101,214,176,.28);
+  color:#defaf1;
+}
+.error{
+  background:rgba(142,47,67,.20);
+  border:1px solid rgba(255,127,150,.28);
+  color:#ffe4ea;
+}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{
+  padding:18px;
+  cursor:pointer;
+  transition:.18s ease;
+  position:relative;
+  overflow:hidden;
+}
+.card::before{
+  content:"";
+  position:absolute;
+  left:0;top:13px;bottom:13px;
+  width:4px;
+  border-radius:5px;
+  background:linear-gradient(180deg,var(--cyan),var(--orange));
+}
+.card::after{
+  content:"";
+  position:absolute;
+  right:-34px;top:-34px;
+  width:100px;height:100px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(118,215,255,.08),transparent 68%);
+  pointer-events:none;
+}
+.card:hover{
+  transform:translateY(-2px);
+  border-color:rgba(118,215,255,.36);
+  box-shadow:0 22px 48px rgba(0,0,0,.50);
+}
+.ico{
+  font-size:25px;
+  margin-bottom:10px;
+  display:inline-flex;
+  width:46px;height:46px;
+  align-items:center;justify-content:center;
+  border-radius:12px;
+  background:linear-gradient(135deg,rgba(31,143,199,.20),rgba(247,162,76,.12));
+  border:1px solid rgba(118,215,255,.16);
+}
+.card h3{margin:0 0 6px;font-size:17px;color:#fff}
+.card p{margin:0;color:var(--muted);font-size:14px;line-height:1.5}
+.badge{
+  display:inline-flex;
+  margin-top:12px;
+  padding:5px 9px;
+  border-radius:999px;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.10);
+  font-size:12px;
+  color:#dce7ed;
+  font-weight:600;
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.74);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  z-index:50;
+}
+.modal.open{display:flex}
+.modal-box{
+  width:min(1100px,100%);
+  max-height:92vh;
+  overflow:auto;
+  background:linear-gradient(180deg,rgba(10,18,26,.98),rgba(6,11,16,.99));
+  border:1px solid rgba(118,215,255,.20);
+  border-radius:18px;
+  padding:20px;
+  box-shadow:0 22px 56px rgba(0,0,0,.56);
+}
+.modal h3{margin:0 0 14px;font-size:23px;color:#fff}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{
+  font-size:13px;
+  color:#c7d4dc;
+  display:block;
+  margin-bottom:6px;
+  font-weight:600;
+}
+input,select,textarea{
+  width:100%;
+  padding:11px 12px;
+  border-radius:10px;
+  border:1px solid #365064;
+  background:#071018;
+  color:#f6fbff;
+  outline:none;
+  font-size:14px;
+}
+input::placeholder,textarea::placeholder{color:#8fa1ad}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--cyan);
+  box-shadow:0 0 0 3px rgba(118,215,255,.13);
+}
+textarea{min-height:84px;resize:vertical}
+.readonly{background:#101b24!important;color:#d9e5eb!important}
+.full{grid-column:1/-1}
+.person-card{
+  padding:12px 14px;
+  border:1px solid #334c5f;
+  border-radius:12px;
+  background:rgba(255,255,255,.035);
+  margin-top:8px;
+}
+.person-card strong{display:block;color:#fff}
+.person-meta{font-size:13px;color:#b8c6cf;margin-top:4px;line-height:1.5}
+
+button{
+  border:0;
+  border-radius:10px;
+  padding:11px 15px;
+  font-weight:700;
+  cursor:pointer;
+  background:linear-gradient(90deg,#1d92c6,#f39a46);
+  color:#061017;
+  font-size:14px;
+}
+button.secondary{
+  background:#111d26;
+  color:#eef6fa;
+  border:1px solid #355063;
+}
+.action{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+
+.table-wrap{
+  overflow:auto;
+  border:1px solid rgba(118,215,255,.16);
+  border-radius:12px;
+  margin-top:14px;
+  background:rgba(4,10,15,.82);
+}
+table{width:100%;border-collapse:collapse;min-width:1100px}
+th,td{
+  padding:10px 11px;
+  border-bottom:1px solid #1c2d39;
+  font-size:13px;
+  vertical-align:middle;
+  color:#eef6fa;
+}
+th{
+  background:#0f1b24;
+  color:#b9d9e8;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  text-align:left;
+}
+.status{
+  padding:5px 8px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:700;
+  display:inline-block;
+  white-space:nowrap;
+}
+.ok{background:rgba(101,214,176,.13);color:#aaf0d7}
+.wait{background:rgba(240,179,93,.13);color:#ffd79e}
+.closed{background:rgba(118,215,255,.12);color:#b9e8ff}
+.help{font-size:12px;color:#aebdc6;margin-top:8px;line-height:1.5}
+.footer-note{margin-top:18px;color:#a6b6c0;font-size:13px;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+
+@media(max-width:850px){.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){
+  body{padding:12px;background-position:center top}
+  .grid{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .full{grid-column:auto}
+  h1{font-size:26px}
+  .modal h3{font-size:21px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="hero">
+ <div class="eyebrow">Protección Radiológica · Radiología HCG</div>
+ <h1>Dosimetría personal</h1>
+ <p>Portal de entrega y devolución. El historial general quedará reservado para una futura interfaz administrativa.</p>
+ <div class="notice"><b>Regla:</b> cada persona conserva su propia trazabilidad: número y mes del dosímetro devuelto, y número y mes del dosímetro entregado. Si corresponde un adicional, aparece igual, por ejemplo <b>Adicional 2 · Septiembre-26</b>.</div>
+</section>
+
+<section class="grid">
+ <div class="card" onclick="openModal('individual')"><div class="ico">🔄</div><h3>Entrega y devolución individual</h3><p>Devuelve el actual y el sistema determina si recibe regular, adicional, después o finaliza asignación.</p><span class="badge">1 persona</span></div>
+ <div class="card" onclick="openModal('multi')"><div class="ico">👥</div><h3>Entrega y devolución de varios</h3><p>Las filas aparecen en esta misma pantalla y cada persona puede tener un destino diferente.</p><span class="badge">Flexible</span></div>
+ <div class="card" onclick="openModal('service')"><div class="ico">🏥</div><h3>Entrega y devolución por servicio</h3><p>Para encargados de servicios como Odontología. Cada fila se maneja individualmente.</p><span class="badge">Por servicio</span></div>
+ <div class="card" onclick="openModal('pickup')"><div class="ico">📬</div><h3>Retirar dosímetro ya asignado</h3><p>Para quien ya devolvió y viene después únicamente a retirar el nuevo.</p><span class="badge">Solo entrega</span></div>
+ <div class="card" onclick="openModal('dropoff')"><div class="ico">📧</div><h3>Dejar sin encargado</h3><p>Registra el depósito y queda pendiente de verificación física.</p><span class="badge">Constancia</span></div>
+</section>
+
+<div class="footer-note">Prototipo v19. Nebulosa tenue de fondo, con paneles oscuros y alto contraste para lectura. Las personas de ejemplo, excepto Gustavo, son ficticias.</div>
+</div>
+
+<div class="modal" id="modal"><div class="modal-box">
+ <h3 id="modalTitle"></h3>
+ <div id="modalContent"></div>
+ <div class="action"><button onclick="fakeSave()">Guardar / enviar</button><button class="secondary" onclick="closeModal()">Cancelar</button></div>
+</div></div>
+
+<script>
+const PEOPLE={
+"111560098":{name:"Gustavo Alonso Vega Garbanzo",profile:"Física Médica",service:"Radiología",email:"gustavo@institucion.cr",current:"0718452",currentMonth:"Agosto-26",currentType:"Regular",nextRegular:"0849120"},
+"204560781":{name:"Ana Rodríguez Mora",profile:"Tecnólogo / técnico",service:"Odontología",email:"ana@institucion.cr",current:"Adicional 1",currentMonth:"Agosto-26",currentType:"Adicional",nextRegular:"0849121"},
+"305670892":{name:"Luis Fernández Soto",profile:"Médico",service:"Radiología",email:"luis@institucion.cr",current:"0775402",currentMonth:"Agosto-26",currentType:"Regular",nextRegular:null},
+"406780913":{name:"María José Calderón Ruiz",profile:"Tecnólogo / técnico",service:"Odontología",email:"maria@institucion.cr",current:"0822210",currentMonth:"Julio-26",currentType:"Regular",nextRegular:null}
+};
+const DOSIMETERS={
+"0849120":{month:"Septiembre-26",status:"Disponible"},
+"0849121":{month:"Septiembre-26",status:"Disponible"},
+"0849122":{month:"Septiembre-26",status:"Disponible"}
+};
+const ADDITIONALS={
+"Adicional 1":{month:"Agosto-26",status:"Ocupado",assignedTo:"204560781"},
+"Adicional 2":{month:"Septiembre-26",status:"Disponible",assignedTo:null},
+"Adicional 3":{month:"Septiembre-26",status:"Disponible",assignedTo:null}
+};
+
+function personCard(p){
+ return `<div class="person-card"><strong>${p.name}</strong><div class="person-meta">${p.profile} · ${p.service}<br>Actual: <b>${p.current}</b> · ${p.currentMonth} · ${p.currentType}</div></div>`;
+}
+function nextAvailableAdditional(){
+ return Object.keys(ADDITIONALS).sort((a,b)=>parseInt(a.replace(/\D/g,''))-parseInt(b.replace(/\D/g,''))).find(x=>ADDITIONALS[x].status==="Disponible")||"";
+}
+function suggestedAssignment(ced){
+ const p=PEOPLE[ced];
+ if(!p)return {type:"",number:"",month:""};
+ if(p.nextRegular && DOSIMETERS[p.nextRegular]?.status==="Disponible"){
+   return {type:"Regular",number:p.nextRegular,month:DOSIMETERS[p.nextRegular].month};
+ }
+ const add=nextAvailableAdditional();
+ if(add)return {type:"Adicional",number:add,month:ADDITIONALS[add].month};
+ return {type:"Pendiente",number:"",month:""};
+}
+function applyDestination(p,s,destination){
+ if(destination==="cerrar") return {number:"",month:"",status:"Asignación cerrada",cls:"closed"};
+ if(destination==="despues") return {number:s.number,month:s.month,status:"Pendiente de retiro",cls:"wait"};
+ return {number:s.number,month:s.month,status:s.number?"Entregado":"Sin asignación disponible",cls:s.number?"ok":"wait"};
+}
+
+function openModal(type){
+ const t=document.getElementById('modalTitle'),c=document.getElementById('modalContent');
+
+ if(type==="individual"){
+  t.textContent="Entrega y devolución individual";
+  c.innerHTML=`<div class="notice">Después de ingresar la cédula, el sistema carga el dosímetro actual y propone la siguiente asignación.</div>
+  <div class="form-grid">
+   <div><label>Cédula</label><input id="cedI" placeholder="111560098" oninput="fillIndividual()"><div id="infoI"></div></div>
+   <div><label>Destino después de devolver</label><select id="destI" onchange="fillIndividual()"><option value="ahora">Recibe nuevo ahora</option><option value="despues">Lo retirará después</option><option value="cerrar">Finaliza asignación / no requiere nuevo</option></select></div>
+   <div><label>Número dosímetro devuelto</label><input id="retNumI" class="readonly" readonly></div>
+   <div><label>Mes dosímetro devuelto</label><input id="retMonthI" class="readonly" readonly></div>
+   <div><label>Número dosímetro entregado</label><input id="newNumI" class="readonly" readonly></div>
+   <div><label>Mes dosímetro entregado</label><input id="newMonthI" class="readonly" readonly></div>
+   <div><label>Estado final</label><input id="statusI" class="readonly" readonly></div>
+   <div class="full" id="msgI"></div>
+  </div>
+  <div class="warning"><b>Vacaciones:</b> use “Lo retirará después”. <b>Fin de nombramiento / ya no requiere dosimetría:</b> use “Finaliza asignación”. En este último caso no queda ningún pendiente.</div>`;
+ }
+
+ if(type==="multi"){
+  t.textContent="Entrega y devolución de varios";
+  c.innerHTML=`<div class="notice">Las filas se generan <b>aquí mismo</b>; no se abre otra pestaña. Cada persona puede devolver/recibir meses distintos y tener un destino diferente.</div>
+  <div class="form-grid">
+   <div><label>Cédula de quien trae el grupo</label><input id="ownerM" value="111560098"></div>
+   <div><label>Cantidad total de personas</label><input id="countM" type="number" min="1" max="20" value="4"></div>
+   <div><button type="button" onclick="buildMulti()">Generar / actualizar lista</button></div>
+  </div>
+  <div class="table-wrap"><table>
+   <thead><tr><th>Incluir</th><th>Cédula</th><th>Nombre</th><th>N.º devuelto</th><th>Mes devuelto</th><th>Destino</th><th>N.º entregado</th><th>Mes entregado</th><th>Estado</th></tr></thead>
+   <tbody id="multiRows"></tbody>
+  </table></div>
+  <div class="help">Ejemplo: una persona puede seleccionar “Después” por vacaciones y otra “Finaliza asignación” por fin de nombramiento, dentro del mismo grupo.</div>`;
+  setTimeout(buildMulti,0);
+ }
+
+ if(type==="service"){
+  t.textContent="Entrega y devolución por servicio";
+  c.innerHTML=`<div class="notice">El encargado del servicio puede registrar varios dosímetros en una sola operación. Las filas se generan en esta misma pantalla.</div>
+  <div class="form-grid">
+   <div><label>Cédula del encargado</label><input id="ownerS" value="204560781" oninput="fillServiceOwner()"><div id="serviceOwnerInfo"></div></div>
+   <div><label>Servicio</label><select id="serviceS" onchange="buildService()"><option>Odontología</option><option>Radiología</option><option>Física Médica</option></select></div>
+   <div><label>¿Cuántas personas/dosímetros desea registrar?</label><input id="serviceCount" type="number" min="1" max="30" value="4"></div>
+   <div style="display:flex;align-items:end"><button type="button" onclick="buildService()">Generar / actualizar filas</button></div>
+  </div>
+  <div class="table-wrap"><table>
+   <thead><tr><th>Incluir</th><th>Cédula</th><th>Nombre</th><th>N.º devuelto</th><th>Mes devuelto</th><th>Destino</th><th>N.º entregado</th><th>Mes entregado</th><th>Estado</th></tr></thead>
+   <tbody id="serviceRows"></tbody>
+  </table></div>
+  <div class="help">Puede generar tantas filas como necesite. Si la persona pertenece al servicio seleccionado y está en la base, sus datos se cargan; las filas restantes quedan disponibles para escribir otra cédula.</div>`;
+  setTimeout(()=>{fillServiceOwner();buildService()},0);
+ }
+
+ if(type==="pickup"){
+  t.textContent="Retirar dosímetro ya asignado";
+  c.innerHTML=`<div class="notice">Solo para quien <b>ya devolvió anteriormente</b> y dejó el nuevo como “Pendiente de retiro”. No es para el cambio mensual normal.</div>
+  <div class="form-grid">
+   <div><label>Cédula</label><input id="cedP" placeholder="111560098" oninput="fillPickup()"><div id="infoP"></div></div>
+   <div><label>Número dosímetro pendiente</label><input id="pNum" class="readonly" readonly></div>
+   <div><label>Mes dosímetro pendiente</label><input id="pMonth" class="readonly" readonly></div>
+   <div><label>Estado</label><input class="readonly" value="Se registra solo la entrega física" readonly></div>
+  </div>`;
+ }
+
+ if(type==="dropoff"){
+  t.textContent="Dejar dosímetro sin encargado";
+  c.innerHTML=`<div class="warning">La fecha/hora se registra al enviar. Este registro prueba el depósito declarado, pero queda pendiente de verificación física.</div>
+  <div class="form-grid">
+   <div><label>Cédula</label><input id="cedD" placeholder="111560098" oninput="fillDropoff()"><div id="infoD"></div></div>
+   <div><label>Número dosímetro dejado</label><input id="dNum" class="readonly" readonly></div>
+   <div><label>Mes dosímetro dejado</label><input id="dMonth" class="readonly" readonly></div>
+   <div><label>Lugar de entrega</label>
+      <select id="dropoffPlace" onchange="toggleOtherPlace()">
+        <option value="oficina">Oficina de Protección Radiológica</option>
+        <option value="otro">Otro</option>
+      </select>
+    </div>
+    <div id="otherPlaceBlock" style="display:none">
+      <label>Indique dónde lo dejó</label>
+      <input id="otherPlaceText" placeholder="Ej. Recepción de Odontología">
+    </div>
+   <div class="full"><label>Observación</label><textarea></textarea></div>
+  </div>`;
+ }
+ document.getElementById("modal").classList.add("open");
+}
+
+function fillIndividual(){
+ const ced=document.getElementById("cedI")?.value.trim(),p=PEOPLE[ced],info=document.getElementById("infoI");
+ if(!p){
+   if(info)info.innerHTML=ced?'<div class="error">Cédula no registrada.</div>':'';
+   ["retNumI","retMonthI","newNumI","newMonthI","statusI"].forEach(id=>{const e=document.getElementById(id);if(e)e.value=""});
+   return;
+ }
+ info.innerHTML=personCard(p);
+ document.getElementById("retNumI").value=p.current;
+ document.getElementById("retMonthI").value=p.currentMonth;
+ const s=suggestedAssignment(ced),dest=document.getElementById("destI").value,r=applyDestination(p,s,dest);
+ document.getElementById("newNumI").value=r.number;
+ document.getElementById("newMonthI").value=r.month;
+ document.getElementById("statusI").value=r.status;
+ const msg=document.getElementById("msgI");
+ if(dest==="cerrar")msg.innerHTML='<div class="success">La asignación se cierra. Si devuelve un adicional, este vuelve a disponible. No se crea pendiente de retiro.</div>';
+ else if(dest==="despues")msg.innerHTML=`<div class="warning">${r.number?r.number+" · "+r.month:"Sin dosímetro disponible"} queda como <b>Pendiente de retiro</b>.</div>`;
+ else msg.innerHTML=r.number?`<div class="success">Se propone entregar <b>${r.number} · ${r.month}</b>.</div>`:'<div class="warning">No hay regular ni adicional disponible.</div>';
+}
+
+function rowHTML(ced){
+ const p=PEOPLE[ced]||null,s=p?suggestedAssignment(ced):{number:"",month:""};
+ return `<tr>
+  <td><input type="checkbox" checked></td>
+  <td><input class="cedRow" value="${ced}" oninput="refreshRow(this)"></td>
+  <td><input class="nameRow readonly" value="${p?p.name:''}" readonly></td>
+  <td><input class="retNumRow readonly" value="${p?p.current:''}" readonly></td>
+  <td><input class="retMonthRow readonly" value="${p?p.currentMonth:''}" readonly></td>
+  <td><select class="destRow" onchange="refreshRow(this)">
+    <option value="ahora">Recibe ahora</option>
+    <option value="despues">Después</option>
+    <option value="cerrar">Finaliza asignación</option>
+  </select></td>
+  <td><input class="newNumRow readonly" value="${s.number}" readonly></td>
+  <td><input class="newMonthRow readonly" value="${s.month}" readonly></td>
+  <td><span class="status ok">Entregado</span></td>
+ </tr>`;
+}
+function refreshRow(el){
+ const tr=el.closest("tr"),ced=tr.querySelector(".cedRow").value.trim(),p=PEOPLE[ced],s=p?suggestedAssignment(ced):{number:"",month:""},dest=tr.querySelector(".destRow").value;
+ tr.querySelector(".nameRow").value=p?p.name:"";
+ tr.querySelector(".retNumRow").value=p?p.current:"";
+ tr.querySelector(".retMonthRow").value=p?p.currentMonth:"";
+ const r=p?applyDestination(p,s,dest):{number:"",month:"",status:"Cédula no registrada",cls:"wait"};
+ tr.querySelector(".newNumRow").value=r.number;
+ tr.querySelector(".newMonthRow").value=r.month;
+ const badge=tr.querySelector(".status");
+ badge.className="status "+r.cls;
+ badge.textContent=r.status;
+}
+function buildMulti(){
+ const body=document.getElementById("multiRows");if(!body)return;
+ const n=Math.max(1,Math.min(20,parseInt(document.getElementById("countM").value||1)));
+ const examples=["111560098","204560781","305670892","406780913"];
+ body.innerHTML="";
+ for(let i=0;i<n;i++)body.insertAdjacentHTML("beforeend",rowHTML(examples[i]||""));
+}
+function fillServiceOwner(){
+ const ced=document.getElementById("ownerS")?.value.trim(),p=PEOPLE[ced],info=document.getElementById("serviceOwnerInfo");
+ if(!info)return;
+ info.innerHTML=p?personCard(p):(ced?'<div class="error">Cédula no registrada.</div>':'');
+}
+
+function buildService(){
+ const body=document.getElementById("serviceRows");if(!body)return;
+ const service=document.getElementById("serviceS")?.value||"Odontología";
+ const n=Math.max(1,Math.min(30,parseInt(document.getElementById("serviceCount")?.value||1)));
+ const ids=Object.keys(PEOPLE).filter(k=>PEOPLE[k].service===service);
+ body.innerHTML="";
+ for(let i=0;i<n;i++){
+   const ced=ids[i]||"";
+   body.insertAdjacentHTML("beforeend",rowHTML(ced));
+ }
+}
+function fillPickup(){
+ const ced=document.getElementById("cedP").value.trim(),p=PEOPLE[ced],info=document.getElementById("infoP");
+ if(!p){info.innerHTML=ced?'<div class="error">Cédula no registrada.</div>':'';return}
+ info.innerHTML=personCard(p);
+ const s=suggestedAssignment(ced);
+ document.getElementById("pNum").value=s.number;
+ document.getElementById("pMonth").value=s.month;
+}
+function fillDropoff(){
+ const ced=document.getElementById("cedD").value.trim(),p=PEOPLE[ced],info=document.getElementById("infoD");
+ if(!p){info.innerHTML=ced?'<div class="error">Cédula no registrada.</div>':'';return}
+ info.innerHTML=personCard(p);
+ document.getElementById("dNum").value=p.current;
+ document.getElementById("dMonth").value=p.currentMonth;
+}
+function toggleOtherPlace(){
+ const place=document.getElementById("dropoffPlace")?.value;
+ const block=document.getElementById("otherPlaceBlock");
+ const txt=document.getElementById("otherPlaceText");
+ if(!block)return;
+ block.style.display=place==="otro"?"block":"none";
+ if(place!=="otro" && txt)txt.value="";
+}
+function closeModal(){document.getElementById("modal").classList.remove("open")}
+function fakeSave(){alert("Prototipo: se guardarían por persona la devolución, el destino de la nueva asignación y la fecha/hora del movimiento.");closeModal()}
+</script>
+</body>
+</html>
