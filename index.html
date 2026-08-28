@@ -53,7 +53,7 @@ footer{padding:14px 18px 18px;font-size:13px;color:var(--muted2);border-top:1px 
 <div class="patria-banner">🇨🇷 Mes de la Patria · 15 de septiembre</div>
 <div class="card">
 <header><img src="icon-192.png" alt="CCSS"/><div class="title"><h1>Física Médica – Radiología HCG</h1><div class="sub">Hub de formularios QA por rol (Imagenología, Ingeniería, Física Médica)</div></div></header>
-<div class="toolbar"><div class="roles" id="roles"></div><input class="search" id="q" placeholder="Buscar (ej: CT, Hemo, Averías, Rayos X, Mamo…)"/></div>
+<div class="toolbar"><div class="roles" id="roles"></div><input class="search" id="q" placeholder="Buscar (ej: CT, Hemo, Averías, Rayos X, Mamo, Dosimetría…)"/></div>
 <div class="content" id="content"></div>
 <footer><div>Instalar acceso rápido:</div><div class="tiny"><b>iPhone (Safari):</b> Compartir → <b>Agregar a pantalla de inicio</b>.</div><div class="tiny"><b>Android (Chrome):</b> Menú ⋮ → <b>Instalar app</b> o <b>Agregar a pantalla principal</b>.</div><div class="tiny">Si no aparece “Instalar”, recargue la página o cierre y abra el navegador.</div></footer>
 </div></div>
@@ -66,11 +66,13 @@ const FORMS=[
 {role:'FISICA',modality:'ING',name:'Registro de intervención técnica',url:'https://forms.cloud.microsoft/r/va6REQEca8?origin=lprLink',tag:'INTERVENCIÓN'},
 {role:'FISICA',modality:'ING',name:'Consulta de estado y averías de equipos',url:'./averias/',tag:'CONSULTA'},
 {role:'FISICA',modality:'RX',name:'QA Convencional-Fluoroscopía',url:'https://forms.office.com/r/nkEVLQJL5g?origin=lprLink',tag:'QA'},
+{role:'FISICA',modality:'OTRO',name:'Dosimetría',url:'./dosimetria/',tag:'DOSIMETRÍA'},
 {role:'IMAGENOLOGO',modality:'HEMO',name:'QA Hemodinamia',url:'https://forms.office.com/r/Uha8StnjVp?origin=lprLink',tag:'QA'},
 {role:'IMAGENOLOGO',modality:'RX',name:'QA Convencional-Fluoroscopía',url:'https://forms.office.com/r/nkEVLQJL5g?origin=lprLink',tag:'QA'},
 {role:'IMAGENOLOGO',modality:'ING',name:'Reporte de Averías',url:'https://forms.cloud.microsoft/r/YcmMQexmjN?origin=lprLink',tag:'SOPORTE'},
 {role:'IMAGENOLOGO',modality:'ING',name:'Consulta de estado y averías de equipos',url:'./averias/',tag:'CONSULTA'},
 {role:'IMAGENOLOGO',modality:'MAMO',name:'Control Rutinario Mamografía',url:'https://forms.cloud.microsoft/r/498fFMCEPP',tag:'QA'},
+{role:'IMAGENOLOGO',modality:'OTRO',name:'Dosimetría',url:'./dosimetria/',tag:'DOSIMETRÍA'},
 {role:'INGENIERO',modality:'ING',name:'Registro de intervención técnica',url:'https://forms.cloud.microsoft/r/va6REQEca8?origin=lprLink',tag:'INTERVENCIÓN'},
 {role:'INGENIERO',modality:'ING',name:'Consulta de estado y averías de equipos',url:'./averias/',tag:'CONSULTA'}
 ];
@@ -90,7 +92,7 @@ function renderContent(){
  if(!filtered.length){const d=document.createElement('div');d.className='empty';d.textContent='No hay formularios que coincidan con este filtro.';contentEl.appendChild(d);return}
  groupByModality(filtered).forEach(([mod,items])=>{
   const section=document.createElement('div');section.className='section';
-  const h2=document.createElement('h2');h2.textContent=mod==='ING'?'Soporte / Ingeniería':mod;section.appendChild(h2);
+  const h2=document.createElement('h2');h2.textContent=mod==='ING'?'Soporte / Ingeniería':(mod==='OTRO'?'Otros servicios':mod);section.appendChild(h2);
   items.sort((a,b)=>(a.name||'').localeCompare(b.name||''));
   items.forEach(f=>{
    const a=document.createElement('a');a.className='btn';a.href=f.url;a.rel='noopener';
@@ -98,6 +100,7 @@ function renderContent(){
    let icoContent=ico;
    if(f.tag==='INTERVENCIÓN')icoContent=`<img src="${TECH_ICON}" alt="Intervención técnica"/>`;
    else if(f.tag==='CONSULTA')icoContent=`<img src="${CONSULTA_ICON}" alt="Consulta de estado"/>`;
+   else if(f.tag==='DOSIMETRÍA')icoContent='☢️';
    a.innerHTML=`<span class="left"><span class="ico">${icoContent}</span><span class="name">${f.name}</span></span><span class="tag">${f.tag||'FORM'}</span>`;
    section.appendChild(a);
   });
