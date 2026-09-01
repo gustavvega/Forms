@@ -270,5 +270,21 @@
     "RequiereRepuestos": "Sí",
     "TipoMantenimiento": "Preventivo",
     "TrabajoRealizado": "Visita de mantenimiento preventivo según protocolos de fábrica"
+  },
+  {
+    "AV": "AV-2026-09-0019",
+    "DuracionHoras": "0.666666666666667",
+    "Empresa": "Siemens",
+    "Equipo": "🟣 Morado - Mobilett Elara Max",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46262",
+    "LugarIntervencion": "Torre Sur ",
+    "Modalidad": "Portátiles",
+    "Observaciones": "",
+    "RepuestosRequeridos": "",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "No",
+    "TipoMantenimiento": "Preventivo",
+    "TrabajoRealizado": "Visita de mantenimiento preventivo segun protocolos de frabrica "
   }
 ]
