@@ -222,5 +222,19 @@
     "MensajeError": "",
     "Modalidad": "Densitómetro",
     "TipoIncidente": "[\"❓ Otro\",\"⚙️ Movimiento mecánico\"]"
+  },
+  {
+    "AV": "AV-2026-09-0018",
+    "Activo": "1345401",
+    "Descripcion": "",
+    "Equipo": "Sala 1 - Ysio Max",
+    "EstadoEquipo": "🟡 Operativo con observaciones",
+    "EstadoGestion": "Seguimiento requerido",
+    "Fecha": "46266",
+    "Hora": "",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "Convencional",
+    "TipoIncidente": ""
   }
 ]

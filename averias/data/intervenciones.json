@@ -254,5 +254,21 @@
     "RequiereRepuestos": "Sí",
     "TipoMantenimiento": "Correctivo",
     "TrabajoRealizado": "Se realiza revisión del sistema y se encontró la sala con problemas en el monitor de adquisición, se encuentra sobre de mesa dañado y protector de Bucky de pared dañado se van a cotizar "
+  },
+  {
+    "AV": "AV-2026-09-0018",
+    "DuracionHoras": "0.541666666666667",
+    "Empresa": "Siemens",
+    "Equipo": "Sala 1 - Ysio Max",
+    "EstadoFinalEquipo": "🟡 Operativo con observaciones",
+    "FechaIntervencion": "46266",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Convencional",
+    "Observaciones": "Equipo funciona correctamente, equipo presenta un fuerte sonido en el tubo de rayos x ",
+    "RepuestosRequeridos": "Tubo de rayos x ",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "Sí",
+    "TipoMantenimiento": "Preventivo",
+    "TrabajoRealizado": "Visita de mantenimiento preventivo según protocolos de fábrica"
   }
 ]
