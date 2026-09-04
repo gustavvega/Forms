@@ -302,5 +302,21 @@
     "RequiereRepuestos": "No",
     "TipoMantenimiento": "Preventivo",
     "TrabajoRealizado": "Se realiza visita preventiva. Revisión por medio de protocolo. Pruebas de movimientos \ngenerales. Revisión y prueba de consola TUI1. Se observa 25354 cargas foco fino y 10065 \ncargas en foco grueso tubo 1. Pruebas de botones de emergencias. Prueba de exposiciones \nvarias. Se realizan respaldos de configuraciones e imagen de disco duro. Verificación de \ncalibración de ambos detector. Limpieza y engrase general. Limpieza de computadora FLC. \nEquipo funciona correctamente."
+  },
+  {
+    "AV": "AV-2026-09-0021",
+    "DuracionHoras": "1",
+    "Empresa": "Siemens",
+    "Equipo": "TAC Canon 320 - Aquilion",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46269",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "TAC",
+    "Observaciones": "Error en el PACS no asociado al equipo Canon",
+    "RepuestosRequeridos": "",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "No",
+    "TipoMantenimiento": "Correctivo",
+    "TrabajoRealizado": "Se encuentra que el problema con PACS fue solucionado mediante la empresa Siemens "
   }
 ]
