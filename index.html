@@ -13,52 +13,56 @@
 :root{--bg:#0b1220;--card:rgba(255,255,255,.06);--line:rgba(255,255,255,.12);--text:#eaf0ff;--muted:rgba(234,240,255,.70);--muted2:rgba(234,240,255,.55);--accent1:#5eead4;--accent2:#60a5fa}
 *{box-sizing:border-box}
 body{margin:0;font-family:Helvetica,Arial,sans-serif;background:radial-gradient(1200px 600px at 15% 10%,rgba(94,234,212,.18),transparent 55%),radial-gradient(900px 520px at 90% 25%,rgba(96,165,250,.18),transparent 55%),radial-gradient(700px 420px at 50% 90%,rgba(96,165,250,.10),transparent 55%),var(--bg);color:var(--text);padding:20px;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;transition:background .35s ease}
-body.patria{--accent1:#fff;--accent2:#ef3340;background:radial-gradient(900px 470px at 12% 8%,rgba(0,53,128,.32),transparent 58%),radial-gradient(850px 460px at 88% 20%,rgba(239,51,64,.25),transparent 58%),linear-gradient(180deg,#061b3a 0%,#0a234d 38%,#111827 100%)}
+body.patria{--accent1:#ffd447;--accent2:#ef3340;background:radial-gradient(circle at 8% 9%,rgba(255,212,71,.18) 0 58px,transparent 60px),radial-gradient(circle at 92% 12%,rgba(239,51,64,.15) 0 64px,transparent 66px),radial-gradient(circle at 12% 88%,rgba(0,53,128,.22) 0 72px,transparent 74px),linear-gradient(145deg,#06172e 0%,#0a2147 48%,#07182f 100%)}
 .wrap{width:100%;max-width:600px}
-.patria-banner{display:none;margin:0 0 12px;padding:12px 14px;text-align:center;border-radius:14px;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:linear-gradient(90deg,#003580 0 31%,#fff 31% 39%,#ef3340 39% 61%,#fff 61% 69%,#003580 69%);box-shadow:0 8px 25px rgba(0,0,0,.22);text-shadow:0 1px 2px rgba(0,0,0,.45)}
+.patria-banner{display:none;position:relative;overflow:hidden;margin:0 0 12px;padding:15px 68px;text-align:center;border-radius:16px;font-size:14px;letter-spacing:.055em;text-transform:uppercase;color:#fff;background:linear-gradient(90deg,#003580 0 30%,#fff 30% 38%,#ef3340 38% 62%,#fff 62% 70%,#003580 70%);box-shadow:0 10px 28px rgba(0,0,0,.28);text-shadow:0 1px 2px rgba(0,0,0,.5)}
+.patria-banner::before,.patria-banner::after{content:"";position:absolute;top:50%;width:50px;height:50px;transform:translateY(-50%);border-radius:50%;background:repeating-conic-gradient(#ffd447 0 12deg,#ef3340 12deg 24deg,#22a55b 24deg 36deg,#2374d8 36deg 48deg);border:4px solid #f4d37a;box-shadow:inset 0 0 0 6px #161616,0 0 14px rgba(255,212,71,.45)}
+.patria-banner::before{left:10px}.patria-banner::after{right:10px}
 body.patria .patria-banner{display:block}
 .card{background:var(--card);border:1px solid var(--line);border-radius:18px;backdrop-filter:blur(12px);box-shadow:0 20px 45px rgba(0,0,0,.35);overflow:hidden;position:relative}
-body.patria .card{border-color:rgba(255,255,255,.2);box-shadow:0 22px 55px rgba(0,0,0,.42)}
+body.patria .card{border-color:rgba(255,255,255,.22);box-shadow:0 22px 55px rgba(0,0,0,.42)}
 .card::before{content:"";position:absolute;inset:0;background:url('icon-512.png') center center no-repeat;background-size:320px;opacity:.05;pointer-events:none}
-header{display:flex;gap:14px;align-items:center;padding:20px;border-bottom:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);position:relative}
-body.patria header{background:linear-gradient(90deg,rgba(0,53,128,.34),rgba(255,255,255,.05),rgba(239,51,64,.18))}
+body.patria .card::after{content:"";position:absolute;right:-90px;bottom:-90px;width:220px;height:220px;border-radius:50%;background:repeating-conic-gradient(from 8deg,rgba(255,212,71,.16) 0 10deg,rgba(239,51,64,.13) 10deg 20deg,rgba(40,170,90,.12) 20deg 30deg,rgba(37,105,200,.14) 30deg 40deg);border:12px solid rgba(255,255,255,.035);pointer-events:none}
+header{display:flex;gap:14px;align-items:center;padding:20px;border-bottom:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);position:relative;z-index:1}
+body.patria header{background:linear-gradient(90deg,rgba(0,53,128,.38),rgba(255,255,255,.04),rgba(239,51,64,.20))}
 header img{height:48px;width:auto}
-.title{line-height:1.25} h1{margin:0;font-size:20px;font-weight:500;letter-spacing:.1px}
+.title{line-height:1.25}h1{margin:0;font-size:20px;font-weight:500;letter-spacing:.1px}
 .sub{margin-top:6px;font-size:14px;line-height:1.35;color:var(--muted)}
-.toolbar{padding:16px 18px;display:flex;flex-direction:column;gap:12px;position:relative}
+.toolbar{padding:16px 18px;display:flex;flex-direction:column;gap:12px;position:relative;z-index:1}
 .roles{display:flex;gap:8px;flex-wrap:wrap}
 .pill{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);color:var(--text);padding:11px 13px;border-radius:999px;font-size:15px;font-weight:500;cursor:pointer;user-select:none;transition:.18s ease;display:flex;gap:8px;align-items:center}
-.pill:hover{transform:translateY(-1px);border-color:rgba(94,234,212,.30)} .pill.active{border-color:rgba(94,234,212,.45);background:rgba(94,234,212,.16)}
-body.patria .pill.active{border-color:rgba(255,255,255,.45);background:linear-gradient(90deg,rgba(0,53,128,.32),rgba(239,51,64,.22))}
+.pill:hover{transform:translateY(-1px);border-color:rgba(94,234,212,.30)}.pill.active{border-color:rgba(94,234,212,.45);background:rgba(94,234,212,.16)}
+body.patria .pill.active{border-color:rgba(255,212,71,.55);background:linear-gradient(90deg,rgba(0,53,128,.38),rgba(239,51,64,.25));box-shadow:0 0 0 1px rgba(255,255,255,.05)}
 .search{width:100%;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:var(--text);padding:14px;font-size:16px;outline:none}
 .search::placeholder{color:rgba(234,240,255,.55)}
-.content{padding:6px 18px 20px;position:relative}
-.section{margin-top:16px} .section h2{margin:0 0 10px;font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted2);font-weight:500}
+.content{padding:6px 18px 20px;position:relative;z-index:1}
+.section{margin-top:16px}.section h2{margin:0 0 10px;font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted2);font-weight:500}
 .btn{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;padding:16px 15px;margin:11px 0;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);color:var(--text);text-decoration:none;font-size:16px;line-height:1.25;transition:.18s ease}
 .btn:hover{background:rgba(94,234,212,.18);border-color:rgba(94,234,212,.35);transform:translateY(-1px)}
-body.patria .btn:hover{background:linear-gradient(90deg,rgba(0,53,128,.24),rgba(239,51,64,.18));border-color:rgba(255,255,255,.34)}
+body.patria .btn:hover{background:linear-gradient(90deg,rgba(0,53,128,.26),rgba(239,51,64,.18));border-color:rgba(255,212,71,.42)}
 .left{display:flex;align-items:center;gap:11px;min-width:0}
 .ico{width:34px;height:34px;font-size:18px;display:flex;align-items:center;justify-content:center;border-radius:10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.10);flex:0 0 auto}
 .ico img{width:31px;height:31px;object-fit:contain;display:block}
 .name{white-space:normal;overflow:visible}
 .tag{font-size:12px;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#0b1220;flex:0 0 auto}
 body.patria .tag{color:#07152f;font-weight:700}
-footer{padding:14px 18px 18px;font-size:13px;color:var(--muted2);border-top:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);position:relative;line-height:1.45}
-.tiny{margin-top:7px;color:rgba(234,240,255,.52);font-size:12px} .empty{padding:18px 0 4px;color:rgba(234,240,255,.65);font-size:15px}
-@media(max-width:480px){body{padding:12px}.wrap{max-width:none}header{padding:18px 16px}header img{height:46px}h1{font-size:19px}.sub{font-size:14px}.toolbar{padding:15px}.pill{font-size:14px;padding:11px 12px}.content{padding:5px 15px 18px}.btn{font-size:16px;padding:16px 13px}.tag{font-size:11px}.patria-banner{font-size:13px}}
+footer{padding:14px 18px 18px;font-size:13px;color:var(--muted2);border-top:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);position:relative;z-index:1;line-height:1.45}
+.tiny{margin-top:7px;color:rgba(234,240,255,.52);font-size:12px}.empty{padding:18px 0 4px;color:rgba(234,240,255,.65);font-size:15px}
+@media(max-width:480px){body{padding:12px}.wrap{max-width:none}header{padding:18px 16px}header img{height:46px}h1{font-size:19px}.sub{font-size:14px}.toolbar{padding:15px}.pill{font-size:14px;padding:11px 12px}.content{padding:5px 15px 18px}.btn{font-size:16px;padding:16px 13px}.tag{font-size:11px}.patria-banner{font-size:12px;padding:14px 58px}.patria-banner::before,.patria-banner::after{width:42px;height:42px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-<div class="patria-banner">🇨🇷 Mes de la Patria · 15 de septiembre</div>
+<div class="patria-banner">🇨🇷 Mes de la Patria · Carretas y tradición costarricense 🇨🇷</div>
 <div class="card">
 <header><img src="icon-192.png" alt="CCSS"/><div class="title"><h1>Física Médica – Radiología HCG</h1><div class="sub">Hub de formularios QA por rol (Imagenología, Ingeniería, Física Médica)</div></div></header>
-<div class="toolbar"><div class="roles" id="roles"></div><input class="search" id="q" placeholder="Buscar (ej: CT, Hemo, Averías, Rayos X, Mamo, Dosimetría…)"/></div>
+<div class="toolbar"><div class="roles" id="roles"></div><input class="search" id="q" placeholder="Buscar (ej: CT, Hemo, Averías, Dosis, Dosimetría…)"/></div>
 <div class="content" id="content"></div>
 <footer><div>Instalar acceso rápido:</div><div class="tiny"><b>iPhone (Safari):</b> Compartir → <b>Agregar a pantalla de inicio</b>.</div><div class="tiny"><b>Android (Chrome):</b> Menú ⋮ → <b>Instalar app</b> o <b>Agregar a pantalla principal</b>.</div><div class="tiny">Si no aparece “Instalar”, recargue la página o cierre y abra el navegador.</div></footer>
 </div></div>
 <script src="custom-icons.js"></script>
 <script>
+const STOMACH_ICON='data:image/png;base64,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[... ELLIPSIZATION ...]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';
 const FORMS=[
 {role:'FISICA',modality:'CT',name:'QA CT',url:'https://forms.office.com/r/MACe3Zc6Hh?origin=lprLink',tag:'QA'},
 {role:'FISICA',modality:'HEMO',name:'QA Hemodinamia',url:'https://forms.office.com/r/Uha8StnjVp?origin=lprLink',tag:'QA'},
@@ -66,49 +70,28 @@ const FORMS=[
 {role:'FISICA',modality:'ING',name:'Registro de intervención técnica',url:'https://forms.cloud.microsoft/r/va6REQEca8?origin=lprLink',tag:'INTERVENCIÓN'},
 {role:'FISICA',modality:'ING',name:'Consulta de estado y averías de equipos',url:'./averias/',tag:'CONSULTA'},
 {role:'FISICA',modality:'RX',name:'QA Convencional-Fluoroscopía',url:'https://forms.office.com/r/nkEVLQJL5g?origin=lprLink',tag:'QA'},
+{role:'FISICA',modality:'DOSIS',name:'Dosis-Gastroenterología',url:'https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=gQ7GKQY8lk6IXK54M95VSpjMs6izn8JJnxqRIHzEz9hUNEs1MFIyQzQzOVVEOVRGMzVTQkNSQUFHSy4u&origin=Invitation&channel=0',tag:'DOSIS'},
 {role:'FISICA',modality:'OTRO',name:'Dosimetría',url:'./dosimetria/',tag:'DOSIMETRÍA'},
 {role:'IMAGENOLOGO',modality:'HEMO',name:'QA Hemodinamia',url:'https://forms.office.com/r/Uha8StnjVp?origin=lprLink',tag:'QA'},
 {role:'IMAGENOLOGO',modality:'RX',name:'QA Convencional-Fluoroscopía',url:'https://forms.office.com/r/nkEVLQJL5g?origin=lprLink',tag:'QA'},
 {role:'IMAGENOLOGO',modality:'ING',name:'Reporte de Averías',url:'https://forms.cloud.microsoft/r/YcmMQexmjN?origin=lprLink',tag:'SOPORTE'},
 {role:'IMAGENOLOGO',modality:'ING',name:'Consulta de estado y averías de equipos',url:'./averias/',tag:'CONSULTA'},
 {role:'IMAGENOLOGO',modality:'MAMO',name:'Control Rutinario Mamografía',url:'https://forms.cloud.microsoft/r/498fFMCEPP',tag:'QA'},
+{role:'IMAGENOLOGO',modality:'DOSIS',name:'Dosis-Gastroenterología',url:'https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=gQ7GKQY8lk6IXK54M95VSpjMs6izn8JJnxqRIHzEz9hUNEs1MFIyQzQzOVVEOVRGMzVTQkNSQUFHSy4u&origin=Invitation&channel=0',tag:'DOSIS'},
 {role:'IMAGENOLOGO',modality:'OTRO',name:'Dosimetría',url:'./dosimetria/',tag:'DOSIMETRÍA'},
 {role:'INGENIERO',modality:'ING',name:'Registro de intervención técnica',url:'https://forms.cloud.microsoft/r/va6REQEca8?origin=lprLink',tag:'INTERVENCIÓN'},
 {role:'INGENIERO',modality:'ING',name:'Consulta de estado y averías de equipos',url:'./averias/',tag:'CONSULTA'}
 ];
-const MODALITY_ICON={CT:'🧠',HEMO:'🫀',RX:'🩻',MAMO:'🩷',ING:'🛠️',OTRO:'📋'};
-const ROLE_DEF=[{id:'IMAGENOLOGO',label:'Imagenólogo',icon:'🧑‍⚕️'},{id:'INGENIERO',label:'Ingeniero Servicio',icon:'🧰'},{id:'FISICA',label:'Física Médica',icon:'👨🏻‍🚀'}];
-const MODALITY_ORDER=['CT','HEMO','RX','MAMO','ING','OTRO'];
+const MODALITY_ICON={CT:'🧠',HEMO:'🫀',RX:'🩻',MAMO:'🩷',DOSIS:'🩺',ING:'🛠️',OTRO:'📋'};
+const ROLE_DEF=[{id:'IMAGENOLOGO',label:'Imagenólogo / Técnico',icon:'🧑‍⚕️'},{id:'INGENIERO',label:'Ingeniero Servicio',icon:'🧰'},{id:'FISICA',label:'Física Médica',icon:'👨🏻‍🚀'}];
+const MODALITY_ORDER=['CT','HEMO','RX','MAMO','DOSIS','ING','OTRO'];
 const rolesEl=document.getElementById('roles'),contentEl=document.getElementById('content'),qEl=document.getElementById('q');
 let activeRole='IMAGENOLOGO';
 function applySeasonalTheme(){const d=new Date(),m=d.getMonth()+1,day=d.getDate();document.body.classList.toggle('patria',(m===8&&day>=15)||(m===9&&day<=15))}
 function renderRoles(){rolesEl.innerHTML='';ROLE_DEF.forEach(r=>{const b=document.createElement('div');b.className='pill'+(r.id===activeRole?' active':'');b.innerHTML=`<span>${r.icon}</span><span>${r.label}</span>`;b.onclick=()=>{activeRole=r.id;renderRoles();renderContent()};rolesEl.appendChild(b)})}
 function norm(s){return(s||'').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')}
 function groupByModality(items){const map=new Map();items.forEach(it=>{const m=it.modality||'OTRO';if(!map.has(m))map.set(m,[]);map.get(m).push(it)});return Array.from(map.entries()).sort((a,b)=>{const ia=MODALITY_ORDER.indexOf(a[0]),ib=MODALITY_ORDER.indexOf(b[0]);return(ia===-1?999:ia)-(ib===-1?999:ib)})}
-function renderContent(){
- const query=norm(qEl.value);
- const filtered=FORMS.filter(f=>f.role===activeRole).filter(f=>!query||[f.name,f.modality,f.tag].some(x=>norm(x).includes(query)));
- contentEl.innerHTML='';
- if(!filtered.length){const d=document.createElement('div');d.className='empty';d.textContent='No hay formularios que coincidan con este filtro.';contentEl.appendChild(d);return}
- groupByModality(filtered).forEach(([mod,items])=>{
-  const section=document.createElement('div');section.className='section';
-  const h2=document.createElement('h2');h2.textContent=mod==='ING'?'Soporte / Ingeniería':(mod==='OTRO'?'Otros servicios':mod);section.appendChild(h2);
-  items.sort((a,b)=>(a.name||'').localeCompare(b.name||''));
-  items.forEach(f=>{
-   const a=document.createElement('a');a.className='btn';a.href=f.url;a.rel='noopener';
-   const ico=MODALITY_ICON[f.modality]||MODALITY_ICON.OTRO;
-   let icoContent=ico;
-   if(f.tag==='INTERVENCIÓN')icoContent=`<img src="${TECH_ICON}" alt="Intervención técnica"/>`;
-   else if(f.tag==='CONSULTA')icoContent=`<img src="${CONSULTA_ICON}" alt="Consulta de estado"/>`;
-   else if(f.tag==='DOSIMETRÍA')icoContent='☢️';
-   a.innerHTML=`<span class="left"><span class="ico">${icoContent}</span><span class="name">${f.name}</span></span><span class="tag">${f.tag||'FORM'}</span>`;
-   section.appendChild(a);
-  });
-  contentEl.appendChild(section);
- });
-}
-qEl.addEventListener('input',renderContent);
-applySeasonalTheme();renderRoles();renderContent();
-if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js?v='+Date.now()))}
+function renderContent(){const query=norm(qEl.value);const filtered=FORMS.filter(f=>f.role===activeRole).filter(f=>!query||[f.name,f.modality,f.tag].some(x=>norm(x).includes(query)));contentEl.innerHTML='';if(!filtered.length){const d=document.createElement('div');d.className='empty';d.textContent='No hay formularios que coincidan con este filtro.';contentEl.appendChild(d);return}groupByModality(filtered).forEach(([mod,items])=>{const section=document.createElement('div');section.className='section';const h2=document.createElement('h2');h2.textContent=mod==='ING'?'Soporte / Ingeniería':mod==='DOSIS'?'Registro de Dosis':mod==='OTRO'?'Otros servicios':mod;section.appendChild(h2);items.sort((a,b)=>(a.name||'').localeCompare(b.name||''));items.forEach(f=>{const a=document.createElement('a');a.className='btn';a.href=f.url;a.rel='noopener';const ico=MODALITY_ICON[f.modality]||MODALITY_ICON.OTRO;let icoContent=ico;if(f.tag==='INTERVENCIÓN')icoContent=`<img src="${TECH_ICON}" alt="Intervención técnica"/>`;else if(f.tag==='CONSULTA')icoContent=`<img src="${CONSULTA_ICON}" alt="Consulta de estado"/>`;else if(f.tag==='DOSIMETRÍA')icoContent='☢️';else if(f.tag==='DOSIS')icoContent=`<img src="${STOMACH_ICON}" alt="Gastroenterología"/>`;a.innerHTML=`<span class="left"><span class="ico">${icoContent}</span><span class="name">${f.name}</span></span><span class="tag">${f.tag||'FORM'}</span>`;section.appendChild(a)});contentEl.appendChild(section)})}
+qEl.addEventListener('input',renderContent);applySeasonalTheme();renderRoles();renderContent();if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js?v='+Date.now()))}
 </script>
 </body></html>
