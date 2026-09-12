@@ -278,5 +278,19 @@
     "MensajeError": "Error a vmedhcgpacd01.PACS.TORRE.ESTE en la ventana  de envío de estudios ",
     "Modalidad": "TAC",
     "TipoIncidente": "[\"🌐 Comunicación / PACS / Red\"]"
+  },
+  {
+    "AV": "AV-2026-09-0022",
+    "Activo": "1318937",
+    "Descripcion": "Al.momento de iniciar el estudio muestra el erorr y no permite la realización de estudios",
+    "Equipo": "TAC Canon 320 - Aquilion",
+    "EstadoEquipo": "🔴 Fuera de servicio",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46277",
+    "Hora": "hora3:00 aprox",
+    "Lugar": "Torre Sur ",
+    "MensajeError": "2104 - X-Ray Exposure Control \nThere was an error in the X-ray exposure control system therefore the scan was aborted",
+    "Modalidad": "TAC",
+    "TipoIncidente": "[\"🩻 No permite realizar el estudio\"]"
   }
 ]
