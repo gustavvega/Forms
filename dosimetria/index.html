@@ -285,6 +285,16 @@ th{
 .help{font-size:12px;color:#aebdc6;margin-top:8px;line-height:1.5}
 .footer-note{margin-top:18px;color:#a6b6c0;font-size:13px;text-shadow:0 1px 6px rgba(0,0,0,.5)}
 
+.analytics-panel{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
+.metric{padding:14px;border:1px solid rgba(118,215,255,.18);border-radius:12px;background:rgba(255,255,255,.035)}
+.metric span{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+.metric strong{font-size:22px;color:#fff}
+.analysis-note{font-size:13px;color:#b8c6cf;line-height:1.55;margin-top:12px}
+.service-analysis{margin-top:14px}
+.service-analysis td:last-child{font-weight:700}
+@media(max-width:850px){.analytics-panel{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.analytics-panel{grid-template-columns:1fr}}
+
 @media(max-width:850px){.grid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){
   body{padding:12px;background-position:center top}
@@ -346,6 +356,7 @@ th{
  <div class="card" onclick="openModal('service')"><div class="ico">🏥</div><h3>Entrega y devolución por servicio</h3><p>Para encargados de servicios como Odontología. Cada fila se maneja individualmente.</p><span class="badge">Por servicio</span></div>
  <div class="card" onclick="openModal('pickup')"><div class="ico">📬</div><h3>Retirar dosímetro ya asignado</h3><p>Para quien ya devolvió y viene después únicamente a retirar el nuevo.</p><span class="badge">Solo entrega</span></div>
  <div class="card" onclick="openModal('dropoff')"><div class="ico">📧</div><h3>Dejar sin encargado</h3><p>Registra el depósito y queda pendiente de verificación física.</p><span class="badge">Constancia</span></div>
+ <div class="card" onclick="openModal('analysis')"><div class="ico">📊</div><h3>Análisis de exposición por servicio</h3><p>Consulta tendencias agregadas por servicio para apoyar la revisión técnica de la dosimetría.</p><span class="badge">Sin datos personales</span></div>
 </section>
 
 <div class="footer-note">Versión 1.0 beta · Portal en desarrollo.</div>
@@ -373,6 +384,37 @@ document.addEventListener('DOMContentLoaded',()=>{
  const p=document.getElementById('accessPwd');
  if(p)p.addEventListener('keydown',e=>{if(e.key==='Enter')unlockSite()});
 });
+
+
+const ANALYSIS_DATA={
+ "2026-07":[
+  {service:"Radiología",n:53,hp10:0.041,med:0,max:0.368,hp3:0.022,hp007:0.055,positive:6},
+  {service:"Odontología",n:18,hp10:0.008,med:0,max:0.041,hp3:0,hp007:0.012,positive:2},
+  {service:"Cardiovascular",n:24,hp10:0.063,med:0,max:0.405,hp3:0.028,hp007:0.071,positive:5}
+ ],
+ "2026-08":[]
+};
+function renderAnalysis(){
+ const period=document.getElementById("analysisPeriod")?.value||"2026-07";
+ const selected=document.getElementById("analysisService")?.value||"todos";
+ const box=document.getElementById("analysisContent"); if(!box)return;
+ let rows=(ANALYSIS_DATA[period]||[]).filter(r=>selected==="todos"||r.service===selected);
+ if(rows.length===0){box.innerHTML='<div class="warning">Aún no hay estadísticas publicadas para esta selección. Se actualizarán automáticamente después de importar y validar el próximo período.</div>';return;}
+ const n=rows.reduce((a,r)=>a+r.n,0);
+ const mean=rows.reduce((a,r)=>a+r.hp10*r.n,0)/n;
+ const max=Math.max(...rows.map(r=>r.max));
+ const positive=rows.reduce((a,r)=>a+r.positive,0);
+ box.innerHTML=`<div class="analytics-panel">
+   <div class="metric"><span>Personas monitoreadas</span><strong>${n}</strong></div>
+   <div class="metric"><span>Media Hp(10)</span><strong>${mean.toFixed(3)} mSv</strong></div>
+   <div class="metric"><span>Máximo Hp(10)</span><strong>${max.toFixed(3)} mSv</strong></div>
+   <div class="metric"><span>Lecturas &gt; 0 mSv</span><strong>${positive}</strong></div>
+  </div>
+  <div class="table-wrap service-analysis"><table><thead><tr><th>Servicio</th><th>Personas</th><th>Media Hp(10)</th><th>Mediana Hp(10)</th><th>Máximo Hp(10)</th><th>Media Hp(3)</th><th>Media Hp(0,07)</th><th>&gt; 0 mSv</th></tr></thead><tbody>
+  ${rows.map(r=>`<tr><td>${r.service}</td><td>${r.n}</td><td>${r.hp10.toFixed(3)} mSv</td><td>${r.med.toFixed(3)} mSv</td><td>${r.max.toFixed(3)} mSv</td><td>${r.hp3.toFixed(3)} mSv</td><td>${r.hp007.toFixed(3)} mSv</td><td>${r.positive}</td></tr>`).join("")}
+  </tbody></table></div>
+  <p class="analysis-note">Los datos visibles actualmente son demostrativos para validar el diseño. La automatización mensual sustituirá esta fuente por datos agregados y validados del Maestro.</p>`;
+}
 
 const PEOPLE={
 "111560098":{name:"Gustavo Alonso Vega Garbanzo",profile:"Física Médica",service:"Radiología",email:"gustavo@institucion.cr",current:"0718452",currentMonth:"Agosto-26",currentType:"Regular",nextRegular:"0849120"},
@@ -463,6 +505,19 @@ function openModal(type){
   </table></div>
   <div class="help">Puede generar tantas filas como necesite. Si la persona pertenece al servicio seleccionado y está en la base, sus datos se cargan; las filas restantes quedan disponibles para escribir otra cédula.</div>`;
   setTimeout(()=>{fillServiceOwner();buildService()},0);
+ }
+
+
+ if(type==="analysis"){
+  t.textContent="Análisis de exposición por servicio";
+  c.innerHTML=`<div class="notice"><b>Uso técnico:</b> este panel resume resultados agregados por servicio. No muestra nombres, cédulas ni números de dosímetro, y no sustituye la evaluación regulatoria ni la dosimetría individual.</div>
+  <div class="form-grid" style="margin-top:14px">
+   <div><label>Período</label><select id="analysisPeriod" onchange="renderAnalysis()"><option value="2026-07">Julio 2026</option><option value="2026-08">Agosto 2026</option></select></div>
+   <div><label>Servicio</label><select id="analysisService" onchange="renderAnalysis()"><option value="todos">Todos los servicios</option><option value="Radiología">Radiología</option><option value="Odontología">Odontología</option><option value="Cardiovascular">Cardiovascular</option></select></div>
+  </div>
+  <div id="analysisContent"></div>
+  <div class="warning"><b>Interpretación:</b> una tendencia baja o lecturas en M no autoriza por sí sola retirar dosimetría personal. Sirve para priorizar una revisión de puestos, procedimientos, carga de trabajo y controles de exposición.</div>`;
+  setTimeout(renderAnalysis,0);
  }
 
  if(type==="pickup"){
