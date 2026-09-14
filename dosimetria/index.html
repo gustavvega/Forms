@@ -386,34 +386,34 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 
 
-const ANALYSIS_DATA={
- "2026-07":[
-  {service:"Radiología",n:53,hp10:0.041,med:0,max:0.368,hp3:0.022,hp007:0.055,positive:6},
-  {service:"Odontología",n:18,hp10:0.008,med:0,max:0.041,hp3:0,hp007:0.012,positive:2},
-  {service:"Cardiovascular",n:24,hp10:0.063,med:0,max:0.405,hp3:0.028,hp007:0.071,positive:5}
- ],
- "2026-08":[]
-};
-function renderAnalysis(){
- const period=document.getElementById("analysisPeriod")?.value||"2026-07";
- const selected=document.getElementById("analysisService")?.value||"todos";
- const box=document.getElementById("analysisContent"); if(!box)return;
- let rows=(ANALYSIS_DATA[period]||[]).filter(r=>selected==="todos"||r.service===selected);
- if(rows.length===0){box.innerHTML='<div class="warning">Aún no hay estadísticas publicadas para esta selección. Se actualizarán automáticamente después de importar y validar el próximo período.</div>';return;}
- const n=rows.reduce((a,r)=>a+r.n,0);
- const mean=rows.reduce((a,r)=>a+r.hp10*r.n,0)/n;
- const max=Math.max(...rows.map(r=>r.max));
- const positive=rows.reduce((a,r)=>a+r.positive,0);
- box.innerHTML=`<div class="analytics-panel">
-   <div class="metric"><span>Personas monitoreadas</span><strong>${n}</strong></div>
-   <div class="metric"><span>Media Hp(10)</span><strong>${mean.toFixed(3)} mSv</strong></div>
-   <div class="metric"><span>Máximo Hp(10)</span><strong>${max.toFixed(3)} mSv</strong></div>
-   <div class="metric"><span>Lecturas &gt; 0 mSv</span><strong>${positive}</strong></div>
-  </div>
-  <div class="table-wrap service-analysis"><table><thead><tr><th>Servicio</th><th>Personas</th><th>Media Hp(10)</th><th>Mediana Hp(10)</th><th>Máximo Hp(10)</th><th>Media Hp(3)</th><th>Media Hp(0,07)</th><th>&gt; 0 mSv</th></tr></thead><tbody>
-  ${rows.map(r=>`<tr><td>${r.service}</td><td>${r.n}</td><td>${r.hp10.toFixed(3)} mSv</td><td>${r.med.toFixed(3)} mSv</td><td>${r.max.toFixed(3)} mSv</td><td>${r.hp3.toFixed(3)} mSv</td><td>${r.hp007.toFixed(3)} mSv</td><td>${r.positive}</td></tr>`).join("")}
-  </tbody></table></div>
-  <p class="analysis-note">Los datos visibles actualmente son demostrativos para validar el diseño. La automatización mensual sustituirá esta fuente por datos agregados y validados del Maestro.</p>`;
+let ANALYSIS_DATA={};
+let analysisLoaded=false;
+
+async function loadAnalysisData(){
+  try{
+    const response=await fetch('data/resumen_servicios.json',{cache:'no-store'});
+    if(!response.ok)throw new Error('Archivo no disponible');
+    const payload=await response.json();
+    const grouped={};
+    (payload.servicios||[]).forEach(r=>{
+      const key=(r.periodoInicio||'').slice(0,7);
+      if(!key)return;
+      if(!grouped[key])grouped[key]=[];
+      grouped[key].push({
+        service:r.servicio,n:r.personas,hp10:Number(r.mediaHp10||0),
+        med:Number(r.medianaHp10||0),max:Number(r.maxHp10||0),
+        hp3:Number(r.mediaHp3||0),hp007:Number(r.mediaHp007||0),
+        positive:Number(r.lecturasHp10MayoresCero||0)
+      });
+    });
+    ANALYSIS_DATA=grouped;
+  }catch(error){ANALYSIS_DATA={};}
+  analysisLoaded=true;
+}
+function refreshAnalysisPeriods(){
+ const select=document.getElementById("analysisPeriod");if(!select)return;
+ const periods=Object.keys(ANALYSIS_DATA).sort().reverse();
+ select.innerHTML=periods.length?periods.map(p=>`<option value="${p}">${p}</option>`).join(""):'<option value="">Sin períodos publicados</option>';
 }
 
 const PEOPLE={
@@ -517,7 +517,7 @@ function openModal(type){
   </div>
   <div id="analysisContent"></div>
   <div class="warning"><b>Interpretación:</b> una tendencia baja o lecturas en M no autoriza por sí sola retirar dosimetría personal. Sirve para priorizar una revisión de puestos, procedimientos, carga de trabajo y controles de exposición.</div>`;
-  setTimeout(renderAnalysis,0);
+  setTimeout(async()=>{await loadAnalysisData();refreshAnalysisPeriods();renderAnalysis()},0);
  }
 
  if(type==="pickup"){
