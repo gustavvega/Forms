@@ -318,5 +318,21 @@
     "RequiereRepuestos": "No",
     "TipoMantenimiento": "Correctivo",
     "TrabajoRealizado": "Se encuentra que el problema con PACS fue solucionado mediante la empresa Siemens "
+  },
+  {
+    "AV": "AV-2026-09-0023",
+    "DuracionHoras": "0.541666666666667",
+    "Empresa": "Mesa",
+    "Equipo": "TAC Canon 320 - Aquilion",
+    "EstadoFinalEquipo": "🔴 Fuera de servicio",
+    "FechaIntervencion": "46279",
+    "LugarIntervencion": "Torre Sur ",
+    "Modalidad": "TAC",
+    "Observaciones": "El tubo ya fue autorizado, se esprra su llegada.",
+    "RepuestosRequeridos": "Tubo RX, modelo: CXB-750F",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "Sí",
+    "TipoMantenimiento": "Correctivo",
+    "TrabajoRealizado": "Se revisó angiotac von error 2104. Se determina qud falla es causada por el tubo de RX"
   }
 ]

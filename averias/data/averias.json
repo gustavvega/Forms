@@ -292,5 +292,19 @@
     "MensajeError": "2104 - X-Ray Exposure Control \nThere was an error in the X-ray exposure control system therefore the scan was aborted",
     "Modalidad": "TAC",
     "TipoIncidente": "[\"🩻 No permite realizar el estudio\"]"
+  },
+  {
+    "AV": "AV-2026-09-0023",
+    "Activo": "1318937",
+    "Descripcion": "Se revisó angiotac von error 2104. Se determina qud falla es causada por el tubo de RX",
+    "Equipo": "TAC Canon 320 - Aquilion",
+    "EstadoEquipo": "🔴 Fuera de servicio",
+    "EstadoGestion": "En atención",
+    "Fecha": "46279",
+    "Hora": "0.541666666666667",
+    "Lugar": "Torre Sur ",
+    "MensajeError": "",
+    "Modalidad": "TAC",
+    "TipoIncidente": "Correctivo"
   }
 ]
