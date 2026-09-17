@@ -306,5 +306,19 @@
     "MensajeError": "",
     "Modalidad": "TAC",
     "TipoIncidente": "Correctivo"
+  },
+  {
+    "AV": "AV-2026-09-0024",
+    "Activo": "1344923",
+    "Descripcion": "Rayón en la mesa de esterotaxia. Daño en superficie que compromete la calidad de imagen ",
+    "Equipo": "Mamógrafo 1 - Mammomat Inspiration",
+    "EstadoEquipo": "🟡 Operativo con limitaciones",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46282",
+    "Hora": "hora7:45am",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "Mamografía",
+    "TipoIncidente": "[\"🔧 Accesorio dañado\"]"
   }
 ]
