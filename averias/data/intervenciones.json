@@ -334,5 +334,21 @@
     "RequiereRepuestos": "Sí",
     "TipoMantenimiento": "Correctivo",
     "TrabajoRealizado": "Se revisó angiotac von error 2104. Se determina qud falla es causada por el tubo de RX"
+  },
+  {
+    "AV": "AV-2026-09-0025",
+    "DuracionHoras": "0.677083333333333",
+    "Empresa": "Mesa",
+    "Equipo": "TAC Canon 320 - Aquilion",
+    "EstadoFinalEquipo": "🟡 Operativo con observaciones",
+    "FechaIntervencion": "46273",
+    "LugarIntervencion": "Torre Sur ",
+    "Modalidad": "TAC",
+    "Observaciones": "Equipo queda operando bien con lo anotado.",
+    "RepuestosRequeridos": "Tubo RX, cable alta tensión y tarjeta ADC del detector. Ya fueron aprobadas sus reemplazos.",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "Sí",
+    "TipoMantenimiento": "Preventivo",
+    "TrabajoRealizado": "Mantenimiento preventivo del angiotac. Revisón de artefactos y calibrqción con fantomas de agua y aire."
   }
 ]

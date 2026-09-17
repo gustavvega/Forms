@@ -320,5 +320,19 @@
     "MensajeError": "",
     "Modalidad": "Mamografía",
     "TipoIncidente": "[\"🔧 Accesorio dañado\"]"
+  },
+  {
+    "AV": "AV-2026-09-0025",
+    "Activo": "1318937",
+    "Descripcion": "",
+    "Equipo": "TAC Canon 320 - Aquilion",
+    "EstadoEquipo": "🟡 Operativo con observaciones",
+    "EstadoGestion": "Seguimiento requerido",
+    "Fecha": "46273",
+    "Hora": "",
+    "Lugar": "Torre Sur ",
+    "MensajeError": "",
+    "Modalidad": "TAC",
+    "TipoIncidente": ""
   }
 ]
