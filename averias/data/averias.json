@@ -348,5 +348,19 @@
     "MensajeError": "",
     "Modalidad": "TAC",
     "TipoIncidente": "[\"❓ Otro\"]"
+  },
+  {
+    "AV": "AV-2026-09-0027",
+    "Activo": "1363877",
+    "Descripcion": "La rueda izq no funciona esta frenada",
+    "Equipo": "🟡 Amarillo - Mobilett Mira Max",
+    "EstadoEquipo": "🟡 Operativo con limitaciones",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46287",
+    "Hora": "hora6:30 am",
+    "Lugar": "Torre Sur ",
+    "MensajeError": "",
+    "Modalidad": "Portátiles",
+    "TipoIncidente": "[\"⚙️ Movimiento mecánico\"]"
   }
 ]
