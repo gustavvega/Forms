@@ -362,5 +362,19 @@
     "MensajeError": "",
     "Modalidad": "Portátiles",
     "TipoIncidente": "[\"⚙️ Movimiento mecánico\"]"
+  },
+  {
+    "AV": "AV-2026-09-0028",
+    "Activo": "1649100",
+    "Descripcion": "Fallo en la dirección del arco",
+    "Equipo": "🟢 Philips Verde 110 V - Zenition 70",
+    "EstadoEquipo": "🟡 Operativo con limitaciones",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46287",
+    "Hora": "hora12:00 MD",
+    "Lugar": "Torre Sur ",
+    "MensajeError": "",
+    "Modalidad": "Arcos en C móviles",
+    "TipoIncidente": "[\"⚙️ Movimiento mecánico\"]"
   }
 ]
