@@ -398,5 +398,21 @@
     "RequiereRepuestos": "No",
     "TipoMantenimiento": "Preventivo",
     "TrabajoRealizado": "Se realiza MP según rutina adjunta.\nLimpieza interna y externa del equipo.\nTest de funcionamiento.\nSe realiza calibración de dosis del equipo (7 pasos).\nValores obtenidos en nGy/s:\n\n1- Valor obtenido 937 rango (550 - 1550)\n2- Valor obtenido 5139 rango (2500 - 7500)\n3- Valor obtenido 34200 rango (20000 - 50000)\n4- Valor obtenido 129100 rango (75000 - 200000)\n5- Valor obtenido 222000 rango (150000 - 300000)\n6- Valor obtenido 359200 rango (275000 - 475000)\n7- Valor obtenido 545900 rango (450000 - 700000)\n\nEquipo en buen funcionamiento."
+  },
+  {
+    "AV": "AV-2026-09-0027",
+    "DuracionHoras": "2",
+    "Empresa": "Siemens",
+    "Equipo": "🟡 Amarillo - Mobilett Mira Max",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46287",
+    "LugarIntervencion": "Torre Sur ",
+    "Modalidad": "Portátiles",
+    "Observaciones": "",
+    "RepuestosRequeridos": "",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "No",
+    "TipoMantenimiento": "Correctivo",
+    "TrabajoRealizado": "Se realiza visita correctiva. En la cual se encuentra que la llanta trasera izquierda se encuentra bloqueada. Se realiza la inspección en la cual se encuentra un falso. Contacto en el conector del motor que permite el movimiento de esta rueda. Y en este caso se realizan pruebas de funcionamiento y movimiento. Con lo cual se solucione el problema. Se dará seguimiento ante un eventual fallo. Equipo funciona correctamente."
   }
 ]
