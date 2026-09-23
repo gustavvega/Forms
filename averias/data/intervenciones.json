@@ -462,5 +462,21 @@
     "RequiereRepuestos": "Sí",
     "TipoMantenimiento": "Preventivo",
     "TrabajoRealizado": "INSPECCION Y LIMPIEZA GENERAL.\nVERIFICACION MECANICA\nPRUEBAS GENERACION RAYOS X\nMEDICION DE BATERIAS\nVERIFICACION PARAMETROS DE EXPOSICION \nPRUEBAS DE ADQUISICION Y CALIDAD DE IMAGEN\nVERIFICACION MONITOR Y SISTEMA DE VISUALIZACION\nPRUEBAS DE IMPRESION\nVERIFICACION DE CONTROLES, SE DETECTA 2 BOTONES DE HANDSWITCH EN MAL ESTADO. FUNCIONA SIN PROBLEMAS, SIN EMBARGO REQUIERE CAMBIO.\nPRUEBAS FUNCIONALES.\nTRABAJA CORRECTAMENTE.\n"
+  },
+  {
+    "AV": "AV-2026-09-0026",
+    "DuracionHoras": "2",
+    "Empresa": "Elvatron",
+    "Equipo": "TAC Philips 64 - Incisive",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46288",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "TAC",
+    "Observaciones": "El equipo está trabajando actualmente de forma correcta, se recomienda dar seguimiento y verificar que la caja de la adquisición del estudio concuerde con la de la reconstrucción.",
+    "RepuestosRequeridos": "",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "No",
+    "TipoMantenimiento": "Diagnóstico / revisión",
+    "TrabajoRealizado": "Revisión de estudio de cardio CT en donde se reporta error en la reconstrucción."
   }
 ]
