@@ -376,5 +376,33 @@
     "MensajeError": "",
     "Modalidad": "Arcos en C móviles",
     "TipoIncidente": "[\"⚙️ Movimiento mecánico\"]"
+  },
+  {
+    "AV": "AV-2026-09-0029",
+    "Activo": "1649095",
+    "Descripcion": "Se realiza MP según rutina adjunta.\nLimpieza interna y externa del equipo.\nTest de funcionamiento.\nSe realiza calibración de dosis del equipo (7 pasos).\nValores obtenidos en nGy/s:\n\n1- Valor obtenido 922 rango (550 - 1550)\n2- Valor obtenido 5000 rango (2500 - 7500)\n3- Valor obtenido 33750 rango (20000 - 50000)\n4- Valor obtenido 129000 rango (75000 - 200000)\n5- Valor obtenido 219000 rango (150000 - 300000)\n6- Valor obtenido 365700 rango (275000 - 475000)\n7- Valor obtenido 553000 rango (450000 - 700000)\n\nEquipo en buen funcionamiento.",
+    "Equipo": "🟡 Philips Amarillo 110 V - Zenition 70",
+    "EstadoEquipo": "🟢 Operativo",
+    "EstadoGestion": "Cerrado",
+    "Fecha": "46283",
+    "Hora": "0.479166666666667",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "Arcos en C móviles",
+    "TipoIncidente": "Preventivo"
+  },
+  {
+    "AV": "AV-2026-09-0030",
+    "Activo": "1649101",
+    "Descripcion": "Se realiza MP según rutina adjunta.\nLimpieza interna y externa del equipo.\nTest de funcionamiento.\nSe realiza calibración de dosis del equipo (7 pasos).\nValores obtenidos en nGy/s:\n\n1- Valor obtenido 937 rango (550 - 1550)\n2- Valor obtenido 5139 rango (2500 - 7500)\n3- Valor obtenido 34200 rango (20000 - 50000)\n4- Valor obtenido 129100 rango (75000 - 200000)\n5- Valor obtenido 222000 rango (150000 - 300000)\n6- Valor obtenido 359200 rango (275000 - 475000)\n7- Valor obtenido 545900 rango (450000 - 700000)\n\nEquipo en buen funcionamiento.",
+    "Equipo": "🔴 Philips Rojo 110 V - Zenition 70",
+    "EstadoEquipo": "🟢 Operativo",
+    "EstadoGestion": "Cerrado",
+    "Fecha": "46286",
+    "Hora": "0.604166666666667",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "Arcos en C móviles",
+    "TipoIncidente": "Preventivo"
   }
 ]
