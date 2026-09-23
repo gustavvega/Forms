@@ -446,5 +446,19 @@
     "MensajeError": "",
     "Modalidad": "Arcos en C móviles",
     "TipoIncidente": "Preventivo"
+  },
+  {
+    "AV": "AV-2026-09-0034",
+    "Activo": "1344642",
+    "Descripcion": "Al adquirir la imagen da el error mencionado y se bloquea el equipo. No funciona a no ser que se re inicie. Da 3 veces a las 3:06 pm, 3:19 pm y 4:03 pm ",
+    "Equipo": "Mamógrafo 3 - Mammomat Inspiration",
+    "EstadoEquipo": "🟡 Operativo con limitaciones",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46288",
+    "Hora": "hora3:06 pm - 3:19 pm - 4:03 pm",
+    "Lugar": "Torre Este",
+    "MensajeError": "A Mammounit error ocurred during exposure and the Mammounit is reset automatically. \nThe error number was 12.4-1-0-0.",
+    "Modalidad": "Mamografía",
+    "TipoIncidente": "[\"❓ Otro\"]"
   }
 ]
