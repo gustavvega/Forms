@@ -478,5 +478,21 @@
     "RequiereRepuestos": "No",
     "TipoMantenimiento": "Diagnóstico / revisión",
     "TrabajoRealizado": "Revisión de estudio de cardio CT en donde se reporta error en la reconstrucción."
+  },
+  {
+    "AV": "AV-2026-09-0035",
+    "DuracionHoras": "4,5 h",
+    "Empresa": "Siemens",
+    "Equipo": "Emergencias - Multitom Rax",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46259",
+    "LugarIntervencion": "Torre Sur ",
+    "Modalidad": "Convencional",
+    "Observaciones": "",
+    "RepuestosRequeridos": "",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "No",
+    "TipoMantenimiento": "Preventivo",
+    "TrabajoRealizado": "Mantenimiento preventivo correspondiente al mes de Agosto del año 2026\nrevisión del sistema según protocolo de fábrica adjunto \nEL equipo se encuentra operativo"
   }
 ]

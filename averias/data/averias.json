@@ -460,5 +460,19 @@
     "MensajeError": "A Mammounit error ocurred during exposure and the Mammounit is reset automatically. \nThe error number was 12.4-1-0-0.",
     "Modalidad": "Mamografía",
     "TipoIncidente": "[\"❓ Otro\"]"
+  },
+  {
+    "AV": "AV-2026-09-0035",
+    "Activo": "1356937",
+    "Descripcion": "Mantenimiento preventivo correspondiente al mes de Agosto del año 2026\nrevisión del sistema según protocolo de fábrica adjunto \nEL equipo se encuentra operativo",
+    "Equipo": "Emergencias - Multitom Rax",
+    "EstadoEquipo": "🟢 Operativo",
+    "EstadoGestion": "Cerrado",
+    "Fecha": "46259",
+    "Hora": "4,5 h",
+    "Lugar": "Torre Sur ",
+    "MensajeError": "",
+    "Modalidad": "Convencional",
+    "TipoIncidente": "Preventivo"
   }
 ]
