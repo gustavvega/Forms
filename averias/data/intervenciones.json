@@ -414,5 +414,53 @@
     "RequiereRepuestos": "No",
     "TipoMantenimiento": "Correctivo",
     "TrabajoRealizado": "Se realiza visita correctiva. En la cual se encuentra que la llanta trasera izquierda se encuentra bloqueada. Se realiza la inspección en la cual se encuentra un falso. Contacto en el conector del motor que permite el movimiento de esta rueda. Y en este caso se realizan pruebas de funcionamiento y movimiento. Con lo cual se solucione el problema. Se dará seguimiento ante un eventual fallo. Equipo funciona correctamente."
+  },
+  {
+    "AV": "AV-2026-09-0031",
+    "DuracionHoras": "0.604166666666667",
+    "Empresa": "Promed",
+    "Equipo": "🟢 GE Verde 208 V - OEC Elite",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46274",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Arcos en C móviles",
+    "Observaciones": "TRABAJA CORRECTAMENTE. ",
+    "RepuestosRequeridos": "",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "No",
+    "TipoMantenimiento": "Preventivo",
+    "TrabajoRealizado": "MANTENIMIENTO PREVENTIVO ARCO C; \n-VISUALIZACION Y REVISION FISICA DE EQUIPO.\n-CREACION BACKUP PARA ARCHIVO ERROR LOG Y ARCHIVO CONFIGURACIONES.\n-INSPECCION Y REVISION DE MOVIMIENTOS MECANICOS (COLUMNA, FRENOS)\n-PRUEBA DE TECLADO, IMPRESORA, PEDAL, TACTIL PANTALLA Y BOTON DE DISPARO EN COLUMNA.\n-PRUEBA DE IMAGEN.\n-TRABAJA ADECUADAMENTE. "
+  },
+  {
+    "AV": "AV-2026-09-0032",
+    "DuracionHoras": "0.604166666666667",
+    "Empresa": "Promed",
+    "Equipo": "🔴 GE Rojo 208 V - OEC Elite",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46276",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Arcos en C móviles",
+    "Observaciones": "TRABAJA CORRECTAMENTE",
+    "RepuestosRequeridos": "",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "No",
+    "TipoMantenimiento": "Preventivo",
+    "TrabajoRealizado": "SE REALIZA MANTENIMIENTO PREVENTIVO SEGUN CHECKLIST, PARAMETROS DEL FABRICANTE. SE REVISA ERROR LOG. PRUEBAS DE MOVIMIENTOS EN C, PRUEBAS DE KV.\nREVISION DE BATERIAS Y BACKUP DE CONFIG.\nTRABAJA CORRECTAMENTE. "
+  },
+  {
+    "AV": "AV-2026-09-0033",
+    "DuracionHoras": "0.604166666666667",
+    "Empresa": "Promed",
+    "Equipo": "🟡 GE Amarillo 208 V - OEC Elite",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46275",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Arcos en C móviles",
+    "Observaciones": "BOTONES EN MAL ESTADO.",
+    "RepuestosRequeridos": "HANDCONTROL 1 UNIDAD ",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "Sí",
+    "TipoMantenimiento": "Preventivo",
+    "TrabajoRealizado": "INSPECCION Y LIMPIEZA GENERAL.\nVERIFICACION MECANICA\nPRUEBAS GENERACION RAYOS X\nMEDICION DE BATERIAS\nVERIFICACION PARAMETROS DE EXPOSICION \nPRUEBAS DE ADQUISICION Y CALIDAD DE IMAGEN\nVERIFICACION MONITOR Y SISTEMA DE VISUALIZACION\nPRUEBAS DE IMPRESION\nVERIFICACION DE CONTROLES, SE DETECTA 2 BOTONES DE HANDSWITCH EN MAL ESTADO. FUNCIONA SIN PROBLEMAS, SIN EMBARGO REQUIERE CAMBIO.\nPRUEBAS FUNCIONALES.\nTRABAJA CORRECTAMENTE.\n"
   }
 ]
