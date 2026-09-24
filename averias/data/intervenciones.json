@@ -526,5 +526,21 @@
     "RequiereRepuestos": "No",
     "TipoMantenimiento": "Preventivo",
     "TrabajoRealizado": "Se realiza MP según rutina adjunta.\nLimpieza interna y externa del equipo.\nTest de funcionamiento.\nSe realiza calibración de dosis del equipo (7 pasos).\nValores obtenidos en nGy/s:\n\n1- Valor obtenido 992 rango (550 - 1550)\n2- Valor obtenido 5091 rango (2500 - 7500)\n3- Valor obtenido 34600 rango (20000 - 50000)\n4- Valor obtenido 132900 rango (75000 - 200000)\n5- Valor obtenido 225700 rango (150000 - 300000)\n6- Valor obtenido 368300 rango (275000 - 475000)\n7- Valor obtenido 554200 rango (450000 - 700000)\n\nEquipo en buen funcionamiento."
+  },
+  {
+    "AV": "AV-2026-09-0034",
+    "DuracionHoras": "0.604166666666667",
+    "Empresa": "Siemens",
+    "Equipo": "Mamógrafo 3 - Mammomat Inspiration",
+    "EstadoFinalEquipo": "🟡 Operativo con observaciones",
+    "FechaIntervencion": "46289",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Mamografía",
+    "Observaciones": "",
+    "RepuestosRequeridos": "Tubo de RX- 1 unidad  (10141920)\nTarjeta filament inverter  MFI (10139931)",
+    "RequiereNuevaIntervencion": "Sí",
+    "RequiereRepuestos": "Sí",
+    "TipoMantenimiento": "Correctivo",
+    "TrabajoRealizado": "Se realiza inspección del sistema, el Error 12 línea 41 se debe a que el sistema detectó\nun problema en la curva de más por lo que el fábrica sugiere en este caso, hacer el ajuste\nde inversión del sistema filamento y frecuencias después de varias pruebas se determina\nque el Equipo opera normalmente, pero se subiera el cambio del tubo de rayos X y la\ntarjeta inversora debido a qué ambas piezas presentan un desgaste considerable  \nEl Equipo funciona normalmente con lo anteriormente mencionado"
   }
 ]
