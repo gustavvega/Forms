@@ -558,5 +558,21 @@
     "RequiereRepuestos": "No",
     "TipoMantenimiento": "Preventivo",
     "TrabajoRealizado": "Se realiza MP según rutina adjunta.\nLimpieza interna y externa del equipo.\nTest de funcionamiento.\nSe realiza calibración de dosis del equipo (7 pasos).\nValores obtenidos en nGy/s:\n\n1- Valor obtenido 986 rango (550 - 1550)\n2- Valor obtenido 5013 rango (2500 - 7500)\n3- Valor obtenido 33360 rango (20000 - 50000)\n4- Valor obtenido 129500 rango (75000 - 200000)\n5- Valor obtenido 220300 rango (150000 - 300000)\n6- Valor obtenido 365400 rango (275000 - 475000)\n7- Valor obtenido 547400 rango (450000 - 700000)\n\nEquipo en buen funcionamiento."
+  },
+  {
+    "AV": "AV-2026-09-0023",
+    "DuracionHoras": "0.770833333333333",
+    "Empresa": "Mesa",
+    "Equipo": "TAC Canon 320 - Aquilion",
+    "EstadoFinalEquipo": "🔴 Fuera de servicio",
+    "FechaIntervencion": "46293",
+    "LugarIntervencion": "Torre Sur ",
+    "Modalidad": "TAC",
+    "Observaciones": "Se volvió a centrar el tubo en las direcciones izquierda-derecha y cabeza-pies.\nMañana se recalibrará el detector.",
+    "RepuestosRequeridos": "",
+    "RequiereNuevaIntervencion": "Sí",
+    "RequiereRepuestos": "No",
+    "TipoMantenimiento": "Correctivo",
+    "TrabajoRealizado": "Centrado mecánico del tubo RX"
   }
 ]

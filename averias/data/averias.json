@@ -530,5 +530,19 @@
     "MensajeError": "",
     "Modalidad": "Arcos en C móviles",
     "TipoIncidente": "Preventivo"
+  },
+  {
+    "AV": "AV-2026-09-0040",
+    "Activo": "1344642",
+    "Descripcion": "Se desconecta y no permite adquirir ",
+    "Equipo": "Mamógrafo 3 - Mammomat Inspiration",
+    "EstadoEquipo": "🔴 Fuera de servicio",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46295",
+    "Hora": "hora6:34 am",
+    "Lugar": "Torre Este",
+    "MensajeError": "12-41-0-0",
+    "Modalidad": "Mamografía",
+    "TipoIncidente": "[\"🩻 No permite realizar el estudio\"]"
   }
 ]
