@@ -544,5 +544,19 @@
     "MensajeError": "12-41-0-0",
     "Modalidad": "Mamografía",
     "TipoIncidente": "[\"🩻 No permite realizar el estudio\"]"
+  },
+  {
+    "AV": "AV-2026-10-0041",
+    "Activo": "1488251",
+    "Descripcion": "Inyector está dejando un sobrante de medio de contraste en el frasco a pesar de que se indica inyectar volumen total ",
+    "Equipo": "TAC Philips 64 - Incisive",
+    "EstadoEquipo": "🟢 Operativo",
+    "EstadoGestion": "Reportado para atención",
+    "Fecha": "46296",
+    "Hora": "hora10:40am",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "TAC",
+    "TipoIncidente": "[\"❓ Otro\"]"
   }
 ]
