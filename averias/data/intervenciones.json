@@ -574,5 +574,21 @@
     "RequiereRepuestos": "No",
     "TipoMantenimiento": "Correctivo",
     "TrabajoRealizado": "Centrado mecánico del tubo RX"
+  },
+  {
+    "AV": "AV-2026-09-0040",
+    "DuracionHoras": "0.583333333333333",
+    "Empresa": "Siemens",
+    "Equipo": "Mamógrafo 3 - Mammomat Inspiration",
+    "EstadoFinalEquipo": "🔴 Fuera de servicio",
+    "FechaIntervencion": "46295",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Mamografía",
+    "Observaciones": "Equipo queda fuera de servicio a la espera de la compra de repuestos.",
+    "RepuestosRequeridos": "1 tubo monoblock \n1 MFI tarjeta inversora.\n",
+    "RequiereNuevaIntervencion": "Sí",
+    "RequiereRepuestos": "Sí",
+    "TipoMantenimiento": "Correctivo",
+    "TrabajoRealizado": "Se realiza diagnóstico del equipo por el error 12 en el equipo.\nSe logra determinar que el equipo da error 12 en todos los disparos. El error 12 va de la mano con el tubo de rayos x. Ya el compañero Rodolfo había hecho un acondicionamiento sin embargo el equipo sigue fallando. Se recomienda el reemplazo del tubo y su tarjeta inversora."
   }
 ]
