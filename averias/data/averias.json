@@ -558,5 +558,19 @@
     "MensajeError": "",
     "Modalidad": "TAC",
     "TipoIncidente": "[\"❓ Otro\"]"
+  },
+  {
+    "AV": "AV-2026-10-0042",
+    "Activo": "1363877",
+    "Descripcion": "La manilla de anclaje del equipo está dañada, la misma se rompió en un extremo ",
+    "Equipo": "🟡 Amarillo - Mobilett Mira Max",
+    "EstadoEquipo": "🟡 Operativo con limitaciones",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46303",
+    "Hora": "hora6:00am",
+    "Lugar": "Torre Sur ",
+    "MensajeError": "",
+    "Modalidad": "Portátiles",
+    "TipoIncidente": "[\"🔧 Accesorio dañado\"]"
   }
 ]
