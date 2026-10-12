@@ -586,5 +586,19 @@
     "MensajeError": "Falta mapa detector ",
     "Modalidad": "Arcos en C móviles",
     "TipoIncidente": "[\"🩻 No permite realizar el estudio\"]"
+  },
+  {
+    "AV": "AV-2026-10-0044",
+    "Activo": "1608842",
+    "Descripcion": "Imágenes aleatorias aparecen unas líneas ",
+    "Equipo": "🟡 GE Amarillo 208 V - OEC Elite",
+    "EstadoEquipo": "🟢 Operativo",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46306",
+    "Hora": "hora11:30am",
+    "Lugar": "Torre Norte ",
+    "MensajeError": "",
+    "Modalidad": "Arcos en C móviles",
+    "TipoIncidente": "[\"🖼️ Calidad de imagen\"]"
   }
 ]
