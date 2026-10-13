@@ -600,5 +600,19 @@
     "MensajeError": "",
     "Modalidad": "Arcos en C móviles",
     "TipoIncidente": "[\"🖼️ Calidad de imagen\"]"
+  },
+  {
+    "AV": "AV-2026-10-0045",
+    "Activo": "1345401",
+    "Descripcion": "Aparece un artefacto (una raya) en algunas imágenes ",
+    "Equipo": "Sala 1 - Ysio Max",
+    "EstadoEquipo": "🟢 Operativo",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46308",
+    "Hora": "hora11:00",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "Convencional",
+    "TipoIncidente": "[\"🖼️ Calidad de imagen\"]"
   }
 ]
