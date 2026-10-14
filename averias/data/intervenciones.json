@@ -590,5 +590,21 @@
     "RequiereRepuestos": "Sí",
     "TipoMantenimiento": "Correctivo",
     "TrabajoRealizado": "Se realiza diagnóstico del equipo por el error 12 en el equipo.\nSe logra determinar que el equipo da error 12 en todos los disparos. El error 12 va de la mano con el tubo de rayos x. Ya el compañero Rodolfo había hecho un acondicionamiento sin embargo el equipo sigue fallando. Se recomienda el reemplazo del tubo y su tarjeta inversora."
+  },
+  {
+    "AV": "AV-2026-10-0045",
+    "DuracionHoras": "1,5",
+    "Empresa": "Siemens",
+    "Equipo": "Sala 1 - Ysio Max",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46308",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Convencional",
+    "Observaciones": "Se cerrará el aviso como resuelto, en caso de volver a suceder por favor hacer el reporte por un posible problema del detector. De momento no se hace recomendación de cambio de partes. ",
+    "RepuestosRequeridos": "",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "No",
+    "TipoMantenimiento": "Correctivo",
+    "TrabajoRealizado": "Al llegar a sitio el equipo estaba siendo utilizado con normalidad sin presencia de ningún artefacto en la imagen, revisando estudios de la mañana se logra apreciar la línea en un estudio de pies. Preventivamente se hace la calibración del detector, se hacen pruebas y no se logra apreciar ninguna línea. \nSe cerrará el aviso como resuelto, en caso de volver a suceder por favor hacer el reporte por un posible problema del detector. De momento no se hace recomendación de cambio de partes. \n\nEl equipo funciona correctamente."
   }
 ]
