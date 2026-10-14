@@ -606,5 +606,21 @@
     "RequiereRepuestos": "No",
     "TipoMantenimiento": "Correctivo",
     "TrabajoRealizado": "Al llegar a sitio el equipo estaba siendo utilizado con normalidad sin presencia de ningún artefacto en la imagen, revisando estudios de la mañana se logra apreciar la línea en un estudio de pies. Preventivamente se hace la calibración del detector, se hacen pruebas y no se logra apreciar ninguna línea. \nSe cerrará el aviso como resuelto, en caso de volver a suceder por favor hacer el reporte por un posible problema del detector. De momento no se hace recomendación de cambio de partes. \n\nEl equipo funciona correctamente."
+  },
+  {
+    "AV": "AV-2026-08-0002",
+    "DuracionHoras": "0.5",
+    "Empresa": "Siemens",
+    "Equipo": "Mamógrafo 2 - Mammomat Inspiration",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46302",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Mamografía",
+    "Observaciones": "Equipo queda operativo.",
+    "RepuestosRequeridos": "",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "No",
+    "TipoMantenimiento": "Instalación repuesto o software",
+    "TrabajoRealizado": "Instalacion de tubo de rayos X"
   }
 ]
