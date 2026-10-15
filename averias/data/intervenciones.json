@@ -622,5 +622,37 @@
     "RequiereRepuestos": "No",
     "TipoMantenimiento": "Instalación repuesto o software",
     "TrabajoRealizado": "Instalacion de tubo de rayos X"
+  },
+  {
+    "AV": "AV-2026-10-0044",
+    "DuracionHoras": "2",
+    "Empresa": "Promed",
+    "Equipo": "🟡 GE Amarillo 208 V - OEC Elite",
+    "EstadoFinalEquipo": "🟡 Operativo con observaciones",
+    "FechaIntervencion": "46309",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Arcos en C móviles",
+    "Observaciones": "Estado operativo del equipo: Parcialmente operativo, sujeto al criterio del personal usuario debido a la presencia de artefactos en las imágenes adquiridas.",
+    "RepuestosRequeridos": " Flat Panel (Detector) - 1 unidad  ",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "Sí",
+    "TipoMantenimiento": "Diagnóstico / revisión",
+    "TrabajoRealizado": "Se realiza la revisión del equipo, durante la cual se verifica la presencia de un artefacto en la imagen, asociado a una falla del Flat Panel Detector (FPD). Se intenta corregir la anomalía mediante la calibración FPD MAPS; sin embargo, el artefacto persiste después del procedimiento.\nDebido a lo anterior, se determina que es necesario reemplazar el detector para corregir la falla.\n"
+  },
+  {
+    "AV": "AV-2026-10-0043",
+    "DuracionHoras": "1.5",
+    "Empresa": "Promed",
+    "Equipo": "🟢 GE Verde 208 V - OEC Elite",
+    "EstadoFinalEquipo": "🟡 Operativo con observaciones",
+    "FechaIntervencion": "46309",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Arcos en C móviles",
+    "Observaciones": "Estado operativo del equipo: Parcialmente operativo, sujeto al criterio del personal usuario debido a la presencia de artefactos en las imágenes adquiridas.",
+    "RepuestosRequeridos": "Flat Panel (Detector) - 1 unidad ",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "Sí",
+    "TipoMantenimiento": "Diagnóstico / revisión",
+    "TrabajoRealizado": "Se realiza la revisión del equipo, durante la cual se verifica la presencia de un artefacto en la imagen, asociado a una falla del Flat Panel Detector (FPD). Se intenta corregir la anomalía mediante la calibración FPD MAPS; sin embargo, el artefacto persiste después del procedimiento.\nDebido a lo anterior, se determina que es necesario reemplazar el detector para corregir la falla."
   }
 ]
