@@ -654,5 +654,21 @@
     "RequiereRepuestos": "Sí",
     "TipoMantenimiento": "Diagnóstico / revisión",
     "TrabajoRealizado": "Se realiza la revisión del equipo, durante la cual se verifica la presencia de un artefacto en la imagen, asociado a una falla del Flat Panel Detector (FPD). Se intenta corregir la anomalía mediante la calibración FPD MAPS; sin embargo, el artefacto persiste después del procedimiento.\nDebido a lo anterior, se determina que es necesario reemplazar el detector para corregir la falla."
+  },
+  {
+    "AV": "AV-2026-10-0046",
+    "DuracionHoras": "12:00md",
+    "Empresa": "Siemens",
+    "Equipo": "Sala 1 - Ysio Max",
+    "EstadoFinalEquipo": "🔴 Fuera de servicio",
+    "FechaIntervencion": "46311",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Convencional",
+    "Observaciones": "Fuera de servicio ",
+    "RepuestosRequeridos": "Tubo de Rayos X\nMaterial: 03345209. ",
+    "RequiereNuevaIntervencion": "Sí",
+    "RequiereRepuestos": "Sí",
+    "TipoMantenimiento": "Correctivo",
+    "TrabajoRealizado": "Se realiza atención de reporte en el cual se encuentran problemas con el Tubo de Rayos X\nMaterial: 03345209. El cual presenta un daño en el filamento fino el cual esta abierto y\npresenta el error 20597/080. Em este caso se debe reemplazar el tubo para habilitar\nnuevamente el equipo en funcionamiento. El tubo cuenta con 63031 cargas en foco fino y\n150488 cargas en foco grueso. Se enviara cotización. Equipo quedara fuera de servicio."
   }
 ]
