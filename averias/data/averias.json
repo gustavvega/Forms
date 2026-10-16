@@ -614,5 +614,19 @@
     "MensajeError": "",
     "Modalidad": "Convencional",
     "TipoIncidente": "[\"🖼️ Calidad de imagen\"]"
+  },
+  {
+    "AV": "AV-2026-10-0046",
+    "Activo": "1345401",
+    "Descripcion": "No permite realizar la radiografía",
+    "Equipo": "Sala 1 - Ysio Max",
+    "EstadoEquipo": "🔴 Fuera de servicio",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46310",
+    "Hora": "hora3:45pm",
+    "Lugar": "Torre Este",
+    "MensajeError": "Error 20597/80: Fallo del foco fino. Use el foco grueso ",
+    "Modalidad": "Convencional",
+    "TipoIncidente": "[\"🩻 No permite realizar el estudio\"]"
   }
 ]
