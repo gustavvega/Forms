@@ -628,5 +628,19 @@
     "MensajeError": "Error 20597/80: Fallo del foco fino. Use el foco grueso ",
     "Modalidad": "Convencional",
     "TipoIncidente": "[\"🩻 No permite realizar el estudio\"]"
+  },
+  {
+    "AV": "AV-2026-10-0047",
+    "Activo": "1363878",
+    "Descripcion": "Se quebró la pieza q soporta el brazo del tubo",
+    "Equipo": "🔴 Rojo - Mobilett Mira Max",
+    "EstadoEquipo": "🟡 Operativo con limitaciones",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46314",
+    "Hora": "hora4:00pm",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "Portátiles",
+    "TipoIncidente": "[\"🔧 Accesorio dañado\"]"
   }
 ]
