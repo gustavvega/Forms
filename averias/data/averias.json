@@ -642,5 +642,19 @@
     "MensajeError": "",
     "Modalidad": "Portátiles",
     "TipoIncidente": "[\"🔧 Accesorio dañado\"]"
+  },
+  {
+    "AV": "AV-2026-10-0048",
+    "Activo": "1344979",
+    "Descripcion": "La Ups desde ayer como a la 1 30 empezó a sonar",
+    "Equipo": "Densitómetro Óseo - Lunar iDXA",
+    "EstadoEquipo": "🟢 Operativo",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46315",
+    "Hora": "hora1 30 pm",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "Densitómetro",
+    "TipoIncidente": "[\"🔌 Encendido o alimentación eléctrica\"]"
   }
 ]
