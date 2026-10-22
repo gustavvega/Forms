@@ -656,5 +656,19 @@
     "MensajeError": "",
     "Modalidad": "Densitómetro",
     "TipoIncidente": "[\"🔌 Encendido o alimentación eléctrica\"]"
+  },
+  {
+    "AV": "AV-2026-10-0049",
+    "Activo": "1488251",
+    "Descripcion": "Micrófono intercomunicador no funciona ",
+    "Equipo": "TAC Philips 64 - Incisive",
+    "EstadoEquipo": "🟢 Operativo",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46316",
+    "Hora": "hora2pm ",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "TAC",
+    "TipoIncidente": "[\"❓ Otro\"]"
   }
 ]
