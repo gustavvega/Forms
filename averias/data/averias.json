@@ -670,5 +670,19 @@
     "MensajeError": "",
     "Modalidad": "TAC",
     "TipoIncidente": "[\"❓ Otro\"]"
+  },
+  {
+    "AV": "AV-2026-10-0050",
+    "Activo": "1345664",
+    "Descripcion": "SE APAGA DE PRONTO SE VUELVE A ENCENDER PERO NO PERMITE HACER NADA, SE HIZO VARIAS VECES",
+    "Equipo": "Ortopantomógrafo - ProMax 2D",
+    "EstadoEquipo": "🔴 Fuera de servicio",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46318",
+    "Hora": "hora7;53",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "Ortopantomografía",
+    "TipoIncidente": "[\"🖥️ Consola o pantalla\"]"
   }
 ]
