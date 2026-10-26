@@ -670,5 +670,21 @@
     "RequiereRepuestos": "Sí",
     "TipoMantenimiento": "Correctivo",
     "TrabajoRealizado": "Se realiza atención de reporte en el cual se encuentran problemas con el Tubo de Rayos X\nMaterial: 03345209. El cual presenta un daño en el filamento fino el cual esta abierto y\npresenta el error 20597/080. Em este caso se debe reemplazar el tubo para habilitar\nnuevamente el equipo en funcionamiento. El tubo cuenta con 63031 cargas en foco fino y\n150488 cargas en foco grueso. Se enviara cotización. Equipo quedara fuera de servicio."
+  },
+  {
+    "AV": "AV-2026-09-0025",
+    "DuracionHoras": "0.854166666666667",
+    "Empresa": "Mesa",
+    "Equipo": "TAC Canon 320 - Aquilion",
+    "EstadoFinalEquipo": "🟡 Operativo con observaciones",
+    "FechaIntervencion": "46314",
+    "LugarIntervencion": "Torre Sur ",
+    "Modalidad": "TAC",
+    "Observaciones": "Falta de twrminar calibración del detector para campo S y hacer mediciones de números CT.",
+    "RepuestosRequeridos": "",
+    "RequiereNuevaIntervencion": "Sí",
+    "RequiereRepuestos": "No",
+    "TipoMantenimiento": "Correctivo",
+    "TrabajoRealizado": "Cambio de tubo, alineamiento del mismo e inicio de calibración del detector "
   }
 ]
