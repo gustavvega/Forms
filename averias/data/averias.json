@@ -698,5 +698,19 @@
     "MensajeError": "No hay comunicación con el mando inalambrico ",
     "Modalidad": "Convencional",
     "TipoIncidente": "[\"🔧 Accesorio dañado\"]"
+  },
+  {
+    "AV": "AV-2026-10-0052",
+    "Activo": "1344642",
+    "Descripcion": "Equipo no permite realizar control automático de calidad SNR Y CNR",
+    "Equipo": "Mamógrafo 3 - Mammomat Inspiration",
+    "EstadoEquipo": "🟢 Operativo",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46321",
+    "Hora": "hora12:00 Md ",
+    "Lugar": "Torre Este",
+    "MensajeError": "No permite realizar QA automatizado entra en bucle de error ",
+    "Modalidad": "Mamografía",
+    "TipoIncidente": "[\"🖥️ Consola o pantalla\"]"
   }
 ]
