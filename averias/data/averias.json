@@ -684,5 +684,19 @@
     "MensajeError": "",
     "Modalidad": "Ortopantomografía",
     "TipoIncidente": "[\"🖥️ Consola o pantalla\"]"
+  },
+  {
+    "AV": "AV-2026-10-0051",
+    "Activo": "1356937",
+    "Descripcion": "Control remoto,  no funciona adecuadamente,  y en ocaciones ni en la base",
+    "Equipo": "Emergencias - Multitom Rax",
+    "EstadoEquipo": "🟡 Operativo con limitaciones",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46321",
+    "Hora": "hora06:50",
+    "Lugar": "Torre Sur ",
+    "MensajeError": "No hay comunicación con el mando inalambrico ",
+    "Modalidad": "Convencional",
+    "TipoIncidente": "[\"🔧 Accesorio dañado\"]"
   }
 ]
