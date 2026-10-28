@@ -718,5 +718,21 @@
     "RequiereRepuestos": "No",
     "TipoMantenimiento": "Instalación repuesto o software",
     "TrabajoRealizado": "Se cambia tarjeta y tubo rayos x , se realiza certificación. Físico médico válida uso clínico. "
+  },
+  {
+    "AV": "AV-2026-09-0023",
+    "DuracionHoras": "0.75",
+    "Empresa": "Mesa",
+    "Equipo": "TAC Canon 320 - Aquilion",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46315",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "TAC",
+    "Observaciones": "",
+    "RepuestosRequeridos": "",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "No",
+    "TipoMantenimiento": "Instalación repuesto o software",
+    "TrabajoRealizado": "Cambio de tubo y detector "
   }
 ]
