@@ -702,5 +702,21 @@
     "RequiereRepuestos": "No",
     "TipoMantenimiento": "Pruebas de certificación",
     "TrabajoRealizado": "Pruebas para certificación con personall del CICANUM UCR"
+  },
+  {
+    "AV": "AV-2026-09-0040",
+    "DuracionHoras": "0.75",
+    "Empresa": "Siemens",
+    "Equipo": "Mamógrafo 3 - Mammomat Inspiration",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46309",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Mamografía",
+    "Observaciones": "",
+    "RepuestosRequeridos": "",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "No",
+    "TipoMantenimiento": "Instalación repuesto o software",
+    "TrabajoRealizado": "Se cambia tarjeta y tubo rayos x , se realiza certificación. Físico médico válida uso clínico. "
   }
 ]
