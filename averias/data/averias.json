@@ -712,5 +712,33 @@
     "MensajeError": "No permite realizar QA automatizado entra en bucle de error ",
     "Modalidad": "Mamografía",
     "TipoIncidente": "[\"🖥️ Consola o pantalla\"]"
+  },
+  {
+    "AV": "AV-2026-10-0053",
+    "Activo": "1345644",
+    "Descripcion": "No se puede realizar la prueba general y no permite emitir radiación. Luego de apartarlo 5 veces ya dejó trabajar. ",
+    "Equipo": "TAC Siemens 32 - SOMATOM Perspective",
+    "EstadoEquipo": "🟢 Operativo",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46322",
+    "Hora": "horaDesde las 5am hasta 6am",
+    "Lugar": "Torre Este",
+    "MensajeError": "La sincronización con el servidor de exploración se está ejecutando. Espere un momento….",
+    "Modalidad": "TAC",
+    "TipoIncidente": "[\"🔌 Encendido o alimentación eléctrica\"]"
+  },
+  {
+    "AV": "AV-2026-10-0054",
+    "Activo": "1345644",
+    "Descripcion": "Suena un golpe en lo interno de la camilla al darle altura",
+    "Equipo": "TAC Siemens 32 - SOMATOM Perspective",
+    "EstadoEquipo": "🟢 Operativo",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46307",
+    "Hora": "hora23:00",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "TAC",
+    "TipoIncidente": "[\"⚙️ Movimiento mecánico\"]"
   }
 ]
