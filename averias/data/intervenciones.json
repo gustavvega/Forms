@@ -734,5 +734,21 @@
     "RequiereRepuestos": "No",
     "TipoMantenimiento": "Instalación repuesto o software",
     "TrabajoRealizado": "Cambio de tubo y detector "
+  },
+  {
+    "AV": "AV-2026-10-0052",
+    "DuracionHoras": "0.416666666666667",
+    "Empresa": "Siemens",
+    "Equipo": "Mamógrafo 3 - Mammomat Inspiration",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46322",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Mamografía",
+    "Observaciones": "Se requiere seguimiento ante una eventual recarga de software ",
+    "RepuestosRequeridos": "",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "No",
+    "TipoMantenimiento": "Diagnóstico / revisión",
+    "TrabajoRealizado": "Revisión y diagnóstico "
   }
 ]
