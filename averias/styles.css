@@ -39,3 +39,12 @@ body{min-height:100vh;overflow-x:hidden}
 .status-cerrado,.status-operativo{color:var(--green)}.status-pendiente-repuesto{color:var(--orange)}.status-en-atencion,.status-fuera-servicio{color:var(--red)}.status-seguimiento{color:var(--yellow)}.status-pendiente,.status-administracion{color:var(--blue)}.status-neutral{color:var(--grey)}
 @media(max-width:760px){.summary-grid{grid-template-columns:1fr}.filters{grid-template-columns:1fr}.black-hole{width:480px;height:480px;right:-220px;top:-140px}.core{inset:130px}.ring{inset:90px}.ring-2{inset:65px}.equipment-header{align-items:flex-start}.equipment-side{flex-direction:column;align-items:flex-end}.status-pill{max-width:145px;white-space:normal;text-align:right}}
 @media(max-width:470px){.shell{width:min(100% - 18px,1160px);padding-top:10px}.hero{padding:22px 19px}.search-panel,.results{padding:15px}.search-row{grid-template-columns:1fr}.summary-grid{grid-template-columns:1fr;gap:8px}.summary-card{padding:14px}.summary-card .value{font-size:24px}.equipment-meta{line-height:1.4}.equipment-side{display:none}.back{width:100%;justify-content:center}}
+
+.spare-summary{margin-bottom:18px}
+.table-wrap{overflow-x:auto;border:1px solid rgba(158,194,255,.12);border-radius:14px}
+.spare-table{width:100%;border-collapse:collapse;min-width:720px;background:rgba(255,255,255,.02)}
+.spare-table th,.spare-table td{padding:12px 13px;text-align:left;border-bottom:1px solid rgba(158,194,255,.10);vertical-align:top}
+.spare-table th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#88a1c7;background:rgba(255,255,255,.035)}
+.spare-table td{font-size:12px;color:#c6d4e7;line-height:1.4}
+.spare-table tr:last-child td{border-bottom:0}
+.empty-cell{text-align:center!important;color:var(--muted)!important;padding:22px!important}
