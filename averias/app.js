@@ -9,6 +9,8 @@ const modalityEl=document.getElementById('modalityFilter');
 const listEl=document.getElementById('equipmentList');
 const countEl=document.getElementById('resultCount');
 const summaryEl=document.getElementById('summary');
+const spareTableBody=document.getElementById('spareTableBody');
+const spareCountEl=document.getElementById('spareCount');
 const clearBtn=document.getElementById('clearBtn');
 const template=document.getElementById('equipmentTemplate');
 
@@ -86,15 +88,20 @@ function interventionsFor(av){
     .sort((a,b)=>(b.FechaIntervencion||'').toString().localeCompare((a.FechaIntervencion||'').toString()));
 }
 
+function isCaseOpen(c){
+  if(!c||isRejectedCase(c)) return false;
+  return norm(c.EstadoGestion).trim()!=='cerrado';
+}
+
 function caseNeedsSpare(c){
-  if(!c) return false;
+  if(!isCaseOpen(c)) return false;
   if(norm(c.EstadoGestion).includes('repuesto')) return true;
   const latest=interventionsFor(c.AV)[0];
   return !!latest&&(isYes(latest.RequiereRepuestos)||norm(latest.EstadoFinalEquipo).includes('repuesto'));
 }
 
 function caseNeedsFollowup(c){
-  if(!c) return false;
+  if(!isCaseOpen(c)) return false;
   if(norm(c.EstadoGestion).includes('seguimiento')) return true;
   const latest=interventionsFor(c.AV)[0];
   return !!latest&&isYes(latest.RequiereNuevaIntervencion)&&!caseNeedsSpare(c);
@@ -113,13 +120,102 @@ function functionalState(c){
 
 function managementState(c){
   if(!c) return '🟢 Sin pendientes';
+  const s=norm(c.EstadoGestion).trim();
+  if(s==='cerrado') return '🟢 Sin pendientes';
   if(caseNeedsSpare(c)) return '🟠 Pendiente de repuesto';
   if(caseNeedsFollowup(c)) return '🔵 Requiere seguimiento';
-  const s=norm(c.EstadoGestion);
-  if(s==='cerrado') return '🟢 Sin pendientes';
   if(s.includes('atencion')) return '🔴 En atención';
   if(s.includes('seguimiento')) return '🔵 Requiere seguimiento';
   return c.EstadoGestion||'Sin estado de gestión';
+}
+
+function pendingCasesFor(e){
+  return (e&&Array.isArray(e.cases)?e.cases:[])
+    .filter(isCaseOpen)
+    .sort((a,b)=>Number(b.Fecha||0)-Number(a.Fecha||0));
+}
+
+function equipmentFunctionalState(e){
+  if(!e) return 'Estado funcional no especificado';
+  const cases=Array.isArray(e.cases)?e.cases:[];
+  const latestCase=[...cases].sort((a,b)=>Number(b.Fecha||0)-Number(a.Fecha||0))[0]||null;
+  const allInterventions=cases
+    .flatMap(c=>interventionsFor(c.AV).map(i=>({...i,_av:c.AV})))
+    .sort((a,b)=>Number(b.FechaIntervencion||0)-Number(a.FechaIntervencion||0));
+  const latestIntervention=allInterventions[0]||null;
+
+  const caseDate=latestCase?Number(latestCase.Fecha||0):0;
+  const interventionDate=latestIntervention?Number(latestIntervention.FechaIntervencion||0):0;
+  const raw=(latestIntervention&&interventionDate>=caseDate)
+    ? latestIntervention.EstadoFinalEquipo
+    : (latestCase&&latestCase.EstadoEquipo);
+
+  const state=raw||'';
+  if(norm(state).includes('fuera')) return '🔴 Fuera de servicio';
+  if(norm(state).includes('observaciones')) return '🟡 Operativo con observaciones';
+  if(norm(state).includes('operativo')) return '🟢 Operativo';
+  return state||'Estado funcional no especificado';
+}
+
+function equipmentManagementSummary(e){
+  const pending=pendingCasesFor(e);
+  if(!pending.length) return '🟢 Sin AV pendientes';
+  return pending.length===1?'🟠 1 AV pendiente':`🟠 ${pending.length} AV pendientes`;
+}
+
+function spareRequestRows(){
+  const equipmentByActivo=new Map(EQUIPOS.map(e=>[(e.Activo||'').toString(),e]));
+  const caseByAV=new Map(AVERIAS.map(c=>[(c.AV||'').toString(),c]));
+  const rows=[];
+
+  INTERVENCIONES.forEach(i=>{
+    const requested=isYes(i.RequiereRepuestos)||!!(i.RepuestosRequeridos||'').toString().trim();
+    if(!requested) return;
+
+    const c=caseByAV.get((i.AV||'').toString());
+    if(!c||!isCaseOpen(c)) return;
+
+    const requestDate=Number(i.FechaIntervencion||0);
+    const installedLater=interventionsFor(i.AV).some(x=>
+      Number(x.FechaIntervencion||0)>=requestDate &&
+      norm(x.TipoMantenimiento).includes('instalacion repuesto')
+    );
+    if(installedLater) return;
+
+    const eq=equipmentByActivo.get((c.Activo||'').toString());
+    rows.push({
+      Repuesto:(i.RepuestosRequeridos||'Repuesto no especificado').toString().trim(),
+      Fecha:i.FechaIntervencion,
+      Activo:c.Activo||'—',
+      Equipo:(eq&&displayName(eq))||c.Equipo||i.Equipo||'Equipo'
+    });
+  });
+
+  const seen=new Set();
+  return rows
+    .sort((a,b)=>Number(a.Fecha||0)-Number(b.Fecha||0))
+    .filter(r=>{
+      const key=[r.Activo,norm(r.Repuesto),r.Fecha].join('|');
+      if(seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+}
+
+function renderSpareTable(){
+  if(!spareTableBody||!spareCountEl) return;
+  const rows=spareRequestRows();
+  spareCountEl.textContent=`${rows.length} ${rows.length===1?'solicitud pendiente':'solicitudes pendientes'}`;
+  spareTableBody.innerHTML='';
+  if(!rows.length){
+    spareTableBody.innerHTML='<tr><td colspan="4" class="empty-cell">No hay repuestos pendientes registrados.</td></tr>';
+    return;
+  }
+  rows.forEach(r=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${esc(r.Repuesto)}</td><td>${esc(formatDate(r.Fecha))}</td><td>${esc(r.Activo)}</td><td>${esc(r.Equipo)}</td>`;
+    spareTableBody.appendChild(tr);
+  });
 }
 
 function displayName(e){
@@ -170,9 +266,7 @@ function groupEquipment(){
 
 function currentCase(cases){
   if(!cases.length) return null;
-  const pending=cases.filter(c=>managementState(c)!=='🟢 Sin pendientes');
-  const pool=pending.length?pending:cases;
-  return [...pool].sort((a,b)=>(b.Fecha||'').toString().localeCompare((a.Fecha||'').toString()))[0];
+  return [...cases].sort((a,b)=>Number(b.Fecha||0)-Number(a.Fecha||0))[0];
 }
 
 function populateModalities(){
@@ -189,24 +283,25 @@ function setQuickFilter(type){
 }
 
 function renderSummary(equipment){
-  const fuera=equipment.filter(e=>e.cases.some(c=>norm(functionalState(c)).includes('fuera'))).length;
-  const repuesto=equipment.filter(e=>e.cases.some(caseNeedsSpare)).length;
-  const seguimiento=equipment.filter(e=>e.cases.some(caseNeedsFollowup)).length;
-  const clean=equipment.filter(e=>e.cases.every(c=>managementState(c)==='🟢 Sin pendientes')).length;
+  const fuera=equipment.filter(e=>norm(equipmentFunctionalState(e)).includes('fuera')).length;
+  const observaciones=equipment.filter(e=>norm(equipmentFunctionalState(e)).includes('observaciones')).length;
+  const operativo=equipment.filter(e=>norm(equipmentFunctionalState(e)).includes('operativo')&&!norm(equipmentFunctionalState(e)).includes('observaciones')).length;
+  const pendientes=equipment.filter(e=>pendingCasesFor(e).length>0).length;
   summaryEl.innerHTML=`
-    <button class="summary-card summary-action ${quickFilter==='fuera'?'active':''}" data-filter="fuera" type="button"><div class="label">Fuera de servicio</div><div class="value">${fuera}</div><div class="hint">Ver equipos</div></button>
-    <button class="summary-card summary-action ${quickFilter==='repuesto'?'active':''}" data-filter="repuesto" type="button"><div class="label">Pendiente de repuesto</div><div class="value">${repuesto}</div><div class="hint">Ver equipos</div></button>
-    <button class="summary-card summary-action ${quickFilter==='seguimiento'?'active':''}" data-filter="seguimiento" type="button"><div class="label">Requiere seguimiento</div><div class="value">${seguimiento}</div><div class="hint">Ver equipos</div></button>
-    <button class="summary-card summary-action ${quickFilter==='clean'?'active':''}" data-filter="clean" type="button"><div class="label">Sin pendientes</div><div class="value">${clean}</div><div class="hint">Ver equipos</div></button>`;
+    <button class="summary-card summary-action ${quickFilter==='fuera'?'active':''}" data-filter="fuera" type="button"><div class="label">Fuera de servicio</div><div class="value">${fuera}</div><div class="hint">Estado operativo actual</div></button>
+    <button class="summary-card summary-action ${quickFilter==='observaciones'?'active':''}" data-filter="observaciones" type="button"><div class="label">Operativo con observaciones</div><div class="value">${observaciones}</div><div class="hint">Estado operativo actual</div></button>
+    <button class="summary-card summary-action ${quickFilter==='operativo'?'active':''}" data-filter="operativo" type="button"><div class="label">Operativos</div><div class="value">${operativo}</div><div class="hint">Estado operativo actual</div></button>
+    <button class="summary-card summary-action ${quickFilter==='pendientes'?'active':''}" data-filter="pendientes" type="button"><div class="label">Con AV pendientes</div><div class="value">${pendientes}</div><div class="hint">Gestión administrativa</div></button>`;
   summaryEl.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>setQuickFilter(btn.dataset.filter)));
 }
 
 function matchesQuickFilter(e){
   if(!quickFilter) return true;
-  if(quickFilter==='fuera') return e.cases.some(c=>norm(functionalState(c)).includes('fuera'));
-  if(quickFilter==='repuesto') return e.cases.some(caseNeedsSpare);
-  if(quickFilter==='seguimiento') return e.cases.some(caseNeedsFollowup);
-  if(quickFilter==='clean') return e.cases.every(c=>managementState(c)==='🟢 Sin pendientes');
+  const state=norm(equipmentFunctionalState(e));
+  if(quickFilter==='fuera') return state.includes('fuera');
+  if(quickFilter==='observaciones') return state.includes('observaciones');
+  if(quickFilter==='operativo') return state.includes('operativo')&&!state.includes('observaciones');
+  if(quickFilter==='pendientes') return pendingCasesFor(e).length>0;
   return true;
 }
 
@@ -246,8 +341,8 @@ function render(){
   equipment.sort((a,b)=>displayName(a).localeCompare(displayName(b))).forEach(e=>{
     const node=template.content.firstElementChild.cloneNode(true);
     const current=currentCase(e.cases);
-    const fState=functionalState(current);
-    const mState=managementState(current);
+    const fState=equipmentFunctionalState(e);
+    const mState=equipmentManagementSummary(e);
     const cls=statusClass(fState);
 
     node.querySelector('.equipment-name').textContent=displayName(e);
@@ -255,7 +350,7 @@ function render(){
     node.querySelector('.status-dot').classList.add(cls);
     node.querySelector('.status-pill').classList.add(cls);
     node.querySelector('.status-pill').textContent=fState;
-    node.querySelector('.management-pill').classList.add(statusClass(mState));
+    node.querySelector('.management-pill').classList.add(pendingCasesFor(e).length?'status-pendiente-repuesto':'status-cerrado');
     node.querySelector('.management-pill').textContent=mState;
 
     const cases=node.querySelector('.cases');
@@ -309,6 +404,7 @@ async function loadData(){
     INTERVENCIONES=(await intervencionesRes.json()).filter(i=>(i.AV||'').toString().trim()!=='');
     populateModalities();
     render();
+    renderSpareTable();
   }catch(err){
     console.error(err);
     listEl.innerHTML='<div class="empty">No fue posible cargar el estado de los equipos. Intente nuevamente en unos minutos.</div>';
