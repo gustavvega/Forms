@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Panel Física Médica · Gestión de averías</title>
+<style>
+:root{--bg:#050914;--panel:#0c1425;--line:#20314f;--text:#eef5ff;--muted:#92a6c7;--green:#42d392;--yellow:#f2c94c;--orange:#ff9f43;--red:#ff6573;--blue:#6ea8ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0,#14233f 0,transparent 35%),var(--bg);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif}
+.shell{width:min(1180px,calc(100% - 24px));margin:auto;padding:22px 0 50px}
+.card{background:rgba(12,20,37,.9);border:1px solid var(--line);border-radius:20px;box-shadow:0 18px 50px rgba(0,0,0,.35)}
+.login{max-width:430px;margin:12vh auto;padding:28px}.login h1{margin:6px 0 8px}.muted{color:var(--muted)}input,select,textarea,button{font:inherit}input,select,textarea{width:100%;background:#0a1221;border:1px solid #263a5d;color:var(--text);border-radius:12px;padding:12px}
+button{cursor:pointer;border:0;border-radius:12px;padding:11px 14px}.primary{background:linear-gradient(135deg,#63e5ff,#7f7cff);color:#07111d;font-weight:800}.secondary{background:#14223a;color:var(--text);border:1px solid #263a5d}
+.error{color:#ff9aa4;font-size:13px;margin-top:10px}.hidden{display:none!important}
+.top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;padding:22px;margin-bottom:14px}.top h1{margin:5px 0}.actions{display:flex;gap:8px;flex-wrap:wrap}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}.kpi{padding:16px}.kpi b{font-size:26px;display:block;margin-top:6px}
+.grid{display:grid;grid-template-columns:1.35fr .9fr;gap:14px}.section{padding:18px}.section h2{margin:0 0 12px}
+.toolbar{display:grid;grid-template-columns:1fr 220px;gap:10px;margin-bottom:12px}
+.av-list{display:grid;gap:10px}.av{border:1px solid var(--line);border-radius:14px;padding:13px;background:rgba(255,255,255,.025)}
+.av-head{display:flex;justify-content:space-between;gap:10px}.av-code{font-weight:800}.tag{display:inline-block;padding:5px 8px;border-radius:999px;border:1px solid currentColor;font-size:11px}
+.orange{color:var(--orange)}.green{color:var(--green)}.blue{color:var(--blue)}.yellow{color:var(--yellow)}.red{color:var(--red)}
+.meta{font-size:12px;color:var(--muted);margin-top:5px}.desc{font-size:13px;line-height:1.45;margin-top:9px}.row-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}.row-actions button{padding:8px 10px;font-size:12px}
+table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:12px}th{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.08em}
+.notice{padding:12px;border:1px solid #5a4c23;background:#221d0d;border-radius:12px;color:#f3d98b;font-size:12px;line-height:1.45;margin-bottom:12px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:grid;place-items:center;padding:16px;z-index:5}.modal-card{width:min(520px,100%);padding:20px}.modal-grid{display:grid;gap:10px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
+@media(max-width:850px){.grid{grid-template-columns:1fr}.kpis{grid-template-columns:1fr 1fr}}@media(max-width:520px){.kpis{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.top{flex-direction:column}}
+</style>
+</head>
+<body>
+<div id="loginView" class="shell">
+  <div class="card login">
+    <div class="muted">Física Médica · Radiología HCG</div>
+    <h1>Panel de administración</h1>
+    <p class="muted">Gestión de averías abiertas y seguimiento de repuestos.</p>
+    <input id="pwd" type="password" placeholder="Contraseña" autocomplete="current-password">
+    <button id="loginBtn" class="primary" style="width:100%;margin-top:10px">Ingresar</button>
+    <div id="loginError" class="error"></div>
+  </div>
+</div>
+
+<div id="appView" class="shell hidden">
+  <section class="card top">
+    <div><div class="muted">Física Médica · Administración</div><h1>Gestión de averías</h1><div class="muted">Estado operativo separado de la gestión administrativa.</div></div>
+    <div class="actions"><a href="../" style="text-decoration:none"><button class="secondary">Consulta general</button></a><button id="logoutBtn" class="secondary">Cerrar sesión</button></div>
+  </section>
+
+  <section class="kpis">
+    <div class="card kpi"><span class="muted">AV abiertas</span><b id="kOpen">0</b></div>
+    <div class="card kpi"><span class="muted">Seguimiento</span><b id="kFollow">0</b></div>
+    <div class="card kpi"><span class="muted">Con repuesto</span><b id="kSpare">0</b></div>
+    <div class="card kpi"><span class="muted">Fuera de servicio</span><b id="kOut">0</b></div>
+  </section>
+
+  <div class="grid">
+    <section class="card section">
+      <h2>Averías abiertas</h2>
+      <div class="notice">Las acciones de gestión del panel están preparadas, pero todavía no escriben en Excel. El registro oficial seguirá siendo <b>tblAverias</b> hasta conectar este panel con Power Automate.</div>
+      <div class="toolbar"><input id="q" placeholder="Buscar AV, activo o equipo"><select id="filter"><option value="">Todas</option><option value="seguimiento">Seguimiento</option><option value="repuesto">Repuesto</option><option value="fuera">Fuera de servicio</option></select></div>
+      <div id="avList" class="av-list"></div>
+    </section>
+
+    <section class="card section">
+      <h2>Repuestos pendientes</h2>
+      <div class="muted" style="margin-bottom:10px">Repuesto · fecha solicitada · activo · equipo</div>
+      <div style="overflow:auto"><table><thead><tr><th>Repuesto</th><th>Fecha</th><th>Activo</th><th>Equipo</th></tr></thead><tbody id="spares"></tbody></table></div>
+    </section>
+  </div>
+</div>
+
+<div id="modal" class="modal hidden">
+  <div class="card modal-card">
+    <h2 id="modalTitle">Gestionar AV</h2>
+    <div class="modal-grid">
+      <label>Acción<select id="adminAction"><option>En seguimiento</option><option>Resuelta</option><option>Duplicada / relacionada</option><option>Mantener pendiente</option></select></label>
+      <label>AV relacionada (opcional)<input id="relatedAv" placeholder="Ej. AV-2026-10-0052"></label>
+      <label>Observación administrativa<textarea id="adminNote" rows="4" placeholder="Motivo o comentario"></textarea></label>
+    </div>
+    <div class="modal-actions"><button id="cancelBtn" class="secondary">Cancelar</button><button id="saveBtn" class="primary">Preparar cambio</button></div>
+    <div id="saveMsg" class="error"></div>
+  </div>
+</div>
+
+<script>
+const PASSWORD_HASH='ed0b7ff4550f4d9b6f019a2bde41afe4946c5216179446d9c74914031391f17c';
+let EQUIPOS=[],AVERIAS=[],INTERVENCIONES=[],selectedAV=null;
+const norm=s=>(s||'').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+const esc=s=>(s||'').toString().replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+async function sha256(s){const b=new TextEncoder().encode(s);const d=await crypto.subtle.digest('SHA-256',b);return [...new Uint8Array(d)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+function formatDate(v){if(!v)return '—';const n=Number(v);if(Number.isFinite(n)){const d=new Date(Date.UTC(1899,11,30)+Math.floor(n)*86400000);return d.toLocaleDateString('es-CR',{timeZone:'UTC'})}return v}
+function isYes(v){return ['si','sí','yes','true'].includes(norm(v).trim())}
+function interventionsFor(av){return INTERVENCIONES.filter(i=>i.AV===av).sort((a,b)=>Number(b.FechaIntervencion||0)-Number(a.FechaIntervencion||0))}
+function isOpen(c){const s=norm(c.EstadoGestion).trim();return s!=='cerrado'&&!s.includes('duplicado')&&!s.includes('no procede')}
+function latestState(c){const i=interventionsFor(c.AV)[0];return (i&&i.EstadoFinalEquipo)||c.EstadoEquipo||''}
+function needsSpare(c){if(!isOpen(c))return false;const i=interventionsFor(c.AV)[0];return norm(c.EstadoGestion).includes('repuesto')||!!i&&(isYes(i.RequiereRepuestos)||!!(i.RepuestosRequeridos||'').trim())}
+function needsFollow(c){if(!isOpen(c))return false;const i=interventionsFor(c.AV)[0];return norm(c.EstadoGestion).includes('seguimiento')||!!i&&isYes(i.RequiereNuevaIntervencion)}
+function eqName(c){const e=EQUIPOS.find(x=>(x.Activo||'').toString()===(c.Activo||'').toString());return (e&&(e.NombreAdministracion||e.Alias||e.Modelo))||c.Equipo||'Equipo'}
+function spareRows(){
+ const out=[];
+ AVERIAS.filter(isOpen).forEach(c=>{
+   interventionsFor(c.AV).forEach(i=>{
+     const requested=isYes(i.RequiereRepuestos)||!!(i.RepuestosRequeridos||'').trim();
+     if(!requested)return;
+     const d=Number(i.FechaIntervencion||0);
+     const installed=interventionsFor(c.AV).some(x=>Number(x.FechaIntervencion||0)>=d&&norm(x.TipoMantenimiento).includes('instalacion repuesto'));
+     if(!installed)out.push({r:(i.RepuestosRequeridos||'Repuesto no especificado').trim(),d:i.FechaIntervencion,a:c.Activo||'—',e:eqName(c)});
+   })
+ });
+ const seen=new Set();return out.filter(x=>{const k=[x.a,norm(x.r),x.d].join('|');if(seen.has(k))return false;seen.add(k);return true}).sort((a,b)=>Number(a.d||0)-Number(b.d||0));
+}
+async function loadData(){
+ const [e,a,i]=await Promise.all([fetch('../data/equipos.json',{cache:'no-store'}),fetch('../data/averias.json',{cache:'no-store'}),fetch('../data/intervenciones.json',{cache:'no-store'})]);
+ EQUIPOS=await e.json();AVERIAS=await a.json();INTERVENCIONES=await i.json();render();
+}
+function render(){
+ const open=AVERIAS.filter(isOpen);document.getElementById('kOpen').textContent=open.length;document.getElementById('kFollow').textContent=open.filter(needsFollow).length;document.getElementById('kSpare').textContent=open.filter(needsSpare).length;document.getElementById('kOut').textContent=open.filter(c=>norm(latestState(c)).includes('fuera')).length;
+ const q=norm(document.getElementById('q').value),f=document.getElementById('filter').value;
+ const rows=open.filter(c=>!q||[c.AV,c.Activo,c.Equipo,c.Descripcion,c.EstadoGestion].some(x=>norm(x).includes(q))).filter(c=>!f||(f==='seguimiento'&&needsFollow(c))||(f==='repuesto'&&needsSpare(c))||(f==='fuera'&&norm(latestState(c)).includes('fuera')));
+ document.getElementById('avList').innerHTML=rows.length?rows.map(c=>`<div class="av"><div class="av-head"><div><div class="av-code">${esc(c.AV)}</div><div class="meta">Activo ${esc(c.Activo||'—')} · ${esc(eqName(c))}</div></div><span class="tag orange">${esc(c.EstadoGestion||'Pendiente')}</span></div><div class="desc">${esc(c.Descripcion||'Sin descripción')}</div><div class="meta">Estado técnico: ${esc(latestState(c)||'No especificado')}</div><div class="row-actions"><button class="secondary" onclick="manage('${esc(c.AV)}')">Gestionar AV</button></div></div>`).join(''):'<div class="muted">No hay averías con esos criterios.</div>';
+ const sp=spareRows();document.getElementById('spares').innerHTML=sp.length?sp.map(x=>`<tr><td>${esc(x.r)}</td><td>${esc(formatDate(x.d))}</td><td>${esc(x.a)}</td><td>${esc(x.e)}</td></tr>`).join(''):'<tr><td colspan="4" class="muted">Sin repuestos pendientes.</td></tr>';
+}
+window.manage=av=>{selectedAV=av;document.getElementById('modalTitle').textContent='Gestionar '+av;document.getElementById('modal').classList.remove('hidden');document.getElementById('saveMsg').textContent=''}
+document.getElementById('cancelBtn').onclick=()=>document.getElementById('modal').classList.add('hidden');
+document.getElementById('saveBtn').onclick=()=>{
+ const draft={av:selectedAV,accion:document.getElementById('adminAction').value,relacionada:document.getElementById('relatedAv').value.trim(),observacion:document.getElementById('adminNote').value.trim(),fecha:new Date().toISOString()};
+ localStorage.setItem('gestion-av-'+selectedAV,JSON.stringify(draft));
+ document.getElementById('saveMsg').textContent='Cambio preparado localmente. Falta conectarlo a Power Automate para escribirlo en Excel.';
+};
+document.getElementById('loginBtn').onclick=async()=>{const ok=(await sha256(document.getElementById('pwd').value))===PASSWORD_HASH;if(!ok){document.getElementById('loginError').textContent='Contraseña incorrecta';return}sessionStorage.setItem('fm-admin','1');document.getElementById('loginView').classList.add('hidden');document.getElementById('appView').classList.remove('hidden');loadData()};
+document.getElementById('logoutBtn').onclick=()=>{sessionStorage.removeItem('fm-admin');location.reload()};
+document.getElementById('q').addEventListener('input',render);document.getElementById('filter').addEventListener('change',render);
+if(sessionStorage.getItem('fm-admin')==='1'){document.getElementById('loginView').classList.add('hidden');document.getElementById('appView').classList.remove('hidden');loadData()}
+</script>
+</body>
+</html>
