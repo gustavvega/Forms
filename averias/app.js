@@ -81,11 +81,15 @@ function sanitizeAverias(rows){
   return clean;
 }
 
+function recentInterventionsMatching(predicate){
+  // En la misma fecha, la última fila publicada es la versión más reciente.
+  return INTERVENCIONES.filter(predicate).reverse()
+    .sort((a,b)=>Number(b.FechaIntervencion||0)-Number(a.FechaIntervencion||0));
+}
+
 function interventionsFor(av){
   if(!(av||'').toString().trim()) return [];
-  return INTERVENCIONES
-    .filter(i=>i.AV===av)
-    .sort((a,b)=>(b.FechaIntervencion||'').toString().localeCompare((a.FechaIntervencion||'').toString()));
+  return recentInterventionsMatching(i=>i.AV===av);
 }
 
 function isCaseOpen(c){
@@ -139,10 +143,8 @@ function equipmentFunctionalState(e){
   if(!e) return 'Estado funcional no especificado';
   const cases=Array.isArray(e.cases)?e.cases:[];
   const latestCase=[...cases].sort((a,b)=>Number(b.Fecha||0)-Number(a.Fecha||0))[0]||null;
-  const allInterventions=cases
-    .flatMap(c=>interventionsFor(c.AV).map(i=>({...i,_av:c.AV})))
-    .sort((a,b)=>Number(b.FechaIntervencion||0)-Number(a.FechaIntervencion||0));
-  const latestIntervention=allInterventions[0]||null;
+  const avs=new Set(cases.map(c=>c.AV).filter(Boolean));
+  const latestIntervention=recentInterventionsMatching(i=>avs.has(i.AV))[0]||null;
 
   const caseDate=latestCase?Number(latestCase.Fecha||0):0;
   const interventionDate=latestIntervention?Number(latestIntervention.FechaIntervencion||0):0;
