@@ -2,7 +2,7 @@ name: Actualizar datos de averías
 
 on:
   repository_dispatch:
-    types: [actualizar-averias, actualizar-averia]
+    types: [actualizar-averias, actualizar-averia, actualizar-lote-averias, actualizar-equipos-intervenciones]
 
 permissions:
   contents: write
@@ -41,11 +41,12 @@ jobs:
                   json.dump(registros, archivo, ensure_ascii=False, indent=2)
                   archivo.write('\n')
 
-          if evento['action'] == 'actualizar-averia':
-              registro = payload.get('registro')
-              av = registro.get('AV') if isinstance(registro, dict) else None
-              if not isinstance(av, str) or not av.strip():
-                  raise SystemExit('client_payload.registro debe ser un objeto con una AV válida')
+          accion = evento['action']
+          if accion in ('actualizar-averia', 'actualizar-lote-averias'):
+              registros = ([payload.get('registro')] if accion == 'actualizar-averia'
+                           else payload.get('registros'))
+              if not isinstance(registros, list):
+                  raise SystemExit('client_payload.registros debe ser un arreglo JSON')
 
               ruta = data / 'averias.json'
               with ruta.open(encoding='utf-8') as archivo:
@@ -53,17 +54,28 @@ jobs:
               if not isinstance(averias, list):
                   raise SystemExit('averias.json debe contener un arreglo JSON')
 
+              indices = {}
               for indice, averia in enumerate(averias):
-                  if averia['AV'] == av:
-                      if averia != registro:
-                          averias[indice] = registro
-                          escribir_json(ruta, averias)
-                      break
-              else:
-                  averias.append(registro)
+                  indices.setdefault(averia['AV'], indice)
+
+              hubo_cambios = False
+              for registro in registros:
+                  av = registro.get('AV') if isinstance(registro, dict) else None
+                  if not isinstance(av, str) or not av.strip():
+                      raise SystemExit('Cada registro debe ser un objeto con una AV válida')
+                  if av not in indices:
+                      indices[av] = len(averias)
+                      averias.append(registro)
+                      hubo_cambios = True
+                  elif averias[indices[av]] != registro:
+                      averias[indices[av]] = registro
+                      hubo_cambios = True
+              if hubo_cambios:
                   escribir_json(ruta, averias)
           else:
-              nombres = ('equipos', 'averias', 'intervenciones')
+              nombres = ('equipos', 'intervenciones')
+              if accion == 'actualizar-averias':
+                  nombres = ('equipos', 'averias', 'intervenciones')
               for nombre in nombres:
                   if not isinstance(payload.get(nombre), list):
                       raise SystemExit(f'{nombre} debe ser un arreglo JSON en client_payload')
