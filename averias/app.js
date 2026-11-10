@@ -44,7 +44,7 @@ function statusClass(status){
   if(s.includes('fuera')||s.includes('atencion')) return 'status-en-atencion';
   if(s.includes('repuesto')) return 'status-pendiente-repuesto';
   if(s.includes('seguimiento')||s.includes('observaciones')) return 'status-seguimiento';
-  if(s.includes('cerrado')||s.includes('sin pendientes')||s.includes('operativo')||s.includes('sin reporte activo')) return 'status-cerrado';
+  if(s.includes('cerrado')||s.includes('resuelta tecnicamente')||s.includes('sin pendientes')||s.includes('operativo')||s.includes('sin reporte activo')) return 'status-cerrado';
   if(s.includes('administracion')) return 'status-administracion';
   if(s.includes('pendiente')) return 'status-pendiente';
   return 'status-neutral';
@@ -92,9 +92,44 @@ function interventionsFor(av){
   return recentInterventionsMatching(i=>i.AV===av);
 }
 
+function requestedParts(report){
+  return norm(report.RepuestosRequeridos).split(/\n+/).map(part=>
+    part.replace(/\s*[-–]?\s*\b\d+\s*(?:unidades?|uds?\.?)?\s*$/,'').trim()
+  ).filter(Boolean);
+}
+
+function confirmsInstallation(report, request){
+  const work=norm(report.TrabajoRealizado).replace(/\s+/g,' ');
+  const parts=requestedParts(request);
+  return parts.length>0&&parts.every(part=>
+    work.includes(part) ||
+    (/^(?:soporte|anclaje|agarradera) (?:de|del) brazo$/.test(part) &&
+     /\b(?:soporte|anclaje|agarradera)(?: o (?:soporte|anclaje|agarradera))? (?:de|del) brazo\b/.test(work))
+  );
+}
+
+function completedInstallation(c, request){
+  const avs=new Set(AVERIAS.filter(a=>c.Activo&&a.Activo===c.Activo).map(a=>a.AV));
+  avs.add(c.AV);
+  const latest=recentInterventionsMatching(i=>avs.has(i.AV))[0];
+  return !!latest &&
+    Number(latest.FechaIntervencion)>Number(request.FechaIntervencion) &&
+    norm(latest.EstadoFinalEquipo).replace(/^[^a-z]+/,'').trim()==='operativo' &&
+    norm(latest.RequiereRepuestos).trim()==='no' &&
+    norm(latest.RequiereNuevaIntervencion).trim()==='no' &&
+    norm(latest.TipoMantenimiento).includes('instalacion repuesto') &&
+    confirmsInstallation(latest,request);
+}
+
+function isTechnicallyResolved(c){
+  const requests=interventionsFor(c.AV)
+    .filter(i=>isYes(i.RequiereRepuestos)||requestedParts(i).length);
+  return requests.length>0&&requests.every(i=>completedInstallation(c,i));
+}
+
 function isCaseOpen(c){
   if(!c||isRejectedCase(c)) return false;
-  return norm(c.EstadoGestion).trim()!=='cerrado';
+  return norm(c.EstadoGestion).trim()!=='cerrado'&&!isTechnicallyResolved(c);
 }
 
 function caseNeedsSpare(c){
@@ -115,6 +150,7 @@ function managementState(c){
   if(!c) return '🟢 Sin pendientes';
   const s=norm(c.EstadoGestion).trim();
   if(s==='cerrado') return '🟢 Sin pendientes';
+  if(isTechnicallyResolved(c)) return '🟢 Resuelta técnicamente';
   if(caseNeedsSpare(c)) return '🟠 Pendiente de repuesto';
   if(caseNeedsFollowup(c)) return '🔵 Requiere seguimiento';
   if(s.includes('atencion')) return '🔴 En atención';
@@ -160,12 +196,7 @@ function spareRequestRows(){
     const c=caseByAV.get((i.AV||'').toString());
     if(!c||!isCaseOpen(c)) return;
 
-    const requestDate=Number(i.FechaIntervencion||0);
-    const installedLater=interventionsFor(i.AV).some(x=>
-      Number(x.FechaIntervencion||0)>=requestDate &&
-      norm(x.TipoMantenimiento).includes('instalacion repuesto')
-    );
-    if(installedLater) return;
+    if(completedInstallation(c,i)) return;
 
     const eq=equipmentByActivo.get((c.Activo||'').toString());
     rows.push({
