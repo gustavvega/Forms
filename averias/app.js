@@ -111,17 +111,6 @@ function caseNeedsFollowup(c){
   return !!latest&&isYes(latest.RequiereNuevaIntervencion)&&!caseNeedsSpare(c);
 }
 
-function functionalState(c){
-  if(!c) return '🟢 Sin reporte activo';
-  const latest=interventionsFor(c.AV)[0];
-  const state=(latest&&latest.EstadoFinalEquipo)||c.EstadoEquipo||'';
-  if(norm(state).includes('repuesto')) return 'Estado funcional no especificado';
-  if(norm(state).includes('fuera')) return '🔴 Fuera de servicio';
-  if(norm(state).includes('observaciones')) return '🟡 Operativo con observaciones';
-  if(norm(state).includes('operativo')) return '🟢 Operativo';
-  return state||'Estado funcional no especificado';
-}
-
 function managementState(c){
   if(!c) return '🟢 Sin pendientes';
   const s=norm(c.EstadoGestion).trim();
@@ -146,13 +135,7 @@ function equipmentFunctionalState(e){
   const avs=new Set(cases.map(c=>c.AV).filter(Boolean));
   const latestIntervention=recentInterventionsMatching(i=>avs.has(i.AV))[0]||null;
 
-  const caseDate=latestCase?Number(latestCase.Fecha||0):0;
-  const interventionDate=latestIntervention?Number(latestIntervention.FechaIntervencion||0):0;
-  const raw=(latestIntervention&&interventionDate>=caseDate)
-    ? latestIntervention.EstadoFinalEquipo
-    : (latestCase&&latestCase.EstadoEquipo);
-
-  const state=raw||'';
+  const state=latestIntervention?.EstadoFinalEquipo||latestCase?.EstadoEquipo||'';
   if(norm(state).includes('fuera')) return '🔴 Fuera de servicio';
   if(norm(state).includes('observaciones')) return '🟡 Operativo con observaciones';
   if(norm(state).includes('operativo')) return '🟢 Operativo';
@@ -325,7 +308,7 @@ function render(){
   const allEquipment=groupEquipment().filter(e=>e.cases.length>0);
   const equipment=allEquipment.filter(e=>{
     const interventionText=e.cases.flatMap(c=>interventionsFor(c.AV).flatMap(i=>[i.TrabajoRealizado,i.RepuestosRequeridos,i.Observaciones]));
-    const hit=!q||[displayName(e),e.Alias,e.Equipo,e.Activo,e.Modalidad,e.Modelo,e.Fabricante,...e.cases.flatMap(c=>[c.AV,c.Descripcion,c.TipoIncidente,c.MensajeError,c.EstadoGestion,functionalState(c),managementState(c)]),...interventionText].some(x=>norm(x).includes(q));
+    const hit=!q||[displayName(e),e.Alias,e.Equipo,e.Activo,e.Modalidad,e.Modelo,e.Fabricante,equipmentFunctionalState(e),...e.cases.flatMap(c=>[c.AV,c.Descripcion,c.TipoIncidente,c.MensajeError,c.EstadoGestion,managementState(c)]),...interventionText].some(x=>norm(x).includes(q));
     const statusHit=!status||e.cases.some(c=>c.EstadoGestion===status);
     const modHit=!modality||e.Modalidad===modality;
     return hit&&statusHit&&modHit&&matchesQuickFilter(e);
@@ -361,7 +344,6 @@ function render(){
       .forEach(c=>{
         const allInterventions=interventionsFor(c.AV);
         const recentInterventions=allInterventions.slice(0,5);
-        const f=functionalState(c);
         const m=managementState(c);
         const latest=allInterventions[0];
         const description=(c.Descripcion||'').toString().trim()||'Sin descripción registrada.';
@@ -370,7 +352,7 @@ function render(){
         div.innerHTML=`
           <div class="case-top"><div class="case-av">${esc(c.AV)}</div><div class="case-date">${esc(formatDate(c.Fecha))}</div></div>
           <div class="case-description">
-            <b>Estado del equipo:</b> <span class="${statusClass(f)}">${esc(f)}</span><br>
+            <b>Estado actual del equipo:</b> <span class="${statusClass(fState)}">${esc(fState)}</span><br>
             <b>Gestión:</b> <span class="${statusClass(m)}">${esc(m)}</span>
           </div>
           <div class="case-description"><b>Descripción del registro</b><br>${esc(description)}</div>
