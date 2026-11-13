@@ -852,5 +852,19 @@
     "MensajeError": "",
     "Modalidad": "Convencional",
     "TipoIncidente": "[\"🔧 Accesorio dañado\"]"
+  },
+  {
+    "AV": "AV-2026-11-0063",
+    "Activo": "1345642",
+    "Descripcion": "Cabezal no se sostiene ",
+    "Equipo": "02 - 1345642",
+    "EstadoEquipo": "🟡 Operativo con limitaciones",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46339",
+    "Hora": "hora10:36",
+    "Lugar": "Torre Sur ",
+    "MensajeError": "",
+    "Modalidad": "Inyectores",
+    "TipoIncidente": ""
   }
 ]
