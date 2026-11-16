@@ -880,5 +880,19 @@
     "MensajeError": "",
     "Modalidad": "Densitómetro",
     "TipoIncidente": "[\"🔌 Encendido o alimentación eléctrica\"]"
+  },
+  {
+    "AV": "AV-2026-11-0065",
+    "Activo": "1318936",
+    "Descripcion": "No enciende. ",
+    "Equipo": "01 - 1318936",
+    "EstadoEquipo": "🔴 Fuera de servicio",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46342",
+    "Hora": "hora6:10 am ",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "Inyectores",
+    "TipoIncidente": ""
   }
 ]
