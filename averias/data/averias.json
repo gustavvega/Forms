@@ -866,5 +866,19 @@
     "MensajeError": "",
     "Modalidad": "Inyectores",
     "TipoIncidente": ""
+  },
+  {
+    "AV": "AV-2026-11-0064",
+    "Activo": "1344979",
+    "Descripcion": "La ups está sonando desde antes de iniciar el primer turno. El sonido de la UPS se vuelve excesivo para laborar, favor indicar si hay alguna manera de eliminarlo. Gracias ",
+    "Equipo": "Densitómetro Óseo - Lunar iDXA",
+    "EstadoEquipo": "🟢 Operativo",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46342",
+    "Hora": "hora6:00",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "Densitómetro",
+    "TipoIncidente": "[\"🔌 Encendido o alimentación eléctrica\"]"
   }
 ]
