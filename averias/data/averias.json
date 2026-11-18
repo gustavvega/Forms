@@ -894,5 +894,19 @@
     "MensajeError": "",
     "Modalidad": "Inyectores",
     "TipoIncidente": ""
+  },
+  {
+    "AV": "AV-2026-11-0066",
+    "Activo": "1488251",
+    "Descripcion": "El equipo emite un sonido extraño tipo \"fricción \" que no proviene de la mesa cuando se esta posicionando para iniciar la adquisición. Sin embargo cuando se mueve la mesa sin paciente no suena de esa forma.",
+    "Equipo": "TAC Philips 64 - Incisive",
+    "EstadoEquipo": "🟢 Operativo",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46344",
+    "Hora": "hora6:30am",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "TAC",
+    "TipoIncidente": "[\"❓ Otro\"]"
   }
 ]
