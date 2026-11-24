@@ -1006,5 +1006,37 @@
     "RequiereRepuestos": "No",
     "TipoMantenimiento": "Preventivo",
     "TrabajoRealizado": "Preventivo "
+  },
+  {
+    "AV": "",
+    "DuracionHoras": "0.416666666666667",
+    "Empresa": "Siemens",
+    "Equipo": "🟡 Amarillo - Mobilett Mira Max",
+    "EstadoFinalEquipo": "🔴 Fuera de servicio",
+    "FechaIntervencion": "46344",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Portátiles",
+    "Observaciones": "Pieza ya cotizada próxima a instalar ",
+    "RepuestosRequeridos": "Agarradera de brazo,",
+    "RequiereNuevaIntervencion": "Sí",
+    "RequiereRepuestos": "Sí",
+    "TipoMantenimiento": "Instalación repuesto o software",
+    "TrabajoRealizado": "Cambio de perillas de colimador."
+  },
+  {
+    "AV": "AV-2026-08-0005",
+    "DuracionHoras": "0.5",
+    "Empresa": "Siemens",
+    "Equipo": "🟡 Amarillo - Mobilett Mira Max",
+    "EstadoFinalEquipo": "🔴 Fuera de servicio",
+    "FechaIntervencion": "46344",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Portátiles",
+    "Observaciones": "Queda pendiente dar cierre a reporte de preventivo cuando equipo esté operativo ",
+    "RepuestosRequeridos": "Agarradera de brazo",
+    "RequiereNuevaIntervencion": "Sí",
+    "RequiereRepuestos": "Sí",
+    "TipoMantenimiento": "Preventivo",
+    "TrabajoRealizado": "Se realiza cerrificado. \n"
   }
 ]
