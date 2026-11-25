@@ -936,5 +936,19 @@
     "MensajeError": "",
     "Modalidad": "Portátiles",
     "TipoIncidente": "[\"❓ Otro\"]"
+  },
+  {
+    "AV": "AV-2026-11-0069",
+    "Activo": "1345382",
+    "Descripcion": "Equipo no dispara RX. No funciona disparador ni control remoto.",
+    "Equipo": "🔵 Azul - Mobilett Elara Max",
+    "EstadoEquipo": "🔴 Fuera de servicio",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46351",
+    "Hora": "hora09:30 AM",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "Portátiles",
+    "TipoIncidente": "[\"🩻 No permite realizar el estudio\"]"
   }
 ]
