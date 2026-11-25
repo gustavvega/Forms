@@ -950,5 +950,19 @@
     "MensajeError": "",
     "Modalidad": "Portátiles",
     "TipoIncidente": "[\"🩻 No permite realizar el estudio\"]"
+  },
+  {
+    "AV": "AV-2026-11-0070",
+    "Activo": "1345644",
+    "Descripcion": "Lo botones del Gantry se apagan y la UPS Huele a quemado, no deja bajar la mesa ",
+    "Equipo": "TAC Siemens 32 - SOMATOM Perspective",
+    "EstadoEquipo": "🔴 Fuera de servicio",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46351",
+    "Hora": "hora3:00pm",
+    "Lugar": "Torre Este",
+    "MensajeError": "Lo botones del Gantry se apagan y la UPS Huele a quemado, no deja bajar la mesa ",
+    "Modalidad": "TAC",
+    "TipoIncidente": "[\"🩻 No permite realizar el estudio\"]"
   }
 ]
