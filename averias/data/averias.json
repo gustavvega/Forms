@@ -922,5 +922,19 @@
     "MensajeError": "",
     "Modalidad": "Portátiles",
     "TipoIncidente": "[\"🖥️ Consola o pantalla\",\"🩻 No permite realizar el estudio\"]"
+  },
+  {
+    "AV": "AV-2026-11-0068",
+    "Activo": "1363878",
+    "Descripcion": "Equipo no reconoce red internet ",
+    "Equipo": "🔴 Rojo - Mobilett Mira Max",
+    "EstadoEquipo": "🔴 Fuera de servicio",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46351",
+    "Hora": "hora7 am",
+    "Lugar": "Torre Este",
+    "MensajeError": "",
+    "Modalidad": "Portátiles",
+    "TipoIncidente": "[\"❓ Otro\"]"
   }
 ]
