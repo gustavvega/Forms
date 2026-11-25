@@ -908,5 +908,19 @@
     "MensajeError": "",
     "Modalidad": "TAC",
     "TipoIncidente": "[\"❓ Otro\"]"
+  },
+  {
+    "AV": "AV-2026-11-0067",
+    "Activo": "1363877",
+    "Descripcion": "No permite ingresar al estudio, y la pantalla de puso negra un rato después ",
+    "Equipo": "🟡 Amarillo - Mobilett Mira Max",
+    "EstadoEquipo": "🔴 Fuera de servicio",
+    "EstadoGestion": "Enviado a Administración",
+    "Fecha": "46348",
+    "Hora": "hora6:00 am ",
+    "Lugar": "Torre Sur ",
+    "MensajeError": "",
+    "Modalidad": "Portátiles",
+    "TipoIncidente": "[\"🖥️ Consola o pantalla\",\"🩻 No permite realizar el estudio\"]"
   }
 ]
