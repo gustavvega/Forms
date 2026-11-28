@@ -1070,5 +1070,37 @@
     "RequiereRepuestos": "No",
     "TipoMantenimiento": "Preventivo",
     "TrabajoRealizado": "Se realiza visita por mantenimiento preventivo del sistema. Se hace revisión de\nmovimientos del sistema, verificación de funcionamiento de pedales y botones. Se hace\nlimpieza de la computadora y del generador, se hace medición de tensión del generador.\nSe hacen pruebas y mediciones para confección del certificado de buen funcionamiento.\nSe hacen respaldos de la configuración y del sistema operativo.\nEl tubo reporta 193301 disparos.\nEl equipo funciona correctamente."
+  },
+  {
+    "AV": "AV-2026-10-0046",
+    "DuracionHoras": "5.5",
+    "Empresa": "Siemens",
+    "Equipo": "Sala 1 - Ysio Max",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46349",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Convencional",
+    "Observaciones": "Se restaura la operación del sistema",
+    "RepuestosRequeridos": "",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "No",
+    "TipoMantenimiento": "Instalación repuesto o software",
+    "TrabajoRealizado": "Se realiza el reemplazo del tubo de Rx debido a que uno de los filamentos estaba dañado.\nSe hace el ajuste mecánico y calibración. Se hacen las pruebas de funcionamiento y\nconfección del certificado de buen funcionamiento.\nEl equipo funciona correctamente."
+  },
+  {
+    "AV": "AV-2026-09-0018",
+    "DuracionHoras": "3",
+    "Empresa": "Siemens",
+    "Equipo": "Sala 1 - Ysio Max",
+    "EstadoFinalEquipo": "🟡 Operativo con observaciones",
+    "FechaIntervencion": "46349",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Convencional",
+    "Observaciones": "El equipo se encuentra operativo",
+    "RepuestosRequeridos": "Detector portable - 1 unidad\nControl manual de bucky de pared - 1 unidad",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "Sí",
+    "TipoMantenimiento": "Preventivo",
+    "TrabajoRealizado": "Se realizan labores de mantenimiento preventivo.\nSe hacen revisión de movimientos del sistema, se hace Home position, End position,\nReference room y centering.\nSe hace calibración del detector ya que estaba apareciendo una línea en el detector, misma\nque se estaba dando seguimiento antes de que se dañara el tubo de RX. Se calibra el detector eliminando la línea, pero ya es un problema que va a volver aparecer con el\ntiempo por lo que se recomienda el reemplazo preventivo del detector.\nTambien se recomienda el cambio preventivo del control del bucky de pared, ya que uno de\nlos botones se está quedando pegado.\nEl equipo se encuentra operando correctamente."
   }
 ]
