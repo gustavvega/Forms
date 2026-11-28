@@ -1038,5 +1038,21 @@
     "RequiereRepuestos": "Sí",
     "TipoMantenimiento": "Preventivo",
     "TrabajoRealizado": "Se realiza cerrificado. \n"
+  },
+  {
+    "AV": "AV-2026-11-0070",
+    "DuracionHoras": "0.5",
+    "Empresa": "Siemens",
+    "Equipo": "TAC Siemens 32 - SOMATOM Perspective",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46352",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "TAC",
+    "Observaciones": "El equipo funciona correctamente",
+    "RepuestosRequeridos": "",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "No",
+    "TipoMantenimiento": "Correctivo",
+    "TrabajoRealizado": "Se realiza visita en sitio para revisión del sistema. El equipo se encuentra operando\ncorrectamente y sin problemas.\nSe revisa logs de errores de la UPS de donde reportaron un olor a humo, no se encuentran\nindicios de problemas y los logs de errores no muestran problemas.\nEl día de mañana en el Mantenimiento del problema se hará una revisión profunda del equipo.\nEl equipo funciona correctamente"
   }
 ]
