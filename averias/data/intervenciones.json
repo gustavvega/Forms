@@ -1054,5 +1054,21 @@
     "RequiereRepuestos": "No",
     "TipoMantenimiento": "Correctivo",
     "TrabajoRealizado": "Se realiza visita en sitio para revisión del sistema. El equipo se encuentra operando\ncorrectamente y sin problemas.\nSe revisa logs de errores de la UPS de donde reportaron un olor a humo, no se encuentran\nindicios de problemas y los logs de errores no muestran problemas.\nEl día de mañana en el Mantenimiento del problema se hará una revisión profunda del equipo.\nEl equipo funciona correctamente"
+  },
+  {
+    "AV": "AV-2026-08-0016",
+    "DuracionHoras": "4",
+    "Empresa": "Siemens",
+    "Equipo": "Sala 5 - Ysio Max",
+    "EstadoFinalEquipo": "🟢 Operativo",
+    "FechaIntervencion": "46351",
+    "LugarIntervencion": "Torre Este",
+    "Modalidad": "Convencional",
+    "Observaciones": "El equipo funciona correctamente",
+    "RepuestosRequeridos": "",
+    "RequiereNuevaIntervencion": "No",
+    "RequiereRepuestos": "No",
+    "TipoMantenimiento": "Preventivo",
+    "TrabajoRealizado": "Se realiza visita por mantenimiento preventivo del sistema. Se hace revisión de\nmovimientos del sistema, verificación de funcionamiento de pedales y botones. Se hace\nlimpieza de la computadora y del generador, se hace medición de tensión del generador.\nSe hacen pruebas y mediciones para confección del certificado de buen funcionamiento.\nSe hacen respaldos de la configuración y del sistema operativo.\nEl tubo reporta 193301 disparos.\nEl equipo funciona correctamente."
   }
 ]
